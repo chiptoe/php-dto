@@ -1,0 +1,9 @@
+{
+    "name": "d7xi5ag/assoc_to_dto",
+    "autoload": {
+        "psr-4": {
+            "Project\\": "src/"
+        }
+    },
+    "require": {}
+}
