@@ -3,37 +3,35 @@ declare(strict_types=1);
 
 namespace Project\DTO\TopicDTO;
 
-use Project\DTO\DTOConverterException;
+use Project\DTOConverter;
+use Project\ValueObject\PositiveInt;
+use Project\ValueObject\PositiveIntNullable;
 
 class TopicDTOConverter
 {
+    public function __construct(
+        private DTOConverter\Utils $utils
+    ) {
+    }
+
     public function convert(mixed $inputData): TopicDTO
     {
-        if (!is_array($inputData)) {
-            throw new DTOConverterException('The (inputData) must be array.');
+        $this->utils->checkInputData(TopicDTO::getKeys(), $inputData);
+
+        try {
+            $id = new PositiveInt($inputData[TopicDTO::KEY_ID]);
+        } catch (\Throwable $th) {
+            throw new DTOConverter\PropertyTypeException(TopicDTO::KEY_ID, $th);
         }
 
-        $keys = [
-            'id',
-            'parentId',
-        ];
-        foreach ($keys as $key) {
-            if (!array_key_exists($key, $inputData)) {
-                throw new DTOConverterException('The array-key (' . $key . ') must exist.');
-            }
-        }
-
-        if (!is_int($inputData['id'])) {
-            throw new DTOConverterException('The (id) must be (int).');
-        }
-        if ($inputData['parentId'] !== null) {
-            if (!is_int($inputData['parentId'])) {
-                throw new DTOConverterException('The (parentId) must be (int|null).');
-            }
+        try {
+            $parentId = new PositiveIntNullable($inputData[TopicDTO::KEY_PARENT_ID]);
+        } catch (\Throwable $th) {
+            throw new DTOConverter\PropertyTypeException(TopicDTO::KEY_PARENT_ID, $th);
         }
 
         return (new TopicDTO())
-            ->setId($inputData['id'])
-            ->setParentId($inputData['parentId']);
+            ->setId($id)
+            ->setParentId($parentId);
     }
 }

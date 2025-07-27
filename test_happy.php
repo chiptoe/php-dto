@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Project\DTO\TopicDTO\TopicDTOConverter;
+use Project\DTO\TopicDTO\TopicDTOConverterFactory;
 
 $cases = [
     [
@@ -17,9 +17,21 @@ $cases = [
     ],
 ];
 
-foreach ($cases as $case) {
-    $topicDTOConverter = new TopicDTOConverter();
+foreach ($cases as $caseIdx => $case) {
+    $topicDTOConverter = (new TopicDTOConverterFactory)->create();
     $topicDTO = $topicDTOConverter->convert($case);
 
-    var_dump($topicDTO);
+
+    if ($topicDTO->getId()->value === $case['id']) {
+        echo('#' . $caseIdx . ' Test (Passed) - ' . 'id' . PHP_EOL);
+    } else {
+        echo('#' . $caseIdx . ' Test (Failed) - ' . 'id' . PHP_EOL);
+    }
+
+
+    if ($topicDTO->getParentId()->value === $case['parentId']) {
+        echo('#' . $caseIdx . ' Test (Passed) - ' . 'parentId' . PHP_EOL);
+    } else {
+        echo('#' . $caseIdx . ' Test (Failed) - ' . 'parentId' . PHP_EOL);
+    }
 }

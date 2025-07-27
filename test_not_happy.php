@@ -3,41 +3,57 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Project\DTO\TopicDTO\TopicDTOConverter;
+use Project\DTO\TopicDTO\TopicDTOConverterFactory;
 
 $cases = [
-    'The array-key (parentId) must exist.' => [
-        'id' => 3,
+    'The array-keys (parentId) must exist.' => [
+        'input' => [
+            'id' => 3,
+        ],
+        'expectedPreviousMessage' => null,
     ],
 
-    'The (id) must be (int).' => [
-        'id' => '3',
-        'parentId' => '5',
+    'Invalid type of property (id).' => [
+        'input' => [
+            'id' => '3',
+            'parentId' => '5',
+        ],
+        'expectedPreviousMessage' => 'The (value) must be valid (Project\ValueObject\PositiveInt).',
     ],
 
-    'The (parentId) must be (int|null).' => [
-        'id' => 3,
-        'parentId' => '5',
+    'Invalid type of property (parentId).' => [
+        'input' => [
+            'id' => 3,
+            'parentId' => '5',
+        ],
+        'expectedPreviousMessage' => 'The (value) must be valid (Project\ValueObject\PositiveIntNullable).',
     ],
 
-    'The array-key (id) must exist.' => [
-
+    'The array-keys (id, parentId) must exist.' => [
+        'input' => [],
+        'expectedPreviousMessage' => null,
     ],
 ];
 
-foreach ($cases as $expectedMsg => $case) {
-    $topicDTOConverter = new TopicDTOConverter();
+foreach ($cases as $expectedMessage => $case) {
+    $topicDTOConverter = (new TopicDTOConverterFactory())->create();
 
     try {
-        $topicDTO = $topicDTOConverter->convert($case);
+        $topicDTO = $topicDTOConverter->convert($case['input']);
         throw new \Exception('Test (Failed)');
     }
     catch(\Throwable $e) {
-        if ($e->getMessage() === $expectedMsg) {
+        $actualPreviousMessage = $e->getPrevious()?->getMessage();
+        $expectedPreviousMessage = $case['expectedPreviousMessage'];
+        if ($actualPreviousMessage !== $case['expectedPreviousMessage']) {
+            throw new \Exception('Test (Failed) - expected(' . $expectedPreviousMessage . '); actual(' . $actualPreviousMessage . ')');
+        }
+
+        if ($e->getMessage() === $expectedMessage) {
             echo('Test (Passed) - ' . $e->getMessage() . PHP_EOL);
         }
         else {
-            throw new \Exception('Test (Failed) - expected(' . $expectedMsg . '); actual(' . $e->getMessage() . ')');
+            throw new \Exception('Test (Failed) - expected(' . $expectedMessage . '); actual(' . $e->getMessage() . ')');
         }
     }
 }

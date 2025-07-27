@@ -3,42 +3,57 @@ declare(strict_types=1);
 
 namespace Project\DTO\TopicDTO;
 
+use Project\Exceptions\AccessToUninitialisedPropertyException;
+use Project\ValueObject\PositiveInt;
+use Project\ValueObject\PositiveIntNullable;
+
 class TopicDTO
 {
-    private int $id;
+    public const KEY_ID = 'id';
 
-    private ?int $parentId;
+    public const KEY_PARENT_ID = 'parentId';
+
+    private PositiveInt $id;
+
+    private PositiveIntNullable $parentId;
 
     /**
-     * Get the value of id
+     * @return list<string>
      */
-    public function getId(): int
+    public static function getKeys(): array
     {
+        return [
+            self::KEY_ID,
+            self::KEY_PARENT_ID,
+        ];
+    }
+
+    public function getId(): PositiveInt
+    {
+        if (!isset($this->id)) {
+            throw new AccessToUninitialisedPropertyException();
+        }
+
         return $this->id;
     }
 
-    /**
-     * Set the value of id
-     */
-    public function setId(int $id): self
+    public function setId(PositiveInt $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * Get the value of parentId
-     */
-    public function getParentId(): ?int
+    public function getParentId(): PositiveIntNullable
     {
+        if (!isset($this->parentId)) {
+            throw new AccessToUninitialisedPropertyException();
+        }
+
         return $this->parentId;
     }
 
-    /**
-     * Set the value of parentId
-     */
-    public function setParentId(?int $parentId): self
+    public function setParentId(PositiveIntNullable $parentId): self
     {
         $this->parentId = $parentId;
 
