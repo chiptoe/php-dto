@@ -13,11 +13,14 @@ class TopicDTOConverter
             throw new DTOConverterException('The (inputData) must be array.');
         }
 
-        if (!array_key_exists('id', $inputData)) {
-            throw new DTOConverterException('The array-key (id) must exist.');
-        }
-        if (!array_key_exists('parentId', $inputData)) {
-            throw new DTOConverterException('The array-key (parentId) must exist.');
+        $keys = [
+            'id',
+            'parentId',
+        ];
+        foreach ($keys as $key) {
+            if (!array_key_exists($key, $inputData)) {
+                throw new DTOConverterException('The array-key (' . $key . ') must exist.');
+            }
         }
 
         if (!is_int($inputData['id'])) {
