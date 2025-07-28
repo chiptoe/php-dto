@@ -5,5 +5,15 @@
             "Project\\": "src/"
         }
     },
-    "require": {}
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "scripts": {
+        "phpunit": "./vendor/bin/phpunit --display-all-issues --testdox"
+    }
 }

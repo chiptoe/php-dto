@@ -11,7 +11,7 @@ class MissingKeysException extends BaseException
         string $message = '',
     ) {
         if ($message === '') {
-            $message = 'The array-keys (' . implode(', ', $missingKeys) . ') must exist.';
+            $message = 'The array-key' . (count($missingKeys) > 1 ? 's' : '') . ' (' . implode(', ', $missingKeys) . ') must exist.';
         }
 
         parent::__construct($message, 0, $previous);
