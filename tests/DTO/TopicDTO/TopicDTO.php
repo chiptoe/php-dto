@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\DTO\TopicDTO;
+namespace Tests\DTO\TopicDTO;
 
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
