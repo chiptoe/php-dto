@@ -16,11 +16,12 @@ class PositiveInt
 
     public static function check(mixed $value, string $className): void
     {
+        $message = 'The (value) must be valid (' . $className . ').';
         if (!is_int($value)) {
-            throw new \InvalidArgumentException('The (value) must be valid (' . $className . ').');
+            throw new \InvalidArgumentException($message);
         }
         if ($value <= 0) {
-            throw new \InvalidArgumentException('The (value) must be valid (' . $className . ').');
+            throw new \InvalidArgumentException($message);
         }
     }
 }

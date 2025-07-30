@@ -144,6 +144,17 @@ final class TopicDTOConverterTest extends TestCase
                     'parentId',
                 ],
             ],
+            [
+                'inputData' => [
+                    'id' => 3,
+                    'parentId' => 'bbb',
+                ],
+                'expectedNestedExceptionsCount' => 1,
+                'expectedInvalidProperties' =>  [
+                    // 'id',
+                    'parentId',
+                ],
+            ],
         ];
     }
 
@@ -165,6 +176,7 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (PropertyTypeListException $e) {
             foreach ($e->getExceptions() as $index => $exception) {
+                self::assertNotNull($exception->getPrevious());
                 self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
             }
 
