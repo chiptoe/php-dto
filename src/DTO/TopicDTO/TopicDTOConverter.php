@@ -29,7 +29,7 @@ class TopicDTOConverter
         try {
             $parentId = new PositiveIntNullable($inputData[TopicDTO::PARENT_ID]);
         } catch (\Throwable $th) {
-            $e->add(throw new DTOConverter\PropertyTypeException(TopicDTO::PARENT_ID, $th));
+            $e->add(new DTOConverter\PropertyTypeException(TopicDTO::PARENT_ID, $th));
         }
 
         if ($e->hasSomeExceptions()) {

@@ -6,10 +6,10 @@ namespace Project\DTOConverter;
 class PropertyTypeListException extends BaseException
 {
     /**
-     * @param list<PropertyTypeException> $list
+     * @param list<PropertyTypeException> $exceptions
      */
     public function __construct(
-        public readonly array $exceptions = [],
+        private array $exceptions = [],
         \Throwable|null $previous = null,
         string $message = '',
     ) {
@@ -26,5 +26,13 @@ class PropertyTypeListException extends BaseException
     public function hasSomeExceptions(): bool
     {
         return count($this->exceptions) > 0;
+    }
+
+    /**
+     * @return list<PropertyTypeException> $exceptions
+     */
+    public function getExceptions(): array
+    {
+        return $this->exceptions;
     }
 }

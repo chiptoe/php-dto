@@ -8,6 +8,7 @@ use Project\DTOConverter\MissingKeysException;
 use Project\DTO\TopicDTO\TopicDTOConverter;
 use Project\DTOConverter\Utils;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Project\DTOConverter\PropertyTypeListException;
 
 final class TopicDTOConverterTest extends TestCase
 {
@@ -99,6 +100,75 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (MissingKeysException $e) {
             self::assertSame($expectedMissingKeys, $e->missingKeys);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * @return mixed[]
+     */
+    public static function provider_it_must_throw_if_property_has_wrong_type(): array
+    {
+        return [
+            [
+                'inputData' => [
+                    'id' => -3,
+                    'parentId' => -5,
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+            [
+                'inputData' => [
+                    'id' => null,
+                    'parentId' => 0,
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+            [
+                'inputData' => [
+                    'id' => 'aaa',
+                    'parentId' => 'bbb',
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param list<string> $expectedInvalidProperties
+     */
+    #[DataProvider('provider_it_must_throw_if_property_has_wrong_type')]
+    public function test_it_must_throw_if_property_has_wrong_type(
+        mixed $inputData,
+        int $expectedNestedExceptionsCount,
+        array $expectedInvalidProperties,
+    ): void
+    {
+        $this->expectException(PropertyTypeListException::class);
+
+        try {
+            $service = new TopicDTOConverter(new Utils());
+            $service->convert($inputData);
+            self::fail('it must throw');
+        } catch (PropertyTypeListException $e) {
+            foreach ($e->getExceptions() as $index => $exception) {
+                self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
+            }
+
+            self::assertCount($expectedNestedExceptionsCount, $e->getExceptions());
             throw $e;
         }
     }
