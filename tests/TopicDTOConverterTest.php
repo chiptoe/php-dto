@@ -2,13 +2,13 @@
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\BaseException;
 use Project\DTOConverter\MissingKeysException;
-use Project\DTO\TopicDTO\TopicDTOConverter;
-use Project\DTOConverter\Utils;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Project\DTOConverter\PropertyTypeListException;
+use Project\DTOConverter\Utils;
+use Tests\DTO\TopicDTO\TopicDTOConverter;
 
 final class TopicDTOConverterTest extends TestCase
 {
