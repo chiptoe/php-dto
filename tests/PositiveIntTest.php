@@ -35,4 +35,33 @@ final class PositiveIntTest extends TestCase
         $positiveInt = new PositiveInt($value);
         self::assertSame($expectedValue, $positiveInt->value);
     }
+
+    /**
+     * @return mixed[]
+     */
+    public static function provider_it_must_throw_if_value_is_not_valid(): array
+    {
+        return [
+            [
+                'value' => 0,
+            ],
+
+            [
+                'value' => -1,
+            ],
+        ];
+    }
+
+    #[DataProvider('provider_it_must_throw_if_value_is_not_valid')]
+    public function test_it_must_throw_if_value_is_not_valid(
+        mixed $value,
+    ): void
+    {
+        $expectedMessage = 'The (value) must be valid (Project\ValueObject\PositiveInt).';
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        new PositiveInt($value);
+    }
 }
