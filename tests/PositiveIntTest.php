@@ -1,0 +1,38 @@
+<?php declare(strict_types=1);
+
+namespace Tests;
+
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Project\ValueObject\PositiveInt;
+
+final class PositiveIntTest extends TestCase
+{
+    /**
+     * @return mixed[]
+     */
+    public static function provider_happy(): array
+    {
+        return [
+            [
+                'value' => 1,
+                'expectedValue' => 1,
+            ],
+
+            [
+                'value' => 2,
+                'expectedValue' => 2,
+            ],
+        ];
+    }
+
+    #[DataProvider('provider_happy')]
+    public function test_happy(
+        mixed $value,
+        mixed $expectedValue,    
+    ): void
+    {
+        $positiveInt = new PositiveInt($value);
+        self::assertSame($expectedValue, $positiveInt->value);
+    }
+}
