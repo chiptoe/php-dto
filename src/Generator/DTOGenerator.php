@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Project\Generator;
 
-class Generator
+class DTOGenerator
 {
     public function generate(): string
     {
