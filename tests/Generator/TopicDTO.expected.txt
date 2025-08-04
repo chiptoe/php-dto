@@ -7,7 +7,7 @@ use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
 
-class TopicDTO
+final class TopicDTO
 {
     public const ID = 'id';
 
