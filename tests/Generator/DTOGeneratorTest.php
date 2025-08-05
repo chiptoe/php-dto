@@ -3,15 +3,25 @@
 namespace Tests\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Project\DTOConverter\Utils;
 use Project\Generator\DTOGenerator;
 
 final class DTOGeneratorTest extends TestCase
 {
     public function test_happy(): void
     {
-        $inputData = [];
+        $inputData = [
+            'properties' => [
+                [
+                    'name' => 'id'
+                ],
+                [
+                    'name' => 'parentId'
+                ],
+            ],
+        ];
 
-        $service = new DTOGenerator();
+        $service = new DTOGenerator(new Utils());
         $generated = $service->generate($inputData);
 
         self::assertSame(

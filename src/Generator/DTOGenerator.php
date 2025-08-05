@@ -3,9 +3,17 @@ declare(strict_types=1);
 
 namespace Project\Generator;
 
+use Project\DTOConverter\Utils;
+
 class DTOGenerator
 {
-    public function generate(): string
+    public function __construct(
+        private Utils $utils,
+    )
+    {
+    }
+
+    public function generate(array $inputData): string
     {
         $namespace = 'Tests\DTO\TopicDTO';
         $useClasses = [
@@ -22,6 +30,10 @@ class DTOGenerator
             $useClasses,
             $className,
         );
+
+        foreach ($inputData['properties'] as $property) {
+            $temp .= '    ' . 'public const ' . $this->utils->toScreamingSnakeCase($property['name']) . ' = \'' . $property['name'] . '\';' . PHP_EOL . PHP_EOL;
+        }
 
         return $temp;
     }
