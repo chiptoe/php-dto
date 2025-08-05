@@ -35,13 +35,13 @@ class Utils
     {
         $temp = trim($camelCase);
 
-        $temp = preg_replace('/([a-z])([A-Z])/g', '$1_$2', $temp);
+        $temp = preg_replace('/([a-z])([A-Z])/', '$1_$2', $temp);
 
-        $temp = preg_replace('/([a-z])([0-9])/g', '$1_$2', $temp);
+        $temp = preg_replace('/([a-z])([0-9])/', '$1_$2', $temp);
 
-        $temp = preg_replace('/([A-Z])([A-Z])/g', '$1_$2', $temp);
+        $temp = preg_replace('/([A-Z])([A-Z])/', '$1_$2', $temp);
 
-        $temp = preg_replace('/([0-9])([A-Z])/g', '$1_$2', $temp);
+        $temp = preg_replace('/([0-9])([A-Z])/', '$1_$2', $temp);
 
         return strtoupper($temp);
     }
