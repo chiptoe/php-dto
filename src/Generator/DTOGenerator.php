@@ -18,8 +18,7 @@ class DTOGenerator
         $namespace = 'Tests\DTO\TopicDTO';
         $useClasses = [
             'Project\Exceptions\AccessToUninitialisedPropertyException',
-            'Project\ValueObject\PositiveInt',
-            'Project\ValueObject\PositiveIntNullable',
+            array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
         ];
         $className = 'TopicDTO';
 
@@ -31,8 +30,17 @@ class DTOGenerator
             $className,
         );
 
+        $constNames = [];
         foreach ($inputData['properties'] as $property) {
-            $temp .= '    ' . 'public const ' . $this->utils->toScreamingSnakeCase($property['name']) . ' = \'' . $property['name'] . '\';' . PHP_EOL . PHP_EOL;
+            $constName = $this->utils->toScreamingSnakeCase($property['name']);
+            $temp .= '    ' . 'public const ' . $constName . ' = \'' . $property['name'] . '\';' . PHP_EOL . PHP_EOL;
+
+            $constNames[] = $constName;
+        }
+
+        foreach ($inputData['properties'] as $property) {
+            // TODO: what if $property['name'] is not camelCase (?)
+            $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
         }
 
         return $temp;

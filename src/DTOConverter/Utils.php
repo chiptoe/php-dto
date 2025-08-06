@@ -45,4 +45,11 @@ class Utils
 
         return strtoupper($temp);
     }
+
+    public function getClassName(string $fqcn): string
+    {
+        $temp = explode('\\', $fqcn);
+
+        return end($temp);
+    }
 }

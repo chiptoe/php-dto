@@ -5,6 +5,8 @@ namespace Tests\Generator;
 use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\Utils;
 use Project\Generator\DTOGenerator;
+use Project\ValueObject\PositiveInt;
+use Project\ValueObject\PositiveIntNullable;
 
 final class DTOGeneratorTest extends TestCase
 {
@@ -13,10 +15,12 @@ final class DTOGeneratorTest extends TestCase
         $inputData = [
             'properties' => [
                 [
-                    'name' => 'id'
+                    'name' => 'id',
+                    'type' => PositiveInt::class,
                 ],
                 [
-                    'name' => 'parentId'
+                    'name' => 'parentId',
+                    'type' => PositiveIntNullable::class,
                 ],
             ],
         ];
