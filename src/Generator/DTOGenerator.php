@@ -18,7 +18,7 @@ class DTOGenerator
         $namespace = 'Tests\DTO\TopicDTO';
         $useClasses = [
             'Project\Exceptions\AccessToUninitialisedPropertyException',
-            array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
+            ...array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
         ];
         $className = 'TopicDTO';
 
