@@ -8,7 +8,7 @@ use Project\DTOConverter\PropertyTypeListException;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
 
-class TopicDTOConverter
+final class TopicDTOConverter
 {
     public function __construct(
         private DTOConverter\Utils $utils
@@ -17,19 +17,19 @@ class TopicDTOConverter
 
     public function convert(mixed $inputData): TopicDTO
     {
-        $this->utils->checkInputData(TopicDTO::getKeys(), $inputData);
+        $this->utils->checkInputData(TopicDTOAssoc::getKeys(), $inputData);
 
         $e = new PropertyTypeListException();
         try {
-            $id = new PositiveInt($inputData[TopicDTO::ID]);
+            $id = new PositiveInt($inputData[TopicDTOAssoc::ID]);
         } catch (\Throwable $th) {
-            $e->add(new DTOConverter\PropertyTypeException(TopicDTO::ID, $th));
+            $e->add(new DTOConverter\PropertyTypeException(TopicDTOAssoc::ID, $th));
         }
 
         try {
-            $parentId = new PositiveIntNullable($inputData[TopicDTO::PARENT_ID]);
+            $parentId = new PositiveIntNullable($inputData[TopicDTOAssoc::PARENT_ID]);
         } catch (\Throwable $th) {
-            $e->add(new DTOConverter\PropertyTypeException(TopicDTO::PARENT_ID, $th));
+            $e->add(new DTOConverter\PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
         }
 
         if ($e->hasSomeExceptions()) {

@@ -9,24 +9,9 @@ use Project\ValueObject\PositiveIntNullable;
 
 final class TopicDTO
 {
-    public const ID = 'id';
-
-    public const PARENT_ID = 'parentId';
-
     private PositiveInt $id;
 
     private PositiveIntNullable $parentId;
-
-    /**
-     * @return list<string>
-     */
-    public static function getKeys(): array
-    {
-        return [
-            self::ID,
-            self::PARENT_ID,
-        ];
-    }
 
     public function getId(): PositiveInt
     {
