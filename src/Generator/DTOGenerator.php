@@ -13,6 +13,9 @@ class DTOGenerator
     {
     }
 
+    /**
+     * @param array<string,mixed> $inputData
+     */
     public function generate(array $inputData): string
     {
         $namespace = 'Tests\DTO\TopicDTO';
@@ -74,7 +77,7 @@ class DTOGenerator
         return $temp;
     }
 
-    public function getClassFooter()
+    public function getClassFooter(): string
     {
         return '}' . PHP_EOL;
     }
@@ -102,7 +105,7 @@ class DTOGenerator
     public function getSetter(
         string $propertyName,
         string $propertyType,
-    )
+    ): string
     {
         $temp = '';
 
