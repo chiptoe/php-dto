@@ -30,14 +30,6 @@ class DTOGenerator
             $className,
         );
 
-        $constNames = [];
-        foreach ($inputData['properties'] as $property) {
-            $constName = $this->utils->toScreamingSnakeCase($property['name']);
-            $temp .= '    ' . 'public const ' . $constName . ' = \'' . $property['name'] . '\';' . PHP_EOL . PHP_EOL;
-
-            $constNames[] = $constName;
-        }
-
         foreach ($inputData['properties'] as $property) {
             // TODO: what if $property['name'] is not camelCase (?)
             $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
