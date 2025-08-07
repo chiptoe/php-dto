@@ -16,8 +16,9 @@ class DTOGenerator
     public function generate(array $inputData): string
     {
         $namespace = 'Tests\DTO\TopicDTO';
+        $accessExceptionClass = 'Project\Exceptions\AccessToUninitialisedPropertyException';
         $useClasses = [
-            'Project\Exceptions\AccessToUninitialisedPropertyException',
+            $accessExceptionClass,
             ...array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
         ];
         $className = 'TopicDTO';
@@ -33,6 +34,10 @@ class DTOGenerator
         foreach ($inputData['properties'] as $property) {
             // TODO: what if $property['name'] is not camelCase (?)
             $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+        }
+
+        foreach ($inputData['properties'] as $property) {
+            $temp .= $this->getGetter($property['name'], $property['type'], $this->utils->getClassName($accessExceptionClass));
         }
 
         return $temp;
@@ -58,6 +63,26 @@ class DTOGenerator
         $temp .= PHP_EOL;
         $temp .= 'final class ' . $className . PHP_EOL;
         $temp .= '{' . PHP_EOL;
+
+        return $temp;
+    }
+
+    public function getGetter(
+        string $propertyName,
+        string $propertyType,
+        string $accessExceptionClassName,
+    ): string
+    {
+        $temp = '';
+
+        $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+        $temp .= '    ' . '{' . PHP_EOL;
+        $temp .= '    ' . '    ' . 'if (!isset($this->' . $propertyName . ')) {' . PHP_EOL;
+        $temp .= '    ' . '    ' . '    ' . 'throw new ' . $accessExceptionClassName . '();' . PHP_EOL;
+        $temp .= '    ' . '    ' . '}' . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= '    ' . '    ' . 'return $this->' . $propertyName . ';' . PHP_EOL;
+        $temp .= '    ' . '}' . PHP_EOL;
 
         return $temp;
     }
