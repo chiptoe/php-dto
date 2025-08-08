@@ -20,10 +20,12 @@ class DTOAssocGenerator
     {
         $namespace = 'Tests\DTO\TopicDTO';
 
-        $temp = '';
+        $useClasses = [];
 
         $dtoName = 'Topic';
         $className = $dtoName . 'DTO' . 'Assoc';
+        
+        $temp = '';
 
         $temp .= $this->utils->getClassHeader(
             $namespace,
