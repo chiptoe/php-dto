@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Project\Generator\DTOGenerator;
+namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
 

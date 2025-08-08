@@ -4,7 +4,7 @@ namespace Tests\Generator;
 
 use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\Utils;
-use Project\Generator\DTOGenerator\DTOGenerator;
+use Project\Generator\DTOGenerator;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
 
