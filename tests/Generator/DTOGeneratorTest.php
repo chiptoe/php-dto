@@ -13,7 +13,7 @@ final class DTOGeneratorTest extends TestCase
     public function test_happy(): void
     {
         $inputData = [
-            'properties' => [
+            'attributes' => [
                 [
                     'name' => 'id',
                     'type' => PositiveInt::class,

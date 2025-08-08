@@ -22,7 +22,7 @@ class DTOGenerator
         $accessExceptionClass = 'Project\Exceptions\AccessToUninitialisedPropertyException';
         $useClasses = [
             $accessExceptionClass,
-            ...array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
+            ...array_unique(array_map(fn($it) => $it['type'], $inputData['attributes'])),
         ];
         $className = 'TopicDTO';
 
@@ -34,12 +34,11 @@ class DTOGenerator
             $className,
         );
 
-        foreach ($inputData['properties'] as $property) {
-            // TODO: what if $property['name'] is not camelCase (?)
+        foreach ($inputData['attributes'] as $property) {
             $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
         }
 
-        foreach ($inputData['properties'] as $idx => $property) {
+        foreach ($inputData['attributes'] as $idx => $property) {
             if ($idx > 0) {
                 $temp .= PHP_EOL;
             }
