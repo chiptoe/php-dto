@@ -18,5 +18,5 @@ final class TopicDTOAssoc
             self::ID,
             self::PARENT_ID,
         ];
-    } 
+    }
 }

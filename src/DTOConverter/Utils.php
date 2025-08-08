@@ -71,8 +71,8 @@ class Utils
         $temp .= PHP_EOL;
         if (count($useClasses) > 0) {
             $temp .= implode(PHP_EOL, array_map(fn($item) => ('use ' . $item . ';'), $useClasses)) . PHP_EOL;
+            $temp .= PHP_EOL;
         }
-        $temp .= PHP_EOL;
         $temp .= 'final class ' . $className . PHP_EOL;
         $temp .= '{' . PHP_EOL;
 
