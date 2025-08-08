@@ -52,4 +52,33 @@ class Utils
 
         return end($temp);
     }
+
+    /**
+     * @param list<string> $useClasses
+     */
+    public function getClassHeader(
+        string $namespace,
+        array $useClasses,
+        string $className,
+    ): string
+    {
+        $temp = '';
+
+        $temp .= '<?php' . PHP_EOL;
+        $temp .= 'declare(strict_types=1);' . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= 'namespace ' . $namespace . ';' . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= implode(PHP_EOL, array_map(fn($item) => ('use ' . $item . ';'), $useClasses)) . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= 'final class ' . $className . PHP_EOL;
+        $temp .= '{' . PHP_EOL;
+
+        return $temp;
+    }
+
+    public function getClassFooter(): string
+    {
+        return '}' . PHP_EOL;
+    }
 }
