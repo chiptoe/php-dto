@@ -14,7 +14,7 @@ final class DTOGeneratorTest extends TestCase
     {
         $inputData = [
             'dtoName' => 'Topic',
-            'attributes' => [
+            'properties' => [
                 [
                     'name' => 'id',
                     'type' => PositiveInt::class,
