@@ -22,8 +22,7 @@ class DTOAssocGenerator
 
         $useClasses = [];
 
-        $dtoName = 'Topic';
-        $className = $dtoName . 'DTO' . 'Assoc';
+        $className = $inputData['dtoName'] . 'DTO' . 'Assoc';
         
         $temp = '';
 

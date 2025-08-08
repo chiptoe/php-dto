@@ -26,8 +26,7 @@ class DTOGenerator
             ...array_unique(array_map(fn($it) => $it['type'], $inputData['attributes'])),
         ];
 
-        $dtoName = 'Topic';
-        $className = $dtoName . 'DTO';
+        $className = $inputData['dtoName'] . 'DTO';
 
         $temp = '';
 
