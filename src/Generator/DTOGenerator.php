@@ -19,6 +19,7 @@ class DTOGenerator
     public function generate(array $inputData): string
     {
         $namespace = 'Tests\DTO\TopicDTO';
+
         $accessExceptionClass = 'Project\Exceptions\AccessToUninitialisedPropertyException';
         $useClasses = [
             $accessExceptionClass,
