@@ -3,6 +3,7 @@
 namespace Tests\Generator;
 
 use PHPUnit\Framework\TestCase;
+use Project\DTOConverter\Utils;
 use Project\Generator\DTOAssocGenerator;
 
 final class DTOAssocGeneratorTest extends TestCase
@@ -16,7 +17,7 @@ final class DTOAssocGeneratorTest extends TestCase
             ],
         ];
 
-        $service = new DTOAssocGenerator();
+        $service = new DTOAssocGenerator(new Utils());
         $generated = $service->generate($inputData);
 
         self::assertSame(
