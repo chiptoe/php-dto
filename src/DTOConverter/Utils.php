@@ -65,6 +65,7 @@ class Utils
         $temp = '';
 
         $temp .= '<?php' . PHP_EOL;
+        $temp .= PHP_EOL;
         $temp .= 'declare(strict_types=1);' . PHP_EOL;
         $temp .= PHP_EOL;
         $temp .= 'namespace ' . $namespace . ';' . PHP_EOL;

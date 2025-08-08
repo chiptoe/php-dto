@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
 
-class DTOGenerator
+final class DTOGenerator
 {
     public function __construct(
         private Utils $utils,
