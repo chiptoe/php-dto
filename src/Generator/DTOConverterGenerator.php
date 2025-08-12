@@ -28,7 +28,9 @@ final class DTOConverterGenerator
             ...array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
         ];
 
-        $className = $inputData['dtoName'] . 'DTO' . 'Converter';
+        $classNameDTO = $inputData['dtoName'] . 'DTO';
+        $classNameDTOAssoc = $inputData['dtoName'] . 'DTO' . 'Assoc';
+        $className = $classNameDTO . 'Converter';
 
         $temp = '';
 
@@ -41,9 +43,11 @@ final class DTOConverterGenerator
         $temp .= $this->getConstructor([
             'Utils'
         ]);
-
         $temp .= PHP_EOL;
-
+        $temp .= $this->getConvert(
+            $classNameDTO,
+            $classNameDTOAssoc,
+        );
         $temp .= $this->utils->getClassFooter();
 
         return $temp;
@@ -58,6 +62,22 @@ final class DTOConverterGenerator
             $temp .= '    ' . '    ' . 'private ' . $dep . ' $' . lcfirst($dep) . PHP_EOL;
         }
         $temp .= '    ' . ') {}' . PHP_EOL;
+
+        return $temp;
+    }
+
+    private function getConvert(
+        string $classNameDTO,
+        string $classNameDTOAssoc,
+    ): string
+    {
+        $temp = '';
+
+        $temp .= '    ' . 'public function convert(mixed $inputData): ' . $classNameDTO . PHP_EOL;
+        $temp .= '    ' . '{' . PHP_EOL;
+        $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . '$inputData' . ');' . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= '    ' . '}' . PHP_EOL;
 
         return $temp;
     }
