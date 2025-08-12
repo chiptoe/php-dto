@@ -7,17 +7,25 @@ namespace Tests\Generator;
 use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\Utils;
 use Project\Generator\DTOConverterGenerator;
+use Project\ValueObject\PositiveInt;
+use Project\ValueObject\PositiveIntNullable;
 
 final class DTOConverterGeneratorTest extends TestCase
 {
     public function test_happy(): void
     {
         $inputData = [
-            // 'dtoName' => 'Topic',
-            // 'fromKeys' => [
-            //     'id',
-            //     'parentId',
-            // ],
+            'dtoName' => 'Topic',
+            'properties' => [
+                [
+                    'name' => 'id',
+                    'type' => PositiveInt::class,
+                ],
+                [
+                    'name' => 'parentId',
+                    'type' => PositiveIntNullable::class,
+                ],
+            ],
         ];
 
         $service = new DTOConverterGenerator(new Utils());
