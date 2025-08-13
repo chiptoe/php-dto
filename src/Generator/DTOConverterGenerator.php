@@ -10,9 +10,7 @@ final class DTOConverterGenerator
 {
     public function __construct(
         private Utils $utils,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @param array<string,mixed> $inputData
@@ -21,11 +19,12 @@ final class DTOConverterGenerator
     {
         $namespace = 'Tests\DTO\TopicDTO';
 
+        $properties = $inputData['properties'];
         $useClasses = [
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\PropertyTypeListException',
             'Project\DTOConverter\Utils',
-            ...array_unique(array_map(fn($it) => $it['type'], $inputData['properties'])),
+            ...array_unique(array_map(fn($it) => $it['type'], $properties)),
         ];
 
         $classNameDTO = $inputData['dtoName'] . 'DTO';
@@ -47,6 +46,7 @@ final class DTOConverterGenerator
         $temp .= $this->getConvert(
             $classNameDTO,
             $classNameDTOAssoc,
+            $properties,
         );
         $temp .= $this->utils->getClassFooter();
 
@@ -69,14 +69,42 @@ final class DTOConverterGenerator
     private function getConvert(
         string $classNameDTO,
         string $classNameDTOAssoc,
-    ): string
-    {
+        array $props,
+    ): string {
+        $inputVarName = '$inputData';
+
         $temp = '';
 
-        $temp .= '    ' . 'public function convert(mixed $inputData): ' . $classNameDTO . PHP_EOL;
+        $temp .= '    ' . 'public function convert(mixed ' . $inputVarName . '): ' . $classNameDTO . PHP_EOL;
         $temp .= '    ' . '{' . PHP_EOL;
-        $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . '$inputData' . ');' . PHP_EOL;
+        $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . $inputVarName . ');' . PHP_EOL;
         $temp .= PHP_EOL;
+        $temp .= '    ' . '    ' . '$e = new PropertyTypeListException();' . PHP_EOL;
+
+        foreach ($props as $prop) {
+            $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
+            $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = new ' . $this->utils->getClassName($prop['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ']' . ');' . PHP_EOL;
+            $temp .= '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
+            $temp .= '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ', $th));' . PHP_EOL;
+            $temp .= '    ' . '    ' . '}' . PHP_EOL;
+            $temp .= PHP_EOL;
+        }
+
+        $temp .= '    ' . '    ' . 'if ($e->hasSomeExceptions()) {' . PHP_EOL;
+        $temp .= '    ' . '    ' . '    ' . 'throw $e;' . PHP_EOL;
+        $temp .= '    ' . '    ' . '}' . PHP_EOL;
+        $temp .= PHP_EOL;
+        $temp .= '    ' . '    ' . 'return (new ' . $classNameDTO . '())' . PHP_EOL;
+
+        foreach ($props as $idx => $prop) {
+            $temp .= '    ' . '    ' . '    ' . '->set' . ucfirst($prop['name']) . '(' . '$' . $prop['name'] . ')';
+            if ($idx < count($props) - 1) {
+                $temp .= PHP_EOL;
+            } else {
+                $temp .= ';' . PHP_EOL;
+            }
+        }
+
         $temp .= '    ' . '}' . PHP_EOL;
 
         return $temp;
