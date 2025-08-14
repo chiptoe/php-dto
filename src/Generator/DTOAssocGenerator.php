@@ -19,6 +19,7 @@ final class DTOAssocGenerator
      */
     public function generate(array $inputData): string
     {
+        // validate - dtoName
         if (!array_key_exists('dtoName', $inputData)) {
             throw new \InvalidArgumentException('the (dtoName) must exist as array key');
         }
@@ -27,6 +28,7 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
 
+        // validate - fromKeys
         if (!array_key_exists('fromKeys', $inputData)) {
             throw new \InvalidArgumentException('the (fromKeys) must exist as array key');
         }
