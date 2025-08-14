@@ -20,11 +20,11 @@ final class DTOAssocGenerator
     public function generate(array $inputData): string
     {
         if (!array_key_exists('dtoName', $inputData)) {
-            throw new \InvalidArgumentException('the (dtoName) is invalid');
+            throw new \InvalidArgumentException('the (dtoName) must exist as array key');
         }
         $dtoName = $inputData['dtoName'];
         if (!$this->utils->isNotStringOrBlank($dtoName)) {
-            throw new \InvalidArgumentException('the (dtoName) is invalid');
+            throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
 
         if (!array_key_exists('fromKeys', $inputData)) {
@@ -35,11 +35,8 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (fromKeys) must be array');
         }
         foreach ($fromKeys as $fromKey) {
-            if (!is_string($fromKey)) {
-                throw new \InvalidArgumentException('the (fromKey) must be string');
-            }
-            if (trim($fromKey) === '') {
-                throw new \InvalidArgumentException('the (fromKey) must be filled');
+            if (!$this->utils->isNotStringOrBlank($fromKey)) {
+                throw new \InvalidArgumentException('the (fromKey) must be string and filled');
             }
         }
 
