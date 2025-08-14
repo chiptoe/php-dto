@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Project\Generator;
 
+use InvalidArgumentException;
 use Project\DTOConverter\Utils;
 
 final class DTOAssocGenerator
@@ -16,6 +17,10 @@ final class DTOAssocGenerator
 
     /**
      * @param array<string,mixed> $inputData
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException
      */
     public function generate(array $inputData): string
     {
