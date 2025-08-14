@@ -19,11 +19,28 @@ final class DTOAssocGenerator
      */
     public function generate(array $inputData): string
     {
+        if (!array_key_exists('dtoName', $inputData)) {
+            throw new \InvalidArgumentException('the (dtoName) must exist as array key');
+        }
+        $dtoName = $inputData['dtoName'];
+        if (!is_string($dtoName)) {
+            throw new \InvalidArgumentException('the (dtoName) must be string');
+        }
+        if (trim($dtoName) === '') {
+            throw new \InvalidArgumentException('the (dtoName) must be filled');
+        }
+
+        if (!array_key_exists('fromKeys', $inputData)) {
+            throw new \InvalidArgumentException('the (fromKeys) must exist as array key');
+        }
+        $fromKeys = $inputData['fromKeys'];
+        if (!is_array($fromKeys)) {
+            throw new \InvalidArgumentException('the (fromKeys) must be array');
+        }
+
         $namespace = 'Tests\DTO\TopicDTO';
-
         $useClasses = [];
-
-        $className = $inputData['dtoName'] . 'DTO' . 'Assoc';
+        $className = $dtoName . 'DTO' . 'Assoc';
         
         $temp = '';
 
@@ -33,8 +50,8 @@ final class DTOAssocGenerator
             $className,
         );
 
-        $temp .= $this->getConstants($inputData['fromKeys']);
-        $temp .= $this->getKeysFunc($inputData['fromKeys']);
+        $temp .= $this->getConstants($fromKeys);
+        $temp .= $this->getKeysFunc($fromKeys);
 
         $temp .= $this->utils->getClassFooter();
 
