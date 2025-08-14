@@ -36,9 +36,9 @@ final class DTOAssocGenerator
         if (!is_array($fromKeys)) {
             throw new \InvalidArgumentException('the (fromKeys) must be array');
         }
-        foreach ($fromKeys as $fromKey) {
+        foreach ($fromKeys as $index => $fromKey) {
             if ($this->utils->isNotStringOrBlank($fromKey)) {
-                throw new \InvalidArgumentException('the (fromKey) must be string and filled');
+                throw new \InvalidArgumentException('the (fromKey) must be string and filled, at index ' . $index);
             }
         }
 
