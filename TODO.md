@@ -1,9 +1,10 @@
-todo: input data validation - DTOGenerator
+todo: input data validation + comments + phpdoc - DTOGenerator
+todo: input data validation + comments + phpdoc - DTOAssocGenerator
+todo: input data validation + comments + phpdoc - DTOConverterGenerator
 
-todo: input data validation - DTOAssocGenerator
+todo: input data validation - DTOGenerator          [test]
+todo: input data validation - DTOAssocGenerator     [test]
+todo: input data validation - DTOConverterGenerator [test]
 
-todo: input data validation - DTOConverterGenerator
-
-todo: test PositiveInt
-
-todo: test PositiveIntNullable
+todo: PositiveInt         [test]
+todo: PositiveIntNullable [test]
