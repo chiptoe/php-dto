@@ -42,10 +42,12 @@ final class DTOAssocGenerator
             }
         }
 
+        // prepare data
         $namespace = 'Tests\DTO\TopicDTO';
         $useClasses = [];
         $className = $dtoName . 'DTO' . 'Assoc';
-        
+
+        // render
         $temp = '';
 
         $temp .= $this->utils->getClassHeader(
