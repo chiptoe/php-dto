@@ -84,4 +84,17 @@ class Utils
     {
         return '}' . PHP_EOL;
     }
+
+    public function isNotStringOrBlank($value): bool
+    {
+        if (!is_string($value)) {
+            return true;
+        }
+
+        if (trim($value) === '') {
+            return true;
+        }
+
+        return false;
+    }
 }
