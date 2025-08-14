@@ -23,7 +23,7 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (dtoName) must exist as array key');
         }
         $dtoName = $inputData['dtoName'];
-        if (!$this->utils->isNotStringOrBlank($dtoName)) {
+        if ($this->utils->isNotStringOrBlank($dtoName)) {
             throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
 
@@ -35,7 +35,7 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (fromKeys) must be array');
         }
         foreach ($fromKeys as $fromKey) {
-            if (!$this->utils->isNotStringOrBlank($fromKey)) {
+            if ($this->utils->isNotStringOrBlank($fromKey)) {
                 throw new \InvalidArgumentException('the (fromKey) must be string and filled');
             }
         }
