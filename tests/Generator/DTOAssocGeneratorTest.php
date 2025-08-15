@@ -58,6 +58,40 @@ final class DTOAssocGeneratorTest extends TestCase
         ];
     }
 
+    public static function provider_it_must_throw_if_fromkeys_is_not_valid()
+    {
+        return [
+            [
+                'inputData' => [],
+                'expectedMessage' => 'the (fromKeys) must exist as array key',
+            ],
+            [
+                'inputData' => [
+                    'fromKeys' => 3
+                ],
+                'expectedMessage' => 'the (fromKeys) must be array',
+            ],
+            [
+                'inputData' => [
+                    'fromKeys' => ['a', 3]
+                ],
+                'expectedMessage' => 'the (fromKey) must be string and filled, at index 1',
+            ],
+            [
+                'inputData' => [
+                    'fromKeys' => ['a', '']
+                ],
+                'expectedMessage' => 'the (fromKey) must be string and filled, at index 1',
+            ],
+            [
+                'inputData' => [
+                    'fromKeys' => ['a', '    ']
+                ],
+                'expectedMessage' => 'the (fromKey) must be string and filled, at index 1',
+            ],
+        ];
+    }
+
     #[DataProvider('provider_it_must_throw_if_dtoname_is_not_valid')]
     public function test_it_must_throw_if_dtoname_is_not_valid(
         mixed $inputData,
@@ -68,5 +102,20 @@ final class DTOAssocGeneratorTest extends TestCase
 
         $service = new DTOAssocGenerator(new Utils());
         $service->generate($inputData);
+    }
+
+    #[DataProvider('provider_it_must_throw_if_fromkeys_is_not_valid')]
+    public function test_it_must_throw_if_fromkeys_is_not_valid(
+        mixed $inputData,
+        mixed $expectedMessage,
+    ) {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        $service = new DTOAssocGenerator(new Utils());
+        $service->generate([
+            'dtoName' => 'a',
+            ...$inputData
+        ]);
     }
 }
