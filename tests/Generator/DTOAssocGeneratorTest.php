@@ -62,8 +62,7 @@ final class DTOAssocGeneratorTest extends TestCase
     public function test_it_must_throw_if_dtoname_is_not_valid(
         mixed $inputData,
         mixed $expectedMessage,
-    )
-    {
+    ) {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage($expectedMessage);
 
