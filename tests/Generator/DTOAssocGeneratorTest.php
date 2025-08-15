@@ -14,7 +14,7 @@ final class DTOAssocGeneratorTest extends TestCase
     public function test_happy(): void
     {
         $inputData = [
-            'dtoName' => 'Topic',
+            'dtoName' => '  Topic  ',
             'fromKeys' => [
                 'id',
                 'parentId',
