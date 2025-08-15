@@ -28,7 +28,7 @@ final class DTOAssocGenerator
         if (!array_key_exists('dtoName', $inputData)) {
             throw new \InvalidArgumentException('the (dtoName) must exist as array key');
         }
-        $dtoName = $inputData['dtoName'];
+        $dtoName = trim($inputData['dtoName']);
         if ($this->utils->isNotStringOrBlank($dtoName)) {
             throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
