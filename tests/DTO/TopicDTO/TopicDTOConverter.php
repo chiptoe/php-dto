@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\DTO\TopicDTO;
 
-use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\AggregateException;
+use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
