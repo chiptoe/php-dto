@@ -11,6 +11,9 @@ use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\IConverter;
 
+/**
+ * @implements IConverter<CommentDTO>
+ */
 final class CommentDTOConverter implements IConverter
 {
     public function __construct(
