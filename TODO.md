@@ -6,3 +6,5 @@ todo: input data validation - DTOConverterGenerator [test]
 
 todo: PositiveInt         [test]
 todo: PositiveIntNullable [test]
+
+todo: test for: $commentDTOs = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
