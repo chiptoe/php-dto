@@ -36,9 +36,9 @@ final class TopicDTOConverter
         }
 
         $comments = [];
-        $commentsRaw = $inputData[TopicDTOAssoc::COMMENTS];
+        $commentsValue = $inputData[TopicDTOAssoc::COMMENTS];
         $commentsException = new PropertyTypeListException(CommentDTOConverter::class);
-        foreach ($commentsRaw as $index => $item) {
+        foreach ($commentsValue as $index => $item) {
             try {
                 $comments[] = $this->commentDTOConverter->convert($item);
             } catch (\Throwable $th) {
