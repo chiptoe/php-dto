@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\DTO\CommentDTO;
 
 use Project\DTOConverter\PropertyTypeException;
-use Project\DTOConverter\PropertyTypeListException;
+use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
@@ -21,7 +21,7 @@ final class CommentDTOConverter implements IConverter
     {
         $this->utils->checkInputData(CommentDTOAssoc::getKeys(), $inputData);
 
-        $e = new PropertyTypeListException(__CLASS__);
+        $e = new AggregateException(__CLASS__);
         try {
             $id = new PositiveInt($inputData[CommentDTOAssoc::ID]);
         } catch (\Throwable $th) {
