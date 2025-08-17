@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Project\DTOConverter;
 
+use Tests\DTO\IConverter;
+
 class Utils
 {
     /**
@@ -96,5 +98,41 @@ class Utils
         }
 
         return false;
+    }
+
+    /**
+     * @template T
+     *
+     * @param IConverter<T> $converter
+     *
+     * @return list<T>
+     *
+     * @throws AggregateException
+     */
+    public function convertList(
+        mixed $inputData,
+        string $assocKey,
+        IConverter $converter,
+    ): array
+    {
+        $temp = [];
+        $e = new AggregateException($converter::class);
+
+        $items = $inputData[$assocKey];
+        $index = 0;
+        foreach ($items as $item) {
+            try {
+                $temp[] = $converter->convert($item);
+            } catch (\Throwable $th) {
+                $e->add(new InvalidNestedItemException($assocKey, $index, $th));
+            }
+            $index++;
+        }
+
+        if ($e->hasSomeExceptions()) {
+            throw $e;
+        }
+
+        return $temp;
     }
 }

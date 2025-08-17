@@ -38,7 +38,7 @@ final class TopicDTOConverter implements IConverter
         }
 
         try {
-            $commentDTOs = $this->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
+            $commentDTOs = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
         } catch (\Throwable $th) {
             $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
@@ -51,41 +51,5 @@ final class TopicDTOConverter implements IConverter
             ->setId($id)
             ->setParentId($parentId)
             ->setCommentDTOs($commentDTOs);
-    }
-
-    /**
-     * @template T
-     *
-     * @param IConverter<T> $converter
-     *
-     * @return list<T>
-     *
-     * @throws AggregateException
-     */
-    private function convertList(
-        mixed $inputData,
-        string $assocKey,
-        IConverter $converter,
-    ): array
-    {
-        $temp = [];
-        $e = new AggregateException($converter::class);
-
-        $items = $inputData[$assocKey];
-        $index = 0;
-        foreach ($items as $item) {
-            try {
-                $temp[] = $converter->convert($item);
-            } catch (\Throwable $th) {
-                $e->add(new InvalidNestedItemException($assocKey, $index, $th));
-            }
-            $index++;
-        }
-
-        if ($e->hasSomeExceptions()) {
-            throw $e;
-        }
-
-        return $temp;
     }
 }
