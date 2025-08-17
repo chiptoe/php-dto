@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\DTO\TopicDTO;
 
 use Project\DTOConverter\AggregateException;
+use Project\DTOConverter\InvalidNestedItemException;
 use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
@@ -73,7 +74,7 @@ final class TopicDTOConverter implements IConverter
             try {
                 $temp[] = $converter->convert($item);
             } catch (\Throwable $th) {
-                $e->add(new PropertyTypeException($assocKey . '.' . $index, $th));
+                $e->add(new InvalidNestedItemException($assocKey, (string) $index, $th));
             }
         }
 
