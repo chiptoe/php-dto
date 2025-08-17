@@ -8,7 +8,7 @@ use Project\Exceptions\AccessToUninitialisedPropertyException;
 class AggregateException extends BaseException
 {
     /**
-     * @param list<PropertyTypeException> $exceptions
+     * @param list<BaseException> $exceptions
      */
     public function __construct(
         private string $className,
@@ -19,7 +19,7 @@ class AggregateException extends BaseException
         parent::__construct($message, 0, $previous);
     }
 
-    public function add(PropertyTypeException $e): self
+    public function add(BaseException $e): self
     {
         $this->exceptions[] = $e;
 
@@ -32,7 +32,7 @@ class AggregateException extends BaseException
     }
 
     /**
-     * @return list<PropertyTypeException> $exceptions
+     * @return list<BaseException> $exceptions
      */
     public function getExceptions(): array
     {
