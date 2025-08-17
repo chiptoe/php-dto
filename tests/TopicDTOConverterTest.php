@@ -4,9 +4,9 @@ namespace Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\BaseException;
 use Project\DTOConverter\MissingKeysException;
-use Project\DTOConverter\PropertyTypeListException;
 use Project\DTOConverter\Utils;
 use Tests\DTO\TopicDTO\TopicDTOConverter;
 
@@ -168,13 +168,13 @@ final class TopicDTOConverterTest extends TestCase
         array $expectedInvalidProperties,
     ): void
     {
-        $this->expectException(PropertyTypeListException::class);
+        $this->expectException(AggregateException::class);
 
         try {
             $service = new TopicDTOConverter(new Utils());
             $service->convert($inputData);
             self::fail('it must throw');
-        } catch (PropertyTypeListException $e) {
+        } catch (AggregateException $e) {
             foreach ($e->getExceptions() as $index => $exception) {
                 self::assertNotNull($exception->getPrevious());
                 self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
