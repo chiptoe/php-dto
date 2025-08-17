@@ -37,18 +37,10 @@ final class TopicDTOConverter implements IConverter
             $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
         }
 
-        $comments = [];
-        $commentsValue = $inputData[TopicDTOAssoc::COMMENTS];
-        $commentsException = new AggregateException(CommentDTOConverter::class);
-        foreach ($commentsValue as $commentsValueIndex => $commentsValueItem) {
-            try {
-                $comments[] = $this->commentDTOConverter->convert($commentsValueItem);
-            } catch (\Throwable $th) {
-                $commentsException->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS . '.' . $commentsValueIndex, $th));
-            }
-        }
-        if ($commentsException->hasSomeExceptions()) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
+        try {
+            $parentId = $this->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
+        } catch (\Throwable $th) {
+            $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
         }
 
         if ($e->hasSomeExceptions()) {
