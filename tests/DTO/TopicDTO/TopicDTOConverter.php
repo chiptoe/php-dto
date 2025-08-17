@@ -66,7 +66,7 @@ final class TopicDTOConverter implements IConverter
     ): array
     {
         $temp = [];
-        $e = new AggregateException(CommentDTOConverter::class);
+        $e = new AggregateException($converter::class);
 
         $items = $inputData[$assocKey];
         foreach ($items as $index => $item) {
