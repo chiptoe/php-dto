@@ -60,7 +60,10 @@ final class TopicDTOConverter implements IConverter
             ->setParentId($parentId);
     }
 
-    private function convert_list(
+    /**
+     * @throws AggregateException 
+     */
+    private function convertList(
         mixed $inputData,
         string $assocKey,
         IConverter $converter,
