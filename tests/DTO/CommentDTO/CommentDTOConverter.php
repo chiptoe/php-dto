@@ -20,7 +20,7 @@ final class CommentDTOConverter
     {
         $this->utils->checkInputData(CommentDTOAssoc::getKeys(), $inputData);
 
-        $e = new PropertyTypeListException();
+        $e = new PropertyTypeListException(__CLASS__);
         try {
             $id = new PositiveInt($inputData[CommentDTOAssoc::ID]);
         } catch (\Throwable $th) {
