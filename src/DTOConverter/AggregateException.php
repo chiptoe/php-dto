@@ -5,7 +5,7 @@ namespace Project\DTOConverter;
 
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 
-class PropertyTypeListException extends BaseException
+class AggregateException extends BaseException
 {
     /**
      * @param list<PropertyTypeException> $exceptions
