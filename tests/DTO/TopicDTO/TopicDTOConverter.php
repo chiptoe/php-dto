@@ -72,12 +72,12 @@ final class TopicDTOConverter implements IConverter
         $items = $inputData[$assocKey];
         $index = 0;
         foreach ($items as $item) {
-            $index++;
             try {
                 $temp[] = $converter->convert($item);
             } catch (\Throwable $th) {
-                $e->add(new InvalidNestedItemException($assocKey, (string) $index, $th));
+                $e->add(new InvalidNestedItemException($assocKey, $index, $th));
             }
+            $index++;
         }
 
         if ($e->hasSomeExceptions()) {
