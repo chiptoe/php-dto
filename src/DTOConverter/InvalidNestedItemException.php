@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Project\DTOConverter;
 
-class NestedItemException extends BaseException
+class InvalidNestedItemException extends BaseException
 {
     public function __construct(
         public readonly string $invalidPropertyName,
