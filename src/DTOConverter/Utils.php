@@ -118,14 +118,16 @@ class Utils
         $temp = [];
         $e = new AggregateException($converter::class);
 
-        $items = $inputData[$assocKey];
         $index = 0;
+        $items = $inputData[$assocKey];
+
         foreach ($items as $item) {
             try {
                 $temp[] = $converter->convert($item);
             } catch (\Throwable $th) {
                 $e->add(new InvalidNestedItemException($assocKey, $index, $th));
             }
+
             $index++;
         }
 
