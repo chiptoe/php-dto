@@ -7,7 +7,7 @@ class PropertyTypeException extends BaseException
 {
     public function __construct(
         public readonly string $invalidPropertyName,
-        public readonly string $invalidPropertyIndex,
+        public readonly string $subKey,
         \Throwable|null $previous = null,
         string $message = '',
     ) {
