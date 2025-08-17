@@ -7,7 +7,7 @@ namespace Tests\DTO\TopicDTO;
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
-use Tests\DTO\CommentDTO\CommentDTOList;
+use Tests\DTO\CommentDTO\CommentDTO;
 
 final class TopicDTO
 {
@@ -15,7 +15,10 @@ final class TopicDTO
 
     private PositiveIntNullable $parentId;
 
-    private CommentDTOList $commentDTOList;
+    /**
+     * @var list<CommentDTO>
+     */
+    private array $commentDTOs;
 
     public function getId(): PositiveInt
     {
@@ -49,18 +52,24 @@ final class TopicDTO
         return $this;
     }
 
-    public function getCommentDTOList(): CommentDTOList
+    /**
+     * @return list<CommentDTO>
+     */
+    public function getCommentDTOs(): array
     {
-        if (!isset($this->commentDTOList)) {
+        if (!isset($this->parentId)) {
             throw new AccessToUninitialisedPropertyException();
         }
 
-        return $this->commentDTOList;
+        return $this->commentDTOs;
     }
 
-    public function setCommentDTOList(CommentDTOList $commentDTOList): self
+    /**
+     * @param list<CommentDTO> $commentDTOs
+     */
+    public function setCommentDTOs(array $commentDTOs): self
     {
-        $this->commentDTOList = $commentDTOList;
+        $this->commentDTOs = $commentDTOs;
 
         return $this;
     }
