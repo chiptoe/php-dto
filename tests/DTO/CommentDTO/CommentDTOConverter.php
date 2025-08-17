@@ -9,8 +9,9 @@ use Project\DTOConverter\PropertyTypeListException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
+use Tests\DTO\IConverter;
 
-final class CommentDTOConverter
+final class CommentDTOConverter implements IConverter
 {
     public function __construct(
         private Utils $utils

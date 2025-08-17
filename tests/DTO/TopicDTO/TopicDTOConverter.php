@@ -10,8 +10,9 @@ use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
+use Tests\DTO\IConverter;
 
-final class TopicDTOConverter
+final class TopicDTOConverter implements IConverter
 {
     public function __construct(
         private Utils $utils,
