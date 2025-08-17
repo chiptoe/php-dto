@@ -37,15 +37,15 @@ final class TopicDTOConverter
 
         $comments = [];
         $commentsRaw = $inputData[TopicDTOAssoc::COMMENTS];
-        $commentsExc = new PropertyTypeListException(CommentDTOConverter::class);
+        $commentsException = new PropertyTypeListException(CommentDTOConverter::class);
         foreach ($commentsRaw as $index => $item) {
             try {
                 $comments[] = $this->commentDTOConverter->convert($item);
             } catch (\Throwable $th) {
-                $commentsExc->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS . '.' . $index, $th));
+                $commentsException->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS . '.' . $index, $th));
             }
         }
-        if ($commentsExc->hasSomeExceptions()) {
+        if ($commentsException->hasSomeExceptions()) {
             $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
 
