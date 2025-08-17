@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\DTO\TopicDTO;
 
 use Project\DTOConverter\PropertyTypeException;
-use Project\DTOConverter\PropertyTypeListException;
+use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
@@ -23,7 +23,7 @@ final class TopicDTOConverter implements IConverter
     {
         $this->utils->checkInputData(TopicDTOAssoc::getKeys(), $inputData);
 
-        $e = new PropertyTypeListException(__CLASS__);
+        $e = new AggregateException(__CLASS__);
         try {
             $id = new PositiveInt($inputData[TopicDTOAssoc::ID]);
         } catch (\Throwable $th) {
@@ -38,7 +38,7 @@ final class TopicDTOConverter implements IConverter
 
         $comments = [];
         $commentsValue = $inputData[TopicDTOAssoc::COMMENTS];
-        $commentsException = new PropertyTypeListException(CommentDTOConverter::class);
+        $commentsException = new AggregateException(CommentDTOConverter::class);
         foreach ($commentsValue as $commentsValueIndex => $commentsValueItem) {
             try {
                 $comments[] = $this->commentDTOConverter->convert($commentsValueItem);
@@ -62,7 +62,7 @@ final class TopicDTOConverter implements IConverter
     private function convert_list(mixed $inputData, string $assocKey, IConverter $converter): array
     {
         $temp = [];
-        $e = new PropertyTypeListException(CommentDTOConverter::class);
+        $e = new AggregateException(CommentDTOConverter::class);
 
         $items = $inputData[$assocKey];
         foreach ($items as $index => $item) {
