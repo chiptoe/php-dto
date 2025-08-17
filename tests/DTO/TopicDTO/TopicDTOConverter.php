@@ -58,4 +58,25 @@ final class TopicDTOConverter implements IConverter
             ->setId($id)
             ->setParentId($parentId);
     }
+
+    private function convert_list(mixed $inputData, string $assocKey, IConverter $converter): array
+    {
+        $temp = [];
+        $e = new PropertyTypeListException(CommentDTOConverter::class);
+
+        $items = $inputData[$assocKey];
+        foreach ($items as $index => $item) {
+            try {
+                $temp[] = $converter->convert($item);
+            } catch (\Throwable $th) {
+                $e->add(new PropertyTypeException($assocKey . '.' . $index, $th));
+            }
+        }
+
+        if ($e->hasSomeExceptions()) {
+            throw $e;
+        }
+
+        return $temp;
+    }
 }
