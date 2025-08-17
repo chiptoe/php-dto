@@ -20,7 +20,7 @@ final class TopicDTOConverter
     {
         $this->utils->checkInputData(TopicDTOAssoc::getKeys(), $inputData);
 
-        $e = new PropertyTypeListException();
+        $e = new PropertyTypeListException(__CLASS__);
         try {
             $id = new PositiveInt($inputData[TopicDTOAssoc::ID]);
         } catch (\Throwable $th) {

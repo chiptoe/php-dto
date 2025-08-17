@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace Project\DTOConverter;
 
+use Project\Exceptions\AccessToUninitialisedPropertyException;
+
 class PropertyTypeListException extends BaseException
 {
     /**
      * @param list<PropertyTypeException> $exceptions
      */
     public function __construct(
+        private string $className,
         private array $exceptions = [],
         \Throwable|null $previous = null,
         string $message = '',
@@ -34,5 +37,14 @@ class PropertyTypeListException extends BaseException
     public function getExceptions(): array
     {
         return $this->exceptions;
+    }
+
+    public function getClassName(): string
+    {
+        if (!isset($this->className)) {
+            throw new AccessToUninitialisedPropertyException();
+        }
+
+        return $this->className;
     }
 }
