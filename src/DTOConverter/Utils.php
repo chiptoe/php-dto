@@ -97,12 +97,4 @@ class Utils
 
         return false;
     }
-
-    public function convert_list(
-        mixed $inputData,
-        string $converterClassName,
-    ): PropertyTypeListException
-    {
-        
-    }
 }
