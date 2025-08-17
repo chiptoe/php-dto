@@ -10,6 +10,8 @@ final class TopicDTOAssoc
 
     public const PARENT_ID = 'parentId';
 
+    public const COMMENTS = 'comments';
+
     /**
      * @return list<string>
      */
@@ -18,6 +20,7 @@ final class TopicDTOAssoc
         return [
             self::ID,
             self::PARENT_ID,
+            self::COMMENTS,
         ];
     }
 }
