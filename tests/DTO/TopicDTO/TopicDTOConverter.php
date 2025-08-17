@@ -61,7 +61,8 @@ final class TopicDTOConverter implements IConverter
     }
 
     /**
-     * @throws AggregateException 
+     * @return list<mixed>
+     * @throws AggregateException
      */
     private function convertList(
         mixed $inputData,
