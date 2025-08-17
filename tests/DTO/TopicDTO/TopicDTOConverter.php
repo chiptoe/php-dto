@@ -38,9 +38,9 @@ final class TopicDTOConverter implements IConverter
         }
 
         try {
-            $parentId = $this->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
+            $comments = $this->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
         } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
+            $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
 
         if ($e->hasSomeExceptions()) {
