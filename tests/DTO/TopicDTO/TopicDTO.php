@@ -20,6 +20,9 @@ final class TopicDTO
      */
     private array $comments;
 
+    /**
+     * @throws AccessToUninitialisedPropertyException
+     */
     public function getId(): PositiveInt
     {
         if (!isset($this->id)) {
@@ -36,6 +39,9 @@ final class TopicDTO
         return $this;
     }
 
+    /**
+     * @throws AccessToUninitialisedPropertyException
+     */
     public function getParentId(): PositiveIntNullable
     {
         if (!isset($this->parentId)) {
@@ -54,6 +60,8 @@ final class TopicDTO
 
     /**
      * @return list<CommentDTO>
+     *
+     * @throws AccessToUninitialisedPropertyException
      */
     public function getComments(): array
     {
