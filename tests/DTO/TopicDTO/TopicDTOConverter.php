@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\DTO\TopicDTO;
 
 use Project\DTOConverter\AggregateException;
-use Project\DTOConverter\InvalidNestedItemException;
 use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
@@ -13,6 +12,9 @@ use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\IConverter;
 
+/**
+ * @implements IConverter<TopicDTO>
+ */
 final class TopicDTOConverter implements IConverter
 {
     public function __construct(
