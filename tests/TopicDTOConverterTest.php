@@ -54,8 +54,8 @@ final class TopicDTOConverterTest extends TestCase
                     'parentId' => null,
                     'comments' => [
                         [
-                            'id' => 3,
-                            'parentId' => 5,
+                            'id' => 6,
+                            'parentId' => 7,
                         ],
                     ],
                 ],
