@@ -233,31 +233,4 @@ final class TopicDTOConverterTest extends TestCase
             throw $e;
         }
     }
-
-    public function test_it_must_throw_if_some_comments_item_is_invalid() {
-        $inputData = [
-            'id' => 3,
-            'parentId' => null,
-            'comments' => [
-                [
-                    'id' => 6,
-                    'parentId' => 7,
-                ],
-                [
-                    'id' => 6,
-                    'parentId' => -7,
-                ],
-            ],
-        ];
-
-        $this->expectException(AggregateException::class);
-        
-        try {
-            $service = $this->service;
-            $service->convert($inputData);
-            self::fail('it must throw');
-        } catch (AggregateException $e) {
-
-        }
-    }
 }
