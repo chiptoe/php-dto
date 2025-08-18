@@ -243,7 +243,21 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 6,
                     'parentId' => 7,
                 ],
+                [
+                    'id' => 6,
+                    'parentId' => -7,
+                ],
             ],
         ];
+
+        $this->expectException(AggregateException::class);
+        
+        try {
+            $service = $this->service;
+            $service->convert($inputData);
+            self::fail('it must throw');
+        } catch (AggregateException $e) {
+
+        }
     }
 }
