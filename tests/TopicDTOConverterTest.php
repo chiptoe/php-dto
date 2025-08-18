@@ -72,6 +72,10 @@ final class TopicDTOConverterTest extends TestCase
 
         self::assertSame($inputData['parentId'], $topicDTO->getParentId()->value);
         self::assertSame($inputData['id'], $topicDTO->getId()->value);
+        foreach ($inputData['comments'] as $index => $inputDataComment) {
+            self::assertSame($inputDataComment['parentId'], $topicDTO->getComments()[$index]->getParentId()->value);
+            self::assertSame($inputDataComment['id'], $topicDTO->getComments()[$index]->getId()->value);
+        }
     }
 
     public function test_it_must_throw_if_input_data_is_not_array(): void
