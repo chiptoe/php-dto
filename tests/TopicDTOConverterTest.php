@@ -36,6 +36,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => 3,
                     'parentId' => 5,
+                    'comments' => [],
                 ],
             ],
 
@@ -43,6 +44,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => 3,
                     'parentId' => null,
+                    'comments' => [],
                 ],
             ],
         ];
