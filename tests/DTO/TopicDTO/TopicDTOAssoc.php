@@ -12,6 +12,8 @@ final class TopicDTOAssoc
 
     public const COMMENTS = 'comments';
 
+    public const COMMENT_ROOT = 'commentRoot';
+
     /**
      * @return list<string>
      */
@@ -21,6 +23,7 @@ final class TopicDTOAssoc
             self::ID,
             self::PARENT_ID,
             self::COMMENTS,
+            self::COMMENT_ROOT,
         ];
     }
 }
