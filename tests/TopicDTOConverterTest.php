@@ -233,4 +233,8 @@ final class TopicDTOConverterTest extends TestCase
             throw $e;
         }
     }
+
+    public function test_it_must_throw_if_some_comments_item_is_invalid() {
+        
+    }
 }
