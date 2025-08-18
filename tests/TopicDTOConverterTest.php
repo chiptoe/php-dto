@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\BaseException;
 use Project\DTOConverter\MissingKeysException;
+use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\TopicDTO\TopicDTOConverter;
@@ -189,6 +190,7 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (AggregateException $e) {
             foreach ($e->getExceptions() as $index => $exception) {
+                self::assertInstanceOf(PropertyTypeException::class, $exception::class);
                 self::assertNotNull($exception->getPrevious());
                 self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
             }
