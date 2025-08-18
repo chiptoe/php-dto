@@ -129,6 +129,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => -3,
                     'parentId' => -5,
+                    'comments' => [],
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -140,6 +141,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => null,
                     'parentId' => 0,
+                    'comments' => [],
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -151,6 +153,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => 'aaa',
                     'parentId' => 'bbb',
+                    'comments' => [],
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -162,6 +165,7 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => 3,
                     'parentId' => 'bbb',
+                    'comments' => [],
                 ],
                 'expectedNestedExceptionsCount' => 1,
                 'expectedInvalidProperties' =>  [
@@ -190,7 +194,7 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (AggregateException $e) {
             foreach ($e->getExceptions() as $index => $exception) {
-                self::assertInstanceOf(PropertyTypeException::class, $exception::class);
+                self::assertInstanceOf(PropertyTypeException::class, $exception);
                 self::assertNotNull($exception->getPrevious());
                 self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
             }
