@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\DTO\TopicDTO;
 
 use Project\DTOConverter\AggregateException;
-use Project\DTOConverter\InvalidNestedItemException;
 use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
@@ -13,6 +12,9 @@ use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\IConverter;
 
+/**
+ * @implements IConverter<TopicDTO>
+ */
 final class TopicDTOConverter implements IConverter
 {
     public function __construct(
@@ -38,7 +40,7 @@ final class TopicDTOConverter implements IConverter
         }
 
         try {
-            $commentDTOs = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
+            $comments = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
         } catch (\Throwable $th) {
             $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
@@ -50,6 +52,6 @@ final class TopicDTOConverter implements IConverter
         return (new TopicDTO())
             ->setId($id)
             ->setParentId($parentId)
-            ->setCommentDTOs($commentDTOs);
+            ->setComments($comments);
     }
 }

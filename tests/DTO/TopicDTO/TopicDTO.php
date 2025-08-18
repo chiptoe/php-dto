@@ -18,7 +18,7 @@ final class TopicDTO
     /**
      * @var list<CommentDTO>
      */
-    private array $commentDTOs;
+    private array $comments;
 
     public function getId(): PositiveInt
     {
@@ -61,15 +61,15 @@ final class TopicDTO
             throw new AccessToUninitialisedPropertyException();
         }
 
-        return $this->commentDTOs;
+        return $this->comments;
     }
 
     /**
-     * @param list<CommentDTO> $commentDTOs
+     * @param list<CommentDTO> $comments
      */
-    public function setCommentDTOs(array $commentDTOs): self
+    public function setComments(array $comments): self
     {
-        $this->commentDTOs = $commentDTOs;
+        $this->comments = $comments;
 
         return $this;
     }
