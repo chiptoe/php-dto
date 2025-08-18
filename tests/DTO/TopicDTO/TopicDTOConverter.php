@@ -45,6 +45,12 @@ final class TopicDTOConverter implements IConverter
             $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
 
+        try {
+            $commentRoot = $this->commentDTOConverter->convert($inputData[TopicDTOAssoc::COMMENT_ROOT]);
+        } catch (\Throwable $th) {
+            $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENT_ROOT, $th));
+        }
+
         if ($e->hasSomeExceptions()) {
             throw $e;
         }
@@ -52,6 +58,7 @@ final class TopicDTOConverter implements IConverter
         return (new TopicDTO())
             ->setId($id)
             ->setParentId($parentId)
-            ->setComments($comments);
+            ->setComments($comments)
+            ->setCommentRoot($commentRoot);
     }
 }
