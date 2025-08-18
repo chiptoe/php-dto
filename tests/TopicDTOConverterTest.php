@@ -91,12 +91,12 @@ final class TopicDTOConverterTest extends TestCase
                 'inputData' => [
                     'id' => 3,
                     // 'parentId' => 5,
+                    'comments' => [],
                 ],
                 'expectedMissingKeys' => [
                     'parentId',
-                    'comments',
                 ],
-                'expectedMessage' => 'The array-key (parentId, comments) must exist.'
+                'expectedMessage' => 'The array-key (parentId) must exist.'
             ],
         ];
     }
