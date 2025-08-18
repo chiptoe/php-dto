@@ -8,10 +8,23 @@ use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\BaseException;
 use Project\DTOConverter\MissingKeysException;
 use Project\DTOConverter\Utils;
+use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\TopicDTO\TopicDTOConverter;
 
 final class TopicDTOConverterTest extends TestCase
 {
+    private TopicDTOConverter $service;
+
+    protected function setUp(): void
+    {
+        $this->service = new TopicDTOConverter(
+            new Utils(),
+            new CommentDTOConverter(
+                new Utils(),
+            ),
+        );
+    }
+
     /**
      * @return mixed[]
      */
@@ -37,7 +50,7 @@ final class TopicDTOConverterTest extends TestCase
     #[DataProvider('provider_happy')]
     public function test_happy(mixed $inputData): void
     {
-        $service = new TopicDTOConverter(new Utils());
+        $service = $this->service;
 
         $topicDTO = $service->convert($inputData);
 
@@ -47,7 +60,7 @@ final class TopicDTOConverterTest extends TestCase
 
     public function test_it_must_throw_if_input_data_is_not_array(): void
     {
-        $service = new TopicDTOConverter(new Utils());
+        $service = $this->service;
 
         $this->expectException(BaseException::class);
         $this->expectExceptionMessage('The (inputData) must be array.');
@@ -90,7 +103,7 @@ final class TopicDTOConverterTest extends TestCase
         string $expectedMessage
     ): void
     {
-        $service = new TopicDTOConverter(new Utils());
+        $service = $this->service;
 
         $this->expectException(MissingKeysException::class);
         $this->expectExceptionMessage($expectedMessage);
@@ -171,7 +184,7 @@ final class TopicDTOConverterTest extends TestCase
         $this->expectException(AggregateException::class);
 
         try {
-            $service = new TopicDTOConverter(new Utils());
+            $service = $this->service;
             $service->convert($inputData);
             self::fail('it must throw');
         } catch (AggregateException $e) {
