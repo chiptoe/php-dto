@@ -203,9 +203,13 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (AggregateException $e) {
             foreach ($e->getExceptions() as $index => $exception) {
-                self::assertInstanceOf(PropertyTypeException::class, $exception);
                 self::assertNotNull($exception->getPrevious());
-                self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
+                self::assertInstanceOf(PropertyTypeException::class, $exception);
+                if ($exception instanceof PropertyTypeException) {
+                    self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
+                } else {
+                    self::fail('wrong exception type')
+                }
             }
 
             self::assertCount($expectedNestedExceptionsCount, $e->getExceptions());
