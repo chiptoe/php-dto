@@ -20,6 +20,8 @@ final class TopicDTO
      */
     private array $comments;
 
+    private CommentDTO $commentRoot;
+
     /**
      * @throws AccessToUninitialisedPropertyException
      */
@@ -78,6 +80,25 @@ final class TopicDTO
     public function setComments(array $comments): self
     {
         $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * @throws AccessToUninitialisedPropertyException 
+     */
+    public function getCommentRoot(): CommentDTO
+    {
+        if (!isset($this->commentRoot)) {
+            throw new AccessToUninitialisedPropertyException();
+        }
+
+        return $this->commentRoot;
+    }
+
+    public function setCommentRoot(CommentDTO $commentRoot): self
+    {
+        $this->commentRoot = $commentRoot;
 
         return $this;
     }
