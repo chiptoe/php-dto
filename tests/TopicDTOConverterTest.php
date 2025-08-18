@@ -208,7 +208,7 @@ final class TopicDTOConverterTest extends TestCase
                 if ($exception instanceof PropertyTypeException) {
                     self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
                 } else {
-                    self::fail('wrong exception type')
+                    self::fail('wrong exception type');
                 }
             }
 
