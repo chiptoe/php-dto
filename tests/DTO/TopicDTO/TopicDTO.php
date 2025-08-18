@@ -55,9 +55,9 @@ final class TopicDTO
     /**
      * @return list<CommentDTO>
      */
-    public function getCommentDTOs(): array
+    public function getComments(): array
     {
-        if (!isset($this->parentId)) {
+        if (!isset($this->comments)) {
             throw new AccessToUninitialisedPropertyException();
         }
 
