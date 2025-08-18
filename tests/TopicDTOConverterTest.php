@@ -199,6 +199,24 @@ final class TopicDTOConverterTest extends TestCase
                     'parentId',
                 ],
             ],
+            [
+                'inputData' => [
+                    'id' => 3,
+                    'parentId' => 4,
+                    'comments' => [
+                        [
+                            'id' => 3,
+                            'parentId' => -4,
+                        ]
+                    ],
+                ],
+                'expectedNestedExceptionsCount' => 1,
+                'expectedInvalidProperties' =>  [
+                    // 'id',
+                    // 'parentId',
+                    'comments',
+                ],
+            ],
         ];
     }
 
