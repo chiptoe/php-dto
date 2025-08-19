@@ -82,6 +82,7 @@ final class DTOGenerator
         $temp .= '    ' . '/**' . PHP_EOL;
         if ($isList) {
             $temp .= '    ' . ' * ' . '@return' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . PHP_EOL;
+            $temp .= PHP_EOL;
         }
         $temp .= '    ' . ' * ' . '@throws' . ' ' . $accessExceptionClassName . PHP_EOL;
         $temp .= '    ' . ' */' . PHP_EOL;
