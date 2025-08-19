@@ -36,7 +36,8 @@ final class DTOGenerator
         );
 
         foreach ($inputData['properties'] as $property) {
-            if (array_key_exists('list', $property) && $property['list'] === true) {
+            $isList = $property['list'] ?? false;
+            if ($isList === true) {
                 $temp .= '    ' . '/**' . PHP_EOL;
                 $temp .= '    ' . ' * ' . '@var' . ' ' . 'list<' . $this->utils->getClassName($property['type']) . '>' . PHP_EOL;
                 $temp .= '    ' . ' */' . PHP_EOL;
