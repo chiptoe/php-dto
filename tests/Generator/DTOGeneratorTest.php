@@ -9,6 +9,7 @@ use Project\DTOConverter\Utils;
 use Project\Generator\DTOGenerator;
 use Project\ValueObject\PositiveInt;
 use Project\ValueObject\PositiveIntNullable;
+use Tests\DTO\CommentDTO\CommentDTO;
 
 final class DTOGeneratorTest extends TestCase
 {
@@ -24,6 +25,15 @@ final class DTOGeneratorTest extends TestCase
                 [
                     'name' => 'parentId',
                     'type' => PositiveIntNullable::class,
+                ],
+                [
+                    'name' => 'comments',
+                    'type' => CommentDTO::class,
+                    'list' => true,
+                ],
+                [
+                    'name' => 'commentRoot',
+                    'type' => CommentDTO::class,
                 ],
             ],
         ];
