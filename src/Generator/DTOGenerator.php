@@ -51,10 +51,12 @@ final class DTOGenerator
                 $temp .= PHP_EOL;
             }
 
+            $isList = $property['list'] ?? false;
+
             $temp .= $this->getGetter(
                 $property['name'],
                 $property['type'],
-                $property['list'] ?? false,
+                $isList,
                 $this->utils->getClassName($accessExceptionClass),
             );
 
@@ -63,6 +65,7 @@ final class DTOGenerator
             $temp .= $this->getSetter(
                 $property['name'],
                 $property['type'],
+                $isList,
             );
         }
 
@@ -105,6 +108,7 @@ final class DTOGenerator
     public function getSetter(
         string $propertyName,
         string $propertyType,
+        bool $isList,
     ): string {
         $temp = '';
 
