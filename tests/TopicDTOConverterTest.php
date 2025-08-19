@@ -16,6 +16,13 @@ final class TopicDTOConverterTest extends TestCase
 {
     private TopicDTOConverter $service;
 
+    private const VALID_COMMENT_ROOT = [
+        'commentRoot' => [
+            'id' => 5,
+            'parentId' => 6,
+        ],
+    ];
+
     protected function setUp(): void
     {
         $this->service = new TopicDTOConverter(
@@ -37,6 +44,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 3,
                     'parentId' => 5,
                     'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
                 ],
             ],
 
@@ -45,6 +53,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 3,
                     'parentId' => null,
                     'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
                 ],
             ],
 
@@ -58,6 +67,7 @@ final class TopicDTOConverterTest extends TestCase
                             'parentId' => 7,
                         ],
                     ],
+                    ...self::VALID_COMMENT_ROOT,
                 ],
             ],
         ];
@@ -112,7 +122,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 3,
                     // 'parentId' => 5,
                     'comments' => [],
-                    'commentRoot' => [],
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedMissingKeys' => [
                     'parentId',
@@ -152,20 +162,13 @@ final class TopicDTOConverterTest extends TestCase
      */
     public static function provider_it_must_throw_if_property_has_wrong_type(): array
     {
-        $validCommentRoot = [
-            'commentRoot' => [
-                'id' => 5,
-                'parentId' => 6,
-            ],
-        ];
-
         return [
             [
                 'inputData' => [
                     'id' => -3,
                     'parentId' => -5,
                     'comments' => [],
-                    ...$validCommentRoot,
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -178,7 +181,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => null,
                     'parentId' => 0,
                     'comments' => [],
-                    ...$validCommentRoot,
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -191,7 +194,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 'aaa',
                     'parentId' => 'bbb',
                     'comments' => [],
-                    ...$validCommentRoot
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -204,7 +207,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 3,
                     'parentId' => 'bbb',
                     'comments' => [],
-                    ...$validCommentRoot
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 1,
                 'expectedInvalidProperties' =>  [
@@ -222,7 +225,7 @@ final class TopicDTOConverterTest extends TestCase
                             'parentId' => -4,
                         ]
                     ],
-                    ...$validCommentRoot
+                    ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 1,
                 'expectedInvalidProperties' =>  [
