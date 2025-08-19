@@ -150,12 +150,20 @@ final class TopicDTOConverterTest extends TestCase
      */
     public static function provider_it_must_throw_if_property_has_wrong_type(): array
     {
+        $validCommentRoot = [
+            'commentRoot' => [
+                'id' => 5,
+                'parentId' => 6,
+            ],
+        ];
+
         return [
             [
                 'inputData' => [
                     'id' => -3,
                     'parentId' => -5,
                     'comments' => [],
+                    ...$validCommentRoot,
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -168,6 +176,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => null,
                     'parentId' => 0,
                     'comments' => [],
+                    ...$validCommentRoot,
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -180,6 +189,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 'aaa',
                     'parentId' => 'bbb',
                     'comments' => [],
+                    ...$validCommentRoot
                 ],
                 'expectedNestedExceptionsCount' => 2,
                 'expectedInvalidProperties' =>  [
@@ -192,6 +202,7 @@ final class TopicDTOConverterTest extends TestCase
                     'id' => 3,
                     'parentId' => 'bbb',
                     'comments' => [],
+                    ...$validCommentRoot
                 ],
                 'expectedNestedExceptionsCount' => 1,
                 'expectedInvalidProperties' =>  [
@@ -209,6 +220,7 @@ final class TopicDTOConverterTest extends TestCase
                             'parentId' => -4,
                         ]
                     ],
+                    ...$validCommentRoot
                 ],
                 'expectedNestedExceptionsCount' => 1,
                 'expectedInvalidProperties' =>  [
