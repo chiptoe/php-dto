@@ -116,8 +116,10 @@ final class DTOGenerator
             $temp .= '    ' . '/**' . PHP_EOL;
             $temp .= '    ' . ' * ' . '@param' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . ' $' . $propertyName . PHP_EOL;
             $temp .= '    ' . ' */' . PHP_EOL;
+            $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . 'array' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+        } else {
+            $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
         }
-        $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . '$this->' . $propertyName . ' = $' . $propertyName . ';' . PHP_EOL;
         $temp .= PHP_EOL;
