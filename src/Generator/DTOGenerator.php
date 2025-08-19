@@ -10,9 +10,7 @@ final class DTOGenerator
 {
     public function __construct(
         private Utils $utils,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @param array<string,mixed> $inputData
@@ -38,16 +36,34 @@ final class DTOGenerator
         );
 
         foreach ($inputData['properties'] as $property) {
-            $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+            if (array_key_exists('list', $property) && $property['list'] === true) {
+                $temp .= '    ' . '/**' . PHP_EOL;
+                $temp .= '    ' . ' * ' . '@var' . ' ' . 'list<' . $this->utils->getClassName($property['type']) . '>' . PHP_EOL;
+                $temp .= '    ' . ' */' . PHP_EOL;
+                $temp .= '    ' . 'private ' . 'array' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+            } else {
+                $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+            }
         }
 
         foreach ($inputData['properties'] as $idx => $property) {
             if ($idx > 0) {
                 $temp .= PHP_EOL;
             }
-            $temp .= $this->getGetter($property['name'], $property['type'], $this->utils->getClassName($accessExceptionClass));
+
+            $temp .= $this->getGetter(
+                $property['name'],
+                $property['type'],
+                $property['list'] ?? false,
+                $this->utils->getClassName($accessExceptionClass),
+            );
+
             $temp .= PHP_EOL;
-            $temp .= $this->getSetter($property['name'], $property['type']);
+
+            $temp .= $this->getSetter(
+                $property['name'],
+                $property['type'],
+            );
         }
 
         $temp .= $this->utils->getClassFooter();
@@ -58,11 +74,17 @@ final class DTOGenerator
     public function getGetter(
         string $propertyName,
         string $propertyType,
+        bool $isList,
         string $accessExceptionClassName,
-    ): string
-    {
+    ): string {
         $temp = '';
 
+        $temp .= '    ' . '/**' . PHP_EOL;
+        if ($isList) {
+            $temp .= '    ' . ' * ' . '@return' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . PHP_EOL;
+        }
+        $temp .= '    ' . ' * ' . '@throws' . ' ' . $accessExceptionClassName . PHP_EOL;
+        $temp .= '    ' . ' */' . PHP_EOL;
         $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . 'if (!isset($this->' . $propertyName . ')) {' . PHP_EOL;
@@ -78,8 +100,7 @@ final class DTOGenerator
     public function getSetter(
         string $propertyName,
         string $propertyType,
-    ): string
-    {
+    ): string {
         $temp = '';
 
         $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
