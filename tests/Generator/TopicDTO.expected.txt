@@ -85,7 +85,7 @@ final class TopicDTO
     }
 
     /**
-     * @throws AccessToUninitialisedPropertyException 
+     * @throws AccessToUninitialisedPropertyException
      */
     public function getCommentRoot(): CommentDTO
     {
