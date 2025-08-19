@@ -82,11 +82,15 @@ final class DTOGenerator
         $temp .= '    ' . '/**' . PHP_EOL;
         if ($isList) {
             $temp .= '    ' . ' * ' . '@return' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . PHP_EOL;
-            $temp .= PHP_EOL;
+            $temp .= '    ' . ' *' . PHP_EOL;
         }
         $temp .= '    ' . ' * ' . '@throws' . ' ' . $accessExceptionClassName . PHP_EOL;
         $temp .= '    ' . ' */' . PHP_EOL;
-        $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+        if ($isList) {
+            $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . 'array' . PHP_EOL;
+        } else {
+            $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+        }
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . 'if (!isset($this->' . $propertyName . ')) {' . PHP_EOL;
         $temp .= '    ' . '    ' . '    ' . 'throw new ' . $accessExceptionClassName . '();' . PHP_EOL;
