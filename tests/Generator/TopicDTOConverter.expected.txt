@@ -18,8 +18,8 @@ use Tests\DTO\IConverter;
 final class TopicDTOConverter implements IConverter
 {
     public function __construct(
-        private Utils $utils,
         private CommentDTOConverter $commentDTOConverter,
+        private Utils $utils,
     ) {}
 
     public function convert(mixed $inputData): TopicDTO
