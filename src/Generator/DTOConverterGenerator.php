@@ -83,7 +83,7 @@ final class DTOConverterGenerator
 
         $temp .= '    ' . 'public function __construct(' . PHP_EOL;
         foreach ($deps as $dep) {
-            $temp .= '    ' . '    ' . 'private ' . $dep . ' $' . lcfirst($dep) . PHP_EOL;
+            $temp .= '    ' . '    ' . 'private ' . $dep . ' $' . lcfirst($dep) . ',' . PHP_EOL;
         }
         $temp .= '    ' . ') {}' . PHP_EOL;
 
