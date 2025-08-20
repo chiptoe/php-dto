@@ -21,15 +21,21 @@ final class DTOConverterGenerator
 
         $implementsClassFqcn = 'Tests\DTO\IConverter';
         $implementsClassName = $this->utils->getClassName($implementsClassFqcn);
+
+        $concreteConverterClassNames = [];
+
         $properties = $inputData['properties'];
         $useClasses = [
             'Project\DTOConverter\AggregateException',
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
-            array_map(function($property) {
+            ...array_map(function($property) {
                 if ($property['converterConvert']) {
-                    return $property['type'] . 'Converter';
+                    $concreteConverterClassFqcn = $property['type'] . 'Converter';
+                    $concreteConverterClassNames[$this->utils->getClassName($concreteConverterClassFqcn)] = true;
+
+                    return $concreteConverterClassFqcn;
                 }
 
                 return $property['type'];
@@ -55,7 +61,8 @@ final class DTOConverterGenerator
         );
 
         $temp .= $this->getConstructor([
-            'Utils'
+            'Utils',
+            ...array_keys($concreteConverterClassNames),
         ]);
         $temp .= PHP_EOL;
         $temp .= $this->getConvert(
