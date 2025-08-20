@@ -80,7 +80,7 @@ class Utils
         }
         if ($implementsClassName) {
             $temp .= '/**' . PHP_EOL;
-            $temp .= '    ' . ' * @implements ' . $implementsClassName . '<' . implode(',', $implementsClassArgs) . '>' . PHP_EOL;
+            $temp .= ' * @implements ' . $implementsClassName . '<' . implode(',', $implementsClassArgs) . '>' . PHP_EOL;
             $temp .= ' */' . PHP_EOL;
             $temp .= 'final class ' . $className . ' implements' . ' ' . $implementsClassName . PHP_EOL;
         } else {

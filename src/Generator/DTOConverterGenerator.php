@@ -43,6 +43,7 @@ final class DTOConverterGenerator
             $useClasses,
             $className,
             $implementsClassName,
+            [$classNameDTO],
         );
 
         $temp .= $this->getConstructor([
