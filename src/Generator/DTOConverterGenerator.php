@@ -77,6 +77,8 @@ final class DTOConverterGenerator
 
     private function getConstructor(array $deps): string
     {
+        sort($deps);
+
         $temp = '';
 
         $temp .= '    ' . 'public function __construct(' . PHP_EOL;
