@@ -62,6 +62,7 @@ class Utils
         string $namespace,
         array $useClasses,
         string $className,
+        string $implementsClassName,
     ): string
     {
         $temp = '';
@@ -76,7 +77,8 @@ class Utils
             $temp .= implode(PHP_EOL, array_map(fn($item) => ('use ' . $item . ';'), $useClasses)) . PHP_EOL;
             $temp .= PHP_EOL;
         }
-        $temp .= 'final class ' . $className . PHP_EOL;
+        $temp .= 'final class ' . $className;
+        $temp .= PHP_EOL;
         $temp .= '{' . PHP_EOL;
 
         return $temp;
