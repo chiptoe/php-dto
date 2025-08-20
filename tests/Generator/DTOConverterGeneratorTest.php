@@ -29,6 +29,7 @@ final class DTOConverterGeneratorTest extends TestCase
                 [
                     'name' => 'comments',
                     'type' => CommentDTO::class,
+                    'converterConvert' => true,
                     'list' => true,
                 ],
             ],
