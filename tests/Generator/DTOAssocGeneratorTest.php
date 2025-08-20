@@ -18,6 +18,8 @@ final class DTOAssocGeneratorTest extends TestCase
             'fromKeys' => [
                 'id',
                 'parentId',
+                'comments',
+                'commentRoot',
             ],
         ];
 
