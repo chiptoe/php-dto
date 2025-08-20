@@ -27,14 +27,16 @@ final class DTOConverterGenerator
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
-            ...array_unique(array_map(function($property) {
+            array_map(function($property) {
                 if ($property['converterConvert']) {
                     return $property['type'] . 'Converter';
                 }
 
                 return $property['type'];
-            }, $properties)),
+            }, $properties),
         ];
+
+        array_unique($useClasses);
         // sort lines asc
         sort($useClasses);
 
