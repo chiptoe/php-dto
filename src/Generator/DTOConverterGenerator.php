@@ -19,12 +19,14 @@ final class DTOConverterGenerator
     {
         $namespace = 'Tests\DTO\TopicDTO';
 
+        $implementsClassFqcn = 'Tests\DTO\IConverter';
+        $implementsClassName = $this->utils->getClassName($implementsClassFqcn);
         $properties = $inputData['properties'];
         $useClasses = [
             'Project\DTOConverter\AggregateException',
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\Utils',
-            'Tests\DTO\IConverter',
+            $implementsClassFqcn,
             ...array_unique(array_map(fn($it) => $it['type'], $properties)),
         ];
         // sort lines asc
@@ -40,6 +42,7 @@ final class DTOConverterGenerator
             $namespace,
             $useClasses,
             $className,
+            $implementsClassName,
         );
 
         $temp .= $this->getConstructor([

@@ -33,6 +33,7 @@ final class DTOGenerator
             $namespace,
             $useClasses,
             $className,
+            null
         );
 
         foreach ($inputData['properties'] as $property) {
