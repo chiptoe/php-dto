@@ -57,14 +57,15 @@ class Utils
 
     /**
      * @param list<string> $useClasses
+     * @param list<string> $implementsClassArgs
      */
     public function getClassHeader(
         string $namespace,
         array $useClasses,
         string $className,
         ?string $implementsClassName,
-    ): string
-    {
+        array $implementsClassArgs,
+    ): string {
         $temp = '';
 
         $temp .= '<?php' . PHP_EOL;
@@ -79,7 +80,7 @@ class Utils
         }
         if ($implementsClassName) {
             $temp .= '/**' . PHP_EOL;
-            $temp .= '    ' . ' * @implements ' . PHP_EOL;
+            $temp .= '    ' . ' * @implements ' . $implementsClassName . '<' . implode(',', $implementsClassArgs) . '>' . PHP_EOL;
             $temp .= ' */' . PHP_EOL;
             $temp .= 'final class ' . $className . ' implements' . ' ' . $implementsClassName . PHP_EOL;
         } else {
