@@ -43,6 +43,7 @@ final class DTOConverterGenerator
             $useClasses,
             $className,
             $implementsClassName,
+            [$classNameDTO],
         );
 
         $temp .= $this->getConstructor([
@@ -85,7 +86,7 @@ final class DTOConverterGenerator
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . $inputVarName . ');' . PHP_EOL;
         $temp .= PHP_EOL;
-        $temp .= '    ' . '    ' . '$e = new AggregateException();' . PHP_EOL;
+        $temp .= '    ' . '    ' . '$e = new AggregateException(' . '__CLASS__' . ');' . PHP_EOL;
 
         foreach ($props as $prop) {
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
