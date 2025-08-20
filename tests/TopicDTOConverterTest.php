@@ -26,10 +26,10 @@ final class TopicDTOConverterTest extends TestCase
     protected function setUp(): void
     {
         $this->service = new TopicDTOConverter(
-            new Utils(),
             new CommentDTOConverter(
                 new Utils(),
             ),
+            new Utils(),
         );
     }
 
