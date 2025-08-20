@@ -62,7 +62,7 @@ class Utils
         string $namespace,
         array $useClasses,
         string $className,
-        string $implementsClassName,
+        ?string $implementsClassName,
     ): string
     {
         $temp = '';
@@ -78,6 +78,9 @@ class Utils
             $temp .= PHP_EOL;
         }
         $temp .= 'final class ' . $className;
+        if ($implementsClassName) {
+            $temp .= 'implements' . ' ' . $implementsClassName;
+        }
         $temp .= PHP_EOL;
         $temp .= '{' . PHP_EOL;
 

@@ -60,6 +60,7 @@ final class DTOAssocGenerator
             $namespace,
             $useClasses,
             $className,
+            null,
         );
 
         $temp .= $this->getConstants($fromKeys);
