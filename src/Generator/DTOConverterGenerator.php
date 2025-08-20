@@ -30,7 +30,7 @@ final class DTOConverterGenerator
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
-            ...array_map(function($property) {
+            ...array_map(function($property) use (&$concreteConverterClassNames) {
                 if ($property['converterConvert']) {
                     $concreteConverterClassFqcn = $property['type'] . 'Converter';
                     $concreteConverterClassNames[$this->utils->getClassName($concreteConverterClassFqcn)] = true;
