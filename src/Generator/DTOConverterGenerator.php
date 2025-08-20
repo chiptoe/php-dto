@@ -21,9 +21,10 @@ final class DTOConverterGenerator
 
         $properties = $inputData['properties'];
         $useClasses = [
+            'Project\DTOConverter\AggregateException',
             'Project\DTOConverter\PropertyTypeException',
-            'Project\DTOConverter\PropertyTypeListException',
             'Project\DTOConverter\Utils',
+            'Tests\DTO\IConverter',
             ...array_unique(array_map(fn($it) => $it['type'], $properties)),
         ];
 
@@ -79,7 +80,7 @@ final class DTOConverterGenerator
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . $inputVarName . ');' . PHP_EOL;
         $temp .= PHP_EOL;
-        $temp .= '    ' . '    ' . '$e = new PropertyTypeListException();' . PHP_EOL;
+        $temp .= '    ' . '    ' . '$e = new AggregateException();' . PHP_EOL;
 
         foreach ($props as $prop) {
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
