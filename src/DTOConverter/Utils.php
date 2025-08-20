@@ -77,11 +77,11 @@ class Utils
             $temp .= implode(PHP_EOL, array_map(fn($item) => ('use ' . $item . ';'), $useClasses)) . PHP_EOL;
             $temp .= PHP_EOL;
         }
-        $temp .= 'final class ' . $className;
         if ($implementsClassName) {
-            $temp .= 'implements' . ' ' . $implementsClassName;
+            $temp .= 'final class ' . $className . ' implements' . ' ' . $implementsClassName . PHP_EOL;
+        } else {
+            $temp .= 'final class ' . $className . PHP_EOL;
         }
-        $temp .= PHP_EOL;
         $temp .= '{' . PHP_EOL;
 
         return $temp;
