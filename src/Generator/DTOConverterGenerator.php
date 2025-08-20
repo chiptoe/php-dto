@@ -27,6 +27,8 @@ final class DTOConverterGenerator
             'Tests\DTO\IConverter',
             ...array_unique(array_map(fn($it) => $it['type'], $properties)),
         ];
+        // sort lines asc
+        sort($useClasses);
 
         $classNameDTO = $inputData['dtoName'] . 'DTO';
         $classNameDTOAssoc = $inputData['dtoName'] . 'DTO' . 'Assoc';
