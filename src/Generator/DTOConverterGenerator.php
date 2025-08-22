@@ -31,7 +31,8 @@ final class DTOConverterGenerator
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
             ...array_map(function($property) use (&$concreteConverterClassNames) {
-                if ($property['converterConvert']) {
+                $converterConvert = $property['converterConvert'] ?? null;
+                if ($converterConvert) {
                     $concreteConverterClassFqcn = $property['type'] . 'Converter';
                     $concreteConverterClassNames[$property['type']] = $this->utils->getClassName($concreteConverterClassFqcn);
 
@@ -42,7 +43,7 @@ final class DTOConverterGenerator
             }, $properties),
         ];
 
-        array_unique($useClasses);
+        $useClasses = array_unique($useClasses);
         // sort lines asc
         sort($useClasses);
 
@@ -94,7 +95,7 @@ final class DTOConverterGenerator
     private function getConvert(
         string $classNameDTO,
         string $classNameDTOAssoc,
-        array $props,
+        array $properties,
         array $concreteConverterClassNames,
     ): string {
         $inputVarName = '$inputData';
@@ -107,15 +108,21 @@ final class DTOConverterGenerator
         $temp .= PHP_EOL;
         $temp .= '    ' . '    ' . '$e = new AggregateException(' . '__CLASS__' . ');' . PHP_EOL;
 
-        foreach ($props as $prop) {
+        foreach ($properties as $property) {
+            $converterConvert = $property['converterConvert'] ?? null;
+
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
-            if ($prop['converterConvert'] === true && $prop['list'] === true) {
-                $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$prop['type']]) . ');' . PHP_EOL;
-            } else {
-                $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = new ' . $this->utils->getClassName($prop['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ']' . ');' . PHP_EOL;
+            if ($converterConvert === true && $property['list'] === true) {
+                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
+            }
+            else if ($converterConvert === true) {
+                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
+            }
+            else {
+                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
             $temp .= '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
-            $temp .= '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ', $th));' . PHP_EOL;
+            $temp .= '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
             $temp .= '    ' . '    ' . '}' . PHP_EOL;
             $temp .= PHP_EOL;
         }
@@ -126,9 +133,9 @@ final class DTOConverterGenerator
         $temp .= PHP_EOL;
         $temp .= '    ' . '    ' . 'return (new ' . $classNameDTO . '())' . PHP_EOL;
 
-        foreach ($props as $idx => $prop) {
-            $temp .= '    ' . '    ' . '    ' . '->set' . ucfirst($prop['name']) . '(' . '$' . $prop['name'] . ')';
-            if ($idx < count($props) - 1) {
+        foreach ($properties as $idx => $property) {
+            $temp .= '    ' . '    ' . '    ' . '->set' . ucfirst($property['name']) . '(' . '$' . $property['name'] . ')';
+            if ($idx < count($properties) - 1) {
                 $temp .= PHP_EOL;
             } else {
                 $temp .= ';' . PHP_EOL;
