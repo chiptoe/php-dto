@@ -33,7 +33,7 @@ final class DTOConverterGenerator
             ...array_map(function($property) use (&$concreteConverterClassNames) {
                 if ($property['converterConvert']) {
                     $concreteConverterClassFqcn = $property['type'] . 'Converter';
-                    $concreteConverterClassNames[$this->utils->getClassName($concreteConverterClassFqcn)] = true;
+                    $concreteConverterClassNames[$property['type']] = $this->utils->getClassName($concreteConverterClassFqcn);
 
                     return $concreteConverterClassFqcn;
                 }
@@ -62,13 +62,14 @@ final class DTOConverterGenerator
 
         $temp .= $this->getConstructor([
             'Utils',
-            ...array_keys($concreteConverterClassNames),
+            ...array_values($concreteConverterClassNames),
         ]);
         $temp .= PHP_EOL;
         $temp .= $this->getConvert(
             $classNameDTO,
             $classNameDTOAssoc,
             $properties,
+            $concreteConverterClassNames,
         );
         $temp .= $this->utils->getClassFooter();
 
@@ -94,6 +95,7 @@ final class DTOConverterGenerator
         string $classNameDTO,
         string $classNameDTOAssoc,
         array $props,
+        array $concreteConverterClassNames,
     ): string {
         $inputVarName = '$inputData';
 
@@ -107,7 +109,11 @@ final class DTOConverterGenerator
 
         foreach ($props as $prop) {
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
-            $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = new ' . $this->utils->getClassName($prop['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ']' . ');' . PHP_EOL;
+            if ($prop['converterConvert'] === true && $prop['list'] === true) {
+                $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$prop['type']]) . ');' . PHP_EOL;
+            } else {
+                $temp .= '    ' . '    ' . '    ' . '$' . $prop['name'] . ' = new ' . $this->utils->getClassName($prop['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ']' . ');' . PHP_EOL;
+            }
             $temp .= '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
             $temp .= '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($prop['name']) . ', $th));' . PHP_EOL;
             $temp .= '    ' . '    ' . '}' . PHP_EOL;
