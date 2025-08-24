@@ -32,7 +32,9 @@ final class DTOAssocGenerator
         if ($this->utils->isNotStringOrBlank($dtoName)) {
             throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
-        $dtoName = trim($dtoName);
+        if ($this->utils->stringContainsWhitespace($dtoName)) {
+            throw new \InvalidArgumentException('the (dtoName) must not contain whitespace');
+        }
 
         // validate - fromKeys
         if (!array_key_exists('fromKeys', $inputData)) {

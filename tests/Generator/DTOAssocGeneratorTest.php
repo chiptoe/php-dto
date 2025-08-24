@@ -14,7 +14,7 @@ final class DTOAssocGeneratorTest extends TestCase
     public function test_happy(): void
     {
         $inputData = [
-            'dtoName' => '  Topic  ',
+            'dtoName' => 'Topic',
             'fromKeys' => [
                 'id',
                 'parentId',
@@ -56,6 +56,12 @@ final class DTOAssocGeneratorTest extends TestCase
                     'dtoName' => '    '
                 ],
                 'expectedMessage' => 'the (dtoName) must be string and filled',
+            ],
+            [
+                'inputData' => [
+                    'dtoName' => '  Topic  ',
+                ],
+                'expectedMessage' => 'the (dtoName) must not contain whitespace',
             ],
         ];
     }
