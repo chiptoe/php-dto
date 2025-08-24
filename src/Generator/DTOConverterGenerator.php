@@ -102,6 +102,9 @@ final class DTOConverterGenerator
 
         $temp = '';
 
+        $temp .= '    ' . '/**' . PHP_EOL;
+        $temp .= '    ' . ' * ' . '@inheritdoc' . PHP_EOL;
+        $temp .= '    ' . ' */' . PHP_EOL;
         $temp .= '    ' . 'public function convert(mixed ' . $inputVarName . '): ' . $classNameDTO . PHP_EOL;
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . '$this->utils->checkInputData(' . $classNameDTOAssoc . '::getKeys()' . ', ' . $inputVarName . ');' . PHP_EOL;
