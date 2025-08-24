@@ -110,6 +110,8 @@ class Utils
     }
 
     /**
+     * checks for any Unicode whitespace
+     * 
      * @return int|false 1 - match, 0 - no match, false - error
      */
     public function stringContainsWhitespace(string $value): int|false
