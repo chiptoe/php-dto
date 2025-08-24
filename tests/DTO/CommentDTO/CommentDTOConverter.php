@@ -17,9 +17,12 @@ use Tests\DTO\IConverter;
 final class CommentDTOConverter implements IConverter
 {
     public function __construct(
-        private Utils $utils
+        private Utils $utils,
     ) {}
 
+    /**
+     * @inheritdoc
+     */
     public function convert(mixed $inputData): CommentDTO
     {
         $this->utils->checkInputData(CommentDTOAssoc::getKeys(), $inputData);
