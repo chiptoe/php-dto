@@ -110,6 +110,14 @@ class Utils
     }
 
     /**
+     * @return int|false 1 - match, 0 - no match, false - error
+     */
+    public function stringContainsWhitespace(string $value): int|false
+    {
+        return preg_match('/\s/u', $value);
+    }
+
+    /**
      * @template T
      *
      * @param IConverter<T> $converter
