@@ -22,6 +22,9 @@ final class TopicDTOConverter implements IConverter
         private Utils $utils,
     ) {}
 
+    /**
+     * @inheritdoc
+     */
     public function convert(mixed $inputData): TopicDTO
     {
         $this->utils->checkInputData(TopicDTOAssoc::getKeys(), $inputData);
