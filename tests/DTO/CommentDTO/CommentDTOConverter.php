@@ -8,7 +8,6 @@ use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
-use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\IConverter;
 
 /**
@@ -34,10 +33,13 @@ final class CommentDTOConverter implements IConverter
             $e->add(new PropertyTypeException(CommentDTOAssoc::ID, $th));
         }
 
-        try {
-            $parentId = new PositiveIntNullable($inputData[CommentDTOAssoc::PARENT_ID]);
-        } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(CommentDTOAssoc::PARENT_ID, $th));
+        $parentId = null;
+        if ($inputData[CommentDTOAssoc::PARENT_ID] !== null) {
+            try {
+                $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID]);
+            } catch (\Throwable $th) {
+                $e->add(new PropertyTypeException(CommentDTOAssoc::PARENT_ID, $th));
+            }
         }
 
         if ($e->hasSomeExceptions()) {

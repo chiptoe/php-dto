@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\DTO\TopicDTO;
+namespace Tests\DTO\CommentDTO;
 
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
