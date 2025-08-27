@@ -113,7 +113,7 @@ final class DTOGenerator
 
         if ($isNullable) {
             $temp .= '    ' . '    ' . 'if ($this->' . $propertyName . ' === ' . 'null' . ') {' . PHP_EOL;
-            $temp .= '    ' . '    ' . 'return ' . 'null' . ';' . PHP_EOL;
+            $temp .= '    ' . '    ' . '    ' . 'return ' . 'null' . ';' . PHP_EOL;
             $temp .= '    ' . '    ' . '}' . PHP_EOL;
         }
 
