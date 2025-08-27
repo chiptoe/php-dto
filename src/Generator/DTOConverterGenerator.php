@@ -132,6 +132,11 @@ final class DTOConverterGenerator
             $tryCatchLines[] = '    ' . '    ' . '}' . PHP_EOL;
             $tryCatchLines[] = PHP_EOL;
 
+            if ($isNullable) {
+                $temp .= '    ' . '    ' . '$' . $property['name'] . ' = ' . 'null' . ';' . PHP_EOL;
+                $temp .= '    ' . '    ' . 'if (' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ' !== ' . 'null' . ') {' . PHP_EOL;
+            }
+
             foreach ($tryCatchLines as $tryCatchLine) {
                 if ($isNullable) {
                     $temp .= '    ' . $tryCatchLine;
