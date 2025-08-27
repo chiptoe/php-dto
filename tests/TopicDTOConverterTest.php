@@ -82,6 +82,8 @@ final class TopicDTOConverterTest extends TestCase
 
         self::assertSame($inputData['parentId'], $topicDTO->getParentId()->value);
         self::assertSame($inputData['id'], $topicDTO->getId()->value);
+
+        self::assertSame(count($inputData['comments']), count($topicDTO->getComments()));
         foreach ($inputData['comments'] as $index => $inputDataComment) {
             self::assertSame($inputDataComment['parentId'], $topicDTO->getComments()[$index]->getParentId()->value);
             self::assertSame($inputDataComment['id'], $topicDTO->getComments()[$index]->getId()->value);
