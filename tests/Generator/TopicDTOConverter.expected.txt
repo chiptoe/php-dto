@@ -36,10 +36,13 @@ final class TopicDTOConverter implements IConverter
             $e->add(new PropertyTypeException(TopicDTOAssoc::ID, $th));
         }
 
-        try {
-            $parentId = new PositiveIntNullable($inputData[TopicDTOAssoc::PARENT_ID]);
-        } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
+        $parentId = null;
+        if ($inputData[TopicDTOAssoc::PARENT_ID] !== null) {
+            try {
+                $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID]);
+            } catch (\Throwable $th) {
+                $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
+            }
         }
 
         try {

@@ -13,7 +13,7 @@ final class TopicDTO
 {
     private PositiveInt $id;
 
-    private PositiveIntNullable $parentId;
+    private PositiveInt|null $parentId;
 
     /**
      * @var list<CommentDTO>
@@ -44,8 +44,12 @@ final class TopicDTO
     /**
      * @throws AccessToUninitialisedPropertyException
      */
-    public function getParentId(): PositiveIntNullable
+    public function getParentId(): PositiveInt|null
     {
+        if ($this->parentId === null) {
+            return null;
+        }
+
         if (!isset($this->parentId)) {
             throw new AccessToUninitialisedPropertyException();
         }
@@ -53,7 +57,7 @@ final class TopicDTO
         return $this->parentId;
     }
 
-    public function setParentId(PositiveIntNullable $parentId): self
+    public function setParentId(PositiveInt|null $parentId): self
     {
         $this->parentId = $parentId;
 
