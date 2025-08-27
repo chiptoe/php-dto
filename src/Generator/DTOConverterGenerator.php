@@ -133,7 +133,11 @@ final class DTOConverterGenerator
             $tryCatchLines[] = PHP_EOL;
 
             foreach ($tryCatchLines as $tryCatchLine) {
-                $temp .= $tryCatchLine;
+                if ($isNullable) {
+                    $temp .= '    ' . $tryCatchLine;
+                } else {
+                    $temp .= $tryCatchLine;
+                }
             }
         }
 
