@@ -10,5 +10,7 @@ todo: AggregateException is too generic, maybe add DTOConversionAggregateExcepti
 
 todo: refactor obtaining $isConverterConvert; $isList; $isNullable to own method.
 
+todo: split Utils by where are the methods used, e.g. GeneratorUtils, StringUtils, etc.
+
 todo: support nullable for array property in DTO, e.g. 3rd party rest-api can return comments: null so you want property to be array|null.
 
