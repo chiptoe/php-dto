@@ -113,10 +113,10 @@ final class DTOConverterGenerator
 
         foreach ($properties as $property) {
             $converterConvert = $property['converterConvert'] ?? null;
-            $list = $property['list'] ?? null;
+            $isList = $property['list'] ?? null;
 
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
-            if ($converterConvert === true && $list === true) {
+            if ($converterConvert === true && $isList === true) {
                 $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
             }
             else if ($converterConvert === true) {
