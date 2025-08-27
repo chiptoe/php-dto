@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Tests\DTO\CommentDTO;
+namespace Tests\DTO\TopicDTO;
 
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
-use Project\ValueObject\PositiveIntNullable;
 
 final class CommentDTO
 {
     private PositiveInt $id;
 
-    private PositiveIntNullable $parentId;
+    private PositiveInt|null $parentId;
 
+    /**
+     * @throws AccessToUninitialisedPropertyException
+     */
     public function getId(): PositiveInt
     {
         if (!isset($this->id)) {
@@ -30,8 +32,15 @@ final class CommentDTO
         return $this;
     }
 
-    public function getParentId(): PositiveIntNullable
+    /**
+     * @throws AccessToUninitialisedPropertyException
+     */
+    public function getParentId(): PositiveInt|null
     {
+        if ($this->parentId === null) {
+            return null;
+        }
+
         if (!isset($this->parentId)) {
             throw new AccessToUninitialisedPropertyException();
         }
@@ -39,7 +48,7 @@ final class CommentDTO
         return $this->parentId;
     }
 
-    public function setParentId(PositiveIntNullable $parentId): self
+    public function setParentId(PositiveInt|null $parentId): self
     {
         $this->parentId = $parentId;
 
