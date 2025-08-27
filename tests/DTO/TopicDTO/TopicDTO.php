@@ -6,7 +6,6 @@ namespace Tests\DTO\TopicDTO;
 
 use Project\Exceptions\AccessToUninitialisedPropertyException;
 use Project\ValueObject\PositiveInt;
-use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTO;
 
 final class TopicDTO

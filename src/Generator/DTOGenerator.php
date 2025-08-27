@@ -45,7 +45,12 @@ final class DTOGenerator
                 $temp .= '    ' . ' */' . PHP_EOL;
                 $temp .= '    ' . 'private ' . 'array' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
             } else {
-                $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+                $isNullable = $property['nullable'] ?? false;
+                if ($isNullable) {
+                    $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . '|' . 'null' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+                } else {
+                    $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+                }
             }
         }
 
@@ -55,11 +60,13 @@ final class DTOGenerator
             }
 
             $isList = $property['list'] ?? false;
+            $isNullable = $property['nullable'] ?? false;
 
             $temp .= $this->getGetter(
                 $property['name'],
                 $property['type'],
                 $isList,
+                $isNullable,
                 $this->utils->getClassName($accessExceptionClass),
             );
 
@@ -81,6 +88,7 @@ final class DTOGenerator
         string $propertyName,
         string $propertyType,
         bool $isList,
+        bool $isNullable,
         string $accessExceptionClassName,
     ): string {
         $temp = '';
@@ -95,9 +103,20 @@ final class DTOGenerator
         if ($isList) {
             $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . 'array' . PHP_EOL;
         } else {
-            $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+            if ($isNullable) {
+                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . '|' . 'null' . PHP_EOL;
+            } else {
+                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+            }
         }
         $temp .= '    ' . '{' . PHP_EOL;
+
+        if ($isNullable) {
+            $temp .= '    ' . '    ' . 'if ($this->' . $propertyName . ' === null) {' . PHP_EOL;
+
+            $temp .= '    ' . '    ' . '}' . PHP_EOL;
+        }
+
         $temp .= '    ' . '    ' . 'if (!isset($this->' . $propertyName . ')) {' . PHP_EOL;
         $temp .= '    ' . '    ' . '    ' . 'throw new ' . $accessExceptionClassName . '();' . PHP_EOL;
         $temp .= '    ' . '    ' . '}' . PHP_EOL;
