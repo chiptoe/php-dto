@@ -80,17 +80,17 @@ final class TopicDTOConverterTest extends TestCase
 
         $topicDTO = $service->convert($inputData);
 
-        self::assertSame($inputData['parentId'], $topicDTO->getParentId()->value);
         self::assertSame($inputData['id'], $topicDTO->getId()->value);
+        self::assertSame($inputData['parentId'], $topicDTO->getParentId()?->value);
 
         self::assertSame(count($inputData['comments']), count($topicDTO->getComments()));
         foreach ($inputData['comments'] as $index => $inputDataComment) {
-            self::assertSame($inputDataComment['parentId'], $topicDTO->getComments()[$index]->getParentId()->value);
             self::assertSame($inputDataComment['id'], $topicDTO->getComments()[$index]->getId()->value);
+            self::assertSame($inputDataComment['parentId'], $topicDTO->getComments()[$index]->getParentId()?->value);
         }
 
         self::assertSame($inputData['commentRoot']['id'], $topicDTO->getCommentRoot()->getId()->value);
-        self::assertSame($inputData['commentRoot']['parentId'], $topicDTO->getCommentRoot()->getParentId()->value);
+        self::assertSame($inputData['commentRoot']['parentId'], $topicDTO->getCommentRoot()->getParentId()?->value);
     }
 
     public function test_it_must_throw_if_input_data_is_not_array(): void
