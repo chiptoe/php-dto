@@ -11,4 +11,5 @@ todo: test for: $commentDTOs = $this->utils->convertList($inputData, TopicDTOAss
 
 todo: refactor obtaining $isConverterConvert; $isList; $isNullable to own method.
 
-todo: support nullable for array property in DTO.
+todo: support nullable for array property in DTO, e.g. 3rd party rest-api can return comments: null so you want property to be array|null.
+
