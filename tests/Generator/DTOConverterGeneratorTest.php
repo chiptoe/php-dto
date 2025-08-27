@@ -24,7 +24,8 @@ final class DTOConverterGeneratorTest extends TestCase
                 ],
                 [
                     'name' => 'parentId',
-                    'type' => PositiveIntNullable::class,
+                    'type' => PositiveInt::class,
+                    'nullable' => true,
                 ],
                 [
                     'name' => 'comments',

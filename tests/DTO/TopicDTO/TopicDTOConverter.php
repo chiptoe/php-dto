@@ -8,7 +8,6 @@ use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\PropertyTypeException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
-use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\IConverter;
 
