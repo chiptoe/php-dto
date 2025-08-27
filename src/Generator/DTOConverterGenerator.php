@@ -112,16 +112,16 @@ final class DTOConverterGenerator
         $temp .= '    ' . '    ' . '$e = new AggregateException(' . '__CLASS__' . ');' . PHP_EOL;
 
         foreach ($properties as $property) {
-            $converterConvert = $property['converterConvert'] ?? null;
+            $isConverterConvert = $property['converterConvert'] ?? null;
             $isList = $property['list'] ?? null;
             $isNullable = $property['nullable'] ?? null;
 
             $tryCatchLines = [];
             $tryCatchLines[] = '    ' . '    ' . 'try {' . PHP_EOL;
-            if ($converterConvert === true && $isList === true) {
+            if ($isConverterConvert === true && $isList === true) {
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
             }
-            else if ($converterConvert === true) {
+            else if ($isConverterConvert === true) {
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
             else {
