@@ -76,6 +76,7 @@ final class DTOGenerator
                 $property['name'],
                 $property['type'],
                 $isList,
+                $isNullable,
             );
         }
 
@@ -115,6 +116,7 @@ final class DTOGenerator
             $temp .= '    ' . '    ' . 'if ($this->' . $propertyName . ' === ' . 'null' . ') {' . PHP_EOL;
             $temp .= '    ' . '    ' . '    ' . 'return ' . 'null' . ';' . PHP_EOL;
             $temp .= '    ' . '    ' . '}' . PHP_EOL;
+            $temp .= PHP_EOL;
         }
 
         $temp .= '    ' . '    ' . 'if (!isset($this->' . $propertyName . ')) {' . PHP_EOL;
@@ -131,6 +133,7 @@ final class DTOGenerator
         string $propertyName,
         string $propertyType,
         bool $isList,
+        bool $isNullable,
     ): string {
         $temp = '';
         if ($isList) {
@@ -139,7 +142,11 @@ final class DTOGenerator
             $temp .= '    ' . ' */' . PHP_EOL;
             $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . 'array' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
         } else {
-            $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+            if ($isNullable) {
+                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . '|' . 'null' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+            } else {
+                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+            }
         }
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . '$this->' . $propertyName . ' = $' . $propertyName . ';' . PHP_EOL;
