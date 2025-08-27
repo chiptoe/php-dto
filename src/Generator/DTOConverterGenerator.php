@@ -114,6 +114,7 @@ final class DTOConverterGenerator
         foreach ($properties as $property) {
             $converterConvert = $property['converterConvert'] ?? null;
             $isList = $property['list'] ?? null;
+            $isNullable = $property['nullable'] ?? null;
 
             $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
             if ($converterConvert === true && $isList === true) {
