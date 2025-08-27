@@ -116,20 +116,21 @@ final class DTOConverterGenerator
             $isList = $property['list'] ?? null;
             $isNullable = $property['nullable'] ?? null;
 
-            $temp .= '    ' . '    ' . 'try {' . PHP_EOL;
+            $tryCatch = [];
+            $tryCatch[] = '    ' . '    ' . 'try {' . PHP_EOL;
             if ($converterConvert === true && $isList === true) {
-                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
+                $tryCatch[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
             }
             else if ($converterConvert === true) {
-                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
+                $tryCatch[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
             else {
-                $temp .= '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
+                $tryCatch[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
-            $temp .= '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
-            $temp .= '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
-            $temp .= '    ' . '    ' . '}' . PHP_EOL;
-            $temp .= PHP_EOL;
+            $tryCatch[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
+            $tryCatch[] = '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
+            $tryCatch[] = '    ' . '    ' . '}' . PHP_EOL;
+            $tryCatch[] = PHP_EOL;
         }
 
         $temp .= '    ' . '    ' . 'if ($e->hasSomeExceptions()) {' . PHP_EOL;
