@@ -4,9 +4,6 @@ todo: input data validation + comments + phpdoc - DTOConverterGenerator
 todo: input data validation - DTOGenerator          [test]
 todo: input data validation - DTOConverterGenerator [test]
 
-todo: PositiveInt         [test]
-todo: PositiveIntNullable [test]
-
 todo: test for: $commentDTOs = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
 
 todo: refactor obtaining $isConverterConvert; $isList; $isNullable to own method.

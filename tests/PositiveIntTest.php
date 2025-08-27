@@ -29,7 +29,7 @@ final class PositiveIntTest extends TestCase
     #[DataProvider('provider_happy')]
     public function test_happy(
         mixed $value,
-        mixed $expectedValue,    
+        mixed $expectedValue,
     ): void
     {
         $positiveInt = new PositiveInt($value);
