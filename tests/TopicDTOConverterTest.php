@@ -334,9 +334,10 @@ final class TopicDTOConverterTest extends TestCase
             if ($eLevel0 instanceof AggregateException) {
                 self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
             
-                foreach ($eLevel0->getExceptions() as $eLevel0_exceptions) {
-                    # code...
-                }
+                $eFirst = $eLevel0->getExceptions()[0];
+                self::assertInstanceOf(PropertyTypeException::class, $eFirst);
+                /** @var PropertyTypeException $eFirst */
+                self::assertSame(xxxxxxxxxx, $eFirst->invalidPropertyName)
             }
         }
     }
