@@ -292,8 +292,8 @@ final class TopicDTOConverterTest extends TestCase
 
         $expectedException = [
             [
-                'class' => AggregateException::class,
-                'atClass' => TopicDTOConverter::class,
+                // [done] 'class' => AggregateException::class,
+                // [done] 'atClass' => TopicDTOConverter::class,
                 'exceptions' => [
                     'class' => PropertyTypeException::class,
                     'invalidPropertyName' => 'comments',
@@ -333,6 +333,10 @@ final class TopicDTOConverterTest extends TestCase
             self::assertInstanceOf(AggregateException::class, $eLevel0);
             if ($eLevel0 instanceof AggregateException) {
                 self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+            
+                foreach ($eLevel0->getExceptions() as $eLevel0_exceptions) {
+                    # code...
+                }
             }
         }
     }
