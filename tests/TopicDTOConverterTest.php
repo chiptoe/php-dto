@@ -295,8 +295,8 @@ final class TopicDTOConverterTest extends TestCase
                 // [done] 'class' => AggregateException::class,
                 // [done] 'atClass' => TopicDTOConverter::class,
                 'exceptions' => [
-                    'class' => PropertyTypeException::class,
-                    'invalidPropertyName' => 'comments',
+                    // [done] 'class' => PropertyTypeException::class,
+                    // [done] 'invalidPropertyName' => 'comments',
                     'message' => 'Invalid type of property (comments).',
                     'previous' => [
                         'class' => AggregateException::class,
