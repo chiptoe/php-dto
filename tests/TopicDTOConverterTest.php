@@ -326,18 +326,20 @@ final class TopicDTOConverterTest extends TestCase
             $service->convert($inputData);
             self::fail('it must throw');
         } catch (\Throwable $eLevel0) {
-            self::assertSame(AggregateException::class, $eLevel0::class);
-            /** @var AggregateException $eLevel0 */
-            self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+            self::assertInstanceOf(AggregateException::class, $eLevel0);
+            if ($eLevel0 instanceof AggregateException) {
+                self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+    
+                $eFirst = $eLevel0->getExceptions()[0];
+                self::assertInstanceOf(PropertyTypeException::class, $eFirst);
+                if ($eFirst instanceof PropertyTypeException) {
+                    self::assertSame('comments', $eFirst->invalidPropertyName);
+                    self::assertSame('Invalid type of property (comments).', $eFirst->getMessage());
+        
+                    self::assertSame(AggregateException::class, $eFirst->getPrevious()::class);
+                }
 
-            $eFirst = $eLevel0->getExceptions()[0];
-
-            self::assertSame(PropertyTypeException::class, $eFirst::class);
-            /** @var PropertyTypeException $eFirst */
-            self::assertSame('comments', $eFirst->invalidPropertyName);
-            self::assertSame('Invalid type of property (comments).', $eFirst->getMessage());
-
-            self::assertSame(AggregateException::class, $eFirst->getPrevious()::class);
+            }
         }
     }
 }
