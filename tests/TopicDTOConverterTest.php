@@ -328,7 +328,7 @@ final class TopicDTOConverterTest extends TestCase
         } catch (\Throwable $eLevel0) {
             self::assertInstanceOf(AggregateException::class, $eLevel0);
             if ($eLevel0 instanceof AggregateException) {
-                self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+                self::assertSame(TopicDTOConverter::class, $eLevel0->getAtClass());
     
                 $eFirst = $eLevel0->getExceptions()[0];
                 self::assertInstanceOf(PropertyTypeException::class, $eFirst);
@@ -339,7 +339,7 @@ final class TopicDTOConverterTest extends TestCase
                     $eFirstPrev = $eFirst->getPrevious();
                     self::assertInstanceOf(AggregateException::class, $eFirstPrev);
                     if ($eFirstPrev instanceof AggregateException) {
-                        self::assertSame(TopicDTOConverter::class, $eFirstPrev->getClassName());
+                        self::assertSame(TopicDTOConverter::class, $eFirstPrev->getAtClass());
 
                     }
                 }

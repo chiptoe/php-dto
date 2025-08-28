@@ -11,7 +11,7 @@ class AggregateException extends BaseException
      * @param list<BaseException> $exceptions
      */
     public function __construct(
-        private string $className,
+        private string $atClass,
         private array $exceptions = [],
         \Throwable|null $previous = null,
         string $message = '',
@@ -39,12 +39,12 @@ class AggregateException extends BaseException
         return $this->exceptions;
     }
 
-    public function getClassName(): string
+    public function getAtClass(): string
     {
-        if (!isset($this->className)) {
+        if (!isset($this->atClass)) {
             throw new AccessToUninitialisedPropertyException();
         }
 
-        return $this->className;
+        return $this->atClass;
     }
 }
