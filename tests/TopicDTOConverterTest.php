@@ -276,51 +276,53 @@ final class TopicDTOConverterTest extends TestCase
         }
     }
 
+    public function test_invalid_nested_comments()
+    {
+        $inputData = [
+            'id' => 3,
+            'parentId' => 4,
+            ...self::VALID_COMMENT_ROOT,
+            'comments' => [
+                [
+                    'id' => 3,
+                    'parentId' => -4,
+                ]
+            ],
+        ];
 
-    // 'inputData' => [
-    //     'id' => 3,
-    //     'parentId' => 4,
-    //     'comments' => [
-    //         [
-    //             'id' => 3,
-    //             'parentId' => -4,
-    //         ]
-    //     ],
-    //     ...self::VALID_COMMENT_ROOT,
-    // ],
-    // 'expectedNestedExceptionsCount' => 1,
-    // 'expectedException' => [
-    //     [
-    //         'class' => AggregateException::class,
-    //         'atClass' => TopicDTOConverter::class,
-    //         'exceptions' => [
-    //             'class' => PropertyTypeException::class,
-    //             'invalidPropertyName' => 'comments',
-    //             'message' => 'Invalid type of property (comments).',
-    //             'previous' => [
-    //                 'class' => AggregateException::class,
-    //                 'atClass' => TopicDTOConverter::class,
-    //                 'exceptions' => [
-    //                     'class' => InvalidNestedItemException::class,
-    //                     'invalidPropertyName' => 'comments',
-    //                     'nestedIndex' => 0,
-    //                     'message' => 'Invalid nested item (comments:0).',
-    //                     'previous' => [
-    //                         'class' => AggregateException::class,
-    //                         'atClass' => TopicDTOConverter::class,
-    //                         'exceptions' => [
-    //                             'class' => PropertyTypeException::class,
-    //                             'invalidPropertyName' => 'parentId',
-    //                             'message' => 'Invalid type of property (parentId).',
-    //                             'previous' => [
-    //                                 'class' => \InvalidArgumentException::class,
-    //                                 'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
-    //                             ],
-    //                         ],
-    //                     ],
-    //                 ],
-    //             ],
-    //         ],
-    //     ]
-    // ],
+        $expectedException = [
+            [
+                'class' => AggregateException::class,
+                'atClass' => TopicDTOConverter::class,
+                'exceptions' => [
+                    'class' => PropertyTypeException::class,
+                    'invalidPropertyName' => 'comments',
+                    'message' => 'Invalid type of property (comments).',
+                    'previous' => [
+                        'class' => AggregateException::class,
+                        'atClass' => TopicDTOConverter::class,
+                        'exceptions' => [
+                            'class' => InvalidNestedItemException::class,
+                            'invalidPropertyName' => 'comments',
+                            'nestedIndex' => 0,
+                            'message' => 'Invalid nested item (comments:0).',
+                            'previous' => [
+                                'class' => AggregateException::class,
+                                'atClass' => TopicDTOConverter::class,
+                                'exceptions' => [
+                                    'class' => PropertyTypeException::class,
+                                    'invalidPropertyName' => 'parentId',
+                                    'message' => 'Invalid type of property (parentId).',
+                                    'previous' => [
+                                        'class' => \InvalidArgumentException::class,
+                                        'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        ];
+    }
 }
