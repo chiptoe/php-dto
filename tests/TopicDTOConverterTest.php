@@ -293,12 +293,9 @@ final class TopicDTOConverterTest extends TestCase
         $expectedException = [
             [
                 'exceptions' => [
-                    // [done] 'message' => 'Invalid type of property (comments).',
                     'previous' => [
-                        // [done] 'class' => AggregateException::class,
-                        // [done] 'atClass' => TopicDTOConverter::class,
                         'exceptions' => [
-                            'class' => InvalidNestedItemException::class,
+                            // [done] 'class' => InvalidNestedItemException::class,
                             'invalidPropertyName' => 'comments',
                             'nestedIndex' => 0,
                             'message' => 'Invalid nested item (comments:0).',
