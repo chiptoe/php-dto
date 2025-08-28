@@ -337,7 +337,7 @@ final class TopicDTOConverterTest extends TestCase
             self::assertSame('comments', $eFirst->invalidPropertyName);
             self::assertSame('Invalid type of property (comments).', $eFirst->getMessage());
 
-            self::assertInstanceOf(AggregateException::class, $eFirst->getPrevious()::class);
+            self::assertInstanceOf(AggregateException::class, $eFirst->getPrevious());
         }
     }
 }
