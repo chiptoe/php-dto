@@ -339,6 +339,7 @@ final class TopicDTOConverterTest extends TestCase
                     $eFirstPrev = $eFirst->getPrevious();
                     self::assertInstanceOf(AggregateException::class, $eFirstPrev);
                     if ($eFirstPrev instanceof AggregateException) {
+                        self::assertSame(TopicDTOConverter::class, $eFirstPrev->getClassName());
 
                     }
                 }
