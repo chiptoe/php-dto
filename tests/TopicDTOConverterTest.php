@@ -298,7 +298,7 @@ final class TopicDTOConverterTest extends TestCase
                             // [done] 'message' => 'Invalid nested item (comments:0).',
                             'previous' => [
                                 'class' => AggregateException::class,
-                                'atClass' => TopicDTOConverter::class,
+                                'atClass' => CommentDTOConverter::class,
                                 'exceptions' => [
                                     'class' => PropertyTypeException::class,
                                     'invalidPropertyName' => 'parentId',
