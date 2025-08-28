@@ -329,9 +329,11 @@ final class TopicDTOConverterTest extends TestCase
             $service = $this->service;
             $service->convert($inputData);
             self::fail('it must throw');
-        } catch (\Throwable $eRoot) {
-            self::assertInstanceOf(AggregateException::class, $eRoot);
-
+        } catch (\Throwable $eLevel0) {
+            self::assertInstanceOf(AggregateException::class, $eLevel0);
+            if ($eLevel0 instanceof AggregateException) {
+                self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+            }
         }
     }
 }
