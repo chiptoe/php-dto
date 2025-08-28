@@ -297,7 +297,7 @@ final class TopicDTOConverterTest extends TestCase
                         'exceptions' => [
                             // [done] 'class' => InvalidNestedItemException::class,
                             // [done] 'invalidPropertyName' => 'comments',
-                            'nestedIndex' => 0,
+                            // [done] 'nestedIndex' => 0,
                             'message' => 'Invalid nested item (comments:0).',
                             'previous' => [
                                 'class' => AggregateException::class,
@@ -342,6 +342,7 @@ final class TopicDTOConverterTest extends TestCase
                         self::assertInstanceOf(InvalidNestedItemException::class, $eFirstPrevFirstException);
                         if ($eFirstPrevFirstException instanceof InvalidNestedItemException) {
                             self::assertSame('comments', $eFirstPrevFirstException->invalidPropertyName);
+                            self::assertSame(0, $eFirstPrevFirstException->nestedIndex);
 
 
 
