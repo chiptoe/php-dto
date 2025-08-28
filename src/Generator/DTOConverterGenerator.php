@@ -30,7 +30,7 @@ final class DTOConverterGenerator
             'Project\DTOConverter\PropertyTypeException',
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
-            ...array_map(function($property) use (&$concreteConverterClassNames) {
+            ...array_map(function ($property) use (&$concreteConverterClassNames) {
                 $converterConvert = $property['converterConvert'] ?? null;
                 if ($converterConvert) {
                     $concreteConverterClassFqcn = $property['type'] . 'Converter';
@@ -119,12 +119,10 @@ final class DTOConverterGenerator
             $tryCatchLines = [];
             $tryCatchLines[] = '    ' . '    ' . 'try {' . PHP_EOL;
             if ($isConverterConvert === true && $isList === true) {
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ');' . PHP_EOL;
-            }
-            else if ($isConverterConvert === true) {
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ', ' . '__CLASS__' . ');' . PHP_EOL;
+            } else if ($isConverterConvert === true) {
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
-            }
-            else {
+            } else {
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
             $tryCatchLines[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
