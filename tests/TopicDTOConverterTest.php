@@ -332,12 +332,9 @@ final class TopicDTOConverterTest extends TestCase
         } catch (\Throwable $eLevel0) {
             if (!($eLevel0 instanceof AggregateException)) {
                 self::fail();
+                return;
             }
-
-            self::assertInstanceOf(AggregateException::class, $eLevel0);
-            if ($eLevel0 instanceof AggregateException) {
-                self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
-            }
+            self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
         }
     }
 }
