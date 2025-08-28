@@ -169,58 +169,58 @@ final class TopicDTOConverterTest extends TestCase
     public static function provider_it_must_throw_if_property_has_wrong_type(): array
     {
         return [
-            // [
-            //     'inputData' => [
-            //         'id' => -3,
-            //         'parentId' => -5,
-            //         'comments' => [],
-            //         ...self::VALID_COMMENT_ROOT,
-            //     ],
-            //     'expectedNestedExceptionsCount' => 2,
-            //     'expectedInvalidProperties' =>  [
-            //         'id',
-            //         'parentId',
-            //     ],
-            // ],
-            // [
-            //     'inputData' => [
-            //         'id' => null,
-            //         'parentId' => 0,
-            //         'comments' => [],
-            //         ...self::VALID_COMMENT_ROOT,
-            //     ],
-            //     'expectedNestedExceptionsCount' => 2,
-            //     'expectedInvalidProperties' =>  [
-            //         'id',
-            //         'parentId',
-            //     ],
-            // ],
-            // [
-            //     'inputData' => [
-            //         'id' => 'aaa',
-            //         'parentId' => 'bbb',
-            //         'comments' => [],
-            //         ...self::VALID_COMMENT_ROOT,
-            //     ],
-            //     'expectedNestedExceptionsCount' => 2,
-            //     'expectedInvalidProperties' =>  [
-            //         'id',
-            //         'parentId',
-            //     ],
-            // ],
-            // [
-            //     'inputData' => [
-            //         'id' => 3,
-            //         'parentId' => 'bbb',
-            //         'comments' => [],
-            //         ...self::VALID_COMMENT_ROOT,
-            //     ],
-            //     'expectedNestedExceptionsCount' => 1,
-            //     'expectedInvalidProperties' =>  [
-            //         // 'id',
-            //         'parentId',
-            //     ],
-            // ],
+            [
+                'inputData' => [
+                    'id' => -3,
+                    'parentId' => -5,
+                    'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+            [
+                'inputData' => [
+                    'id' => null,
+                    'parentId' => 0,
+                    'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+            [
+                'inputData' => [
+                    'id' => 'aaa',
+                    'parentId' => 'bbb',
+                    'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
+                ],
+                'expectedNestedExceptionsCount' => 2,
+                'expectedInvalidProperties' =>  [
+                    'id',
+                    'parentId',
+                ],
+            ],
+            [
+                'inputData' => [
+                    'id' => 3,
+                    'parentId' => 'bbb',
+                    'comments' => [],
+                    ...self::VALID_COMMENT_ROOT,
+                ],
+                'expectedNestedExceptionsCount' => 1,
+                'expectedInvalidProperties' =>  [
+                    // 'id',
+                    'parentId',
+                ],
+            ],
             [
                 'inputData' => [
                     'id' => 3,
@@ -234,40 +234,6 @@ final class TopicDTOConverterTest extends TestCase
                     ...self::VALID_COMMENT_ROOT,
                 ],
                 'expectedNestedExceptionsCount' => 1,
-                'expectedException' => [
-                    [
-                        'class' => AggregateException::class,
-                        'atClass' => TopicDTOConverter::class,
-                        'exceptions' => [
-                            'class' => PropertyTypeException::class,
-                            'invalidPropertyName' => 'comments',
-                            'message' => 'Invalid type of property (comments).',
-                            'previous' => [
-                                'class' => AggregateException::class,
-                                'atClass' => TopicDTOConverter::class,
-                                'exceptions' => [
-                                    'class' => InvalidNestedItemException::class,
-                                    'invalidPropertyName' => 'comments',
-                                    'nestedIndex' => 0,
-                                    'message' => 'Invalid nested item (comments:0).',
-                                    'previous' => [
-                                        'class' => AggregateException::class,
-                                        'atClass' => TopicDTOConverter::class,
-                                        'exceptions' => [
-                                            'class' => PropertyTypeException::class,
-                                            'invalidPropertyName' => 'parentId',
-                                            'message' => 'Invalid type of property (parentId).',
-                                            'previous' => [
-                                                'class' => \InvalidArgumentException::class,
-                                                'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ]
-                ],
                 'expectedInvalidProperties' =>  [
                     // 'id',
                     // 'parentId',
@@ -309,4 +275,52 @@ final class TopicDTOConverterTest extends TestCase
             throw $e;
         }
     }
+
+
+    // 'inputData' => [
+    //     'id' => 3,
+    //     'parentId' => 4,
+    //     'comments' => [
+    //         [
+    //             'id' => 3,
+    //             'parentId' => -4,
+    //         ]
+    //     ],
+    //     ...self::VALID_COMMENT_ROOT,
+    // ],
+    // 'expectedNestedExceptionsCount' => 1,
+    // 'expectedException' => [
+    //     [
+    //         'class' => AggregateException::class,
+    //         'atClass' => TopicDTOConverter::class,
+    //         'exceptions' => [
+    //             'class' => PropertyTypeException::class,
+    //             'invalidPropertyName' => 'comments',
+    //             'message' => 'Invalid type of property (comments).',
+    //             'previous' => [
+    //                 'class' => AggregateException::class,
+    //                 'atClass' => TopicDTOConverter::class,
+    //                 'exceptions' => [
+    //                     'class' => InvalidNestedItemException::class,
+    //                     'invalidPropertyName' => 'comments',
+    //                     'nestedIndex' => 0,
+    //                     'message' => 'Invalid nested item (comments:0).',
+    //                     'previous' => [
+    //                         'class' => AggregateException::class,
+    //                         'atClass' => TopicDTOConverter::class,
+    //                         'exceptions' => [
+    //                             'class' => PropertyTypeException::class,
+    //                             'invalidPropertyName' => 'parentId',
+    //                             'message' => 'Invalid type of property (parentId).',
+    //                             'previous' => [
+    //                                 'class' => \InvalidArgumentException::class,
+    //                                 'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
+    //                             ],
+    //                         ],
+    //                     ],
+    //                 ],
+    //             ],
+    //         ],
+    //     ]
+    // ],
 }
