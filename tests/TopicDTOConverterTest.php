@@ -293,8 +293,6 @@ final class TopicDTOConverterTest extends TestCase
         $expectedException = [
             [
                 'exceptions' => [
-                    // [done] 'class' => PropertyTypeException::class,
-                    // [done] 'invalidPropertyName' => 'comments',
                     // [done] 'message' => 'Invalid type of property (comments).',
                     'previous' => [
                         'class' => AggregateException::class,
