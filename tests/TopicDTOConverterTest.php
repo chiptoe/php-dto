@@ -295,10 +295,7 @@ final class TopicDTOConverterTest extends TestCase
                 'exceptions' => [
                     'previous' => [
                         'exceptions' => [
-                            // [done] 'class' => InvalidNestedItemException::class,
-                            // [done] 'invalidPropertyName' => 'comments',
-                            // [done] 'nestedIndex' => 0,
-                            'message' => 'Invalid nested item (comments:0).',
+                            // [done] 'message' => 'Invalid nested item (comments:0).',
                             'previous' => [
                                 'class' => AggregateException::class,
                                 'atClass' => TopicDTOConverter::class,
