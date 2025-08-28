@@ -132,10 +132,11 @@ class Utils
         mixed $inputData,
         string $assocKey,
         IConverter $converter,
+        string $classNameForAggregateException,
     ): array
     {
         $temp = [];
-        $e = new AggregateException($converter::class);
+        $e = new AggregateException($classNameForAggregateException);
 
         $index = 0;
         $items = $inputData[$assocKey];
