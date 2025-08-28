@@ -254,7 +254,13 @@ final class TopicDTOConverterTest extends TestCase
                                         'class' => AggregateException::class,
                                         'atClass' => TopicDTOConverter::class,
                                         'exceptions' => [
-
+                                            'class' => PropertyTypeException::class,
+                                            'invalidPropertyName' => 'parentId',
+                                            'message' => 'Invalid type of property (parentId).',
+                                            'previous' => [
+                                                'class' => \InvalidArgumentException::class,
+                                                'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
+                                            ],
                                         ],
                                     ],
                                 ],
