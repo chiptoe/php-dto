@@ -331,14 +331,14 @@ final class TopicDTOConverterTest extends TestCase
             self::fail('it must throw');
         } catch (\Throwable $eLevel0) {
             self::assertInstanceOf(AggregateException::class, $eLevel0);
-            if ($eLevel0 instanceof AggregateException) {
-                self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
-            
-                $eFirst = $eLevel0->getExceptions()[0];
-                self::assertInstanceOf(PropertyTypeException::class, $eFirst);
-                /** @var PropertyTypeException $eFirst */
-                self::assertSame(xxxxxxxxxx, $eFirst->invalidPropertyName)
-            }
+            /** @var AggregateException $eLevel0 */
+            self::assertSame(TopicDTOConverter::class, $eLevel0->getClassName());
+
+            $eFirst = $eLevel0->getExceptions()[0];
+
+            self::assertInstanceOf(PropertyTypeException::class, $eFirst);
+            /** @var PropertyTypeException $eFirst */
+            self::assertSame('comments', $eFirst->invalidPropertyName);
         }
     }
 }
