@@ -1,3 +1,5 @@
+todo: finish test_invalid_nested_comments
+
 todo: input data validation + comments + phpdoc - DTOGenerator
 todo: input data validation + comments + phpdoc - DTOConverterGenerator
 
