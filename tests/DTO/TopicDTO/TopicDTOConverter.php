@@ -45,7 +45,7 @@ final class TopicDTOConverter implements IConverter
         }
 
         try {
-            $comments = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter);
+            $comments = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter, __CLASS__);
         } catch (\Throwable $th) {
             $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
         }
