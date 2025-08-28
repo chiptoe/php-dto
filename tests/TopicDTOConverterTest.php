@@ -295,8 +295,8 @@ final class TopicDTOConverterTest extends TestCase
                 'exceptions' => [
                     // [done] 'message' => 'Invalid type of property (comments).',
                     'previous' => [
-                        'class' => AggregateException::class,
-                        'atClass' => TopicDTOConverter::class,
+                        // [done] 'class' => AggregateException::class,
+                        // [done] 'atClass' => TopicDTOConverter::class,
                         'exceptions' => [
                             'class' => InvalidNestedItemException::class,
                             'invalidPropertyName' => 'comments',
@@ -339,6 +339,7 @@ final class TopicDTOConverterTest extends TestCase
                     $eFirstPrev = $eFirst->getPrevious();
                     self::assertInstanceOf(AggregateException::class, $eFirstPrev);
                     if ($eFirstPrev instanceof AggregateException) {
+                        self::assertSame(TopicDTOConverter::class, $eFirstPrev->getClassName());
 
                     }
                 }
