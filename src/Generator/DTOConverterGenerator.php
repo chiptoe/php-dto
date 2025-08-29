@@ -27,7 +27,7 @@ final class DTOConverterGenerator
         $properties = $inputData['properties'];
         $useClasses = [
             'Project\DTOConverter\AggregateException',
-            'Project\DTOConverter\PropertyTypeException',
+            'Project\DTOConverter\PropertyDataException',
             'Project\DTOConverter\Utils',
             $implementsClassFqcn,
             ...array_map(function ($property) use (&$concreteConverterClassNames) {
