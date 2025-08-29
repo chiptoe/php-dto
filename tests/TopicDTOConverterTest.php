@@ -297,9 +297,7 @@ final class TopicDTOConverterTest extends TestCase
                         'exceptions' => [
                             'previous' => [
                                 'exceptions' => [
-                                    // [done] 'class' => PropertyTypeException::class,
-                                    // [done] 'invalidPropertyName' => 'parentId',
-                                    // [done] 'message' => 'Invalid type of property (parentId).',
+                                    // [done] 'message' => 'Invalid data for property (parentId).',
                                     'previous' => [
                                         'class' => \InvalidArgumentException::class,
                                         'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
