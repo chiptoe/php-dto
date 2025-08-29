@@ -325,7 +325,7 @@ final class TopicDTOConverterTest extends TestCase
                 self::assertInstanceOf(PropertyDataException::class, $eFirst);
                 if ($eFirst instanceof PropertyDataException) {
                     self::assertSame('comments', $eFirst->invalidPropertyName);
-                    self::assertSame('Invalid type of property (comments).', $eFirst->getMessage());
+                    self::assertSame('Invalid data for property (comments).', $eFirst->getMessage());
         
                     $eFirstPrev = $eFirst->getPrevious();
                     self::assertInstanceOf(AggregateException::class, $eFirstPrev);
@@ -348,7 +348,7 @@ final class TopicDTOConverterTest extends TestCase
                                 self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirstException);
                                 if ($eFirstNestedPrevFirstException instanceof PropertyDataException) {
                                     self::assertSame('parentId', $eFirstNestedPrevFirstException->invalidPropertyName);
-                                    self::assertSame('Invalid type of property (parentId).', $eFirstNestedPrevFirstException->getMessage());
+                                    self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirstException->getMessage());
 
                                 }
                             }
