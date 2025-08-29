@@ -295,14 +295,11 @@ final class TopicDTOConverterTest extends TestCase
                 'exceptions' => [
                     'previous' => [
                         'exceptions' => [
-                            // [done] 'message' => 'Invalid nested item (comments:0).',
                             'previous' => [
-                                // [done] 'class' => AggregateException::class,
-                                // [done] 'atClass' => CommentDTOConverter::class,
                                 'exceptions' => [
-                                    'class' => PropertyTypeException::class,
-                                    'invalidPropertyName' => 'parentId',
-                                    'message' => 'Invalid type of property (parentId).',
+                                    // [done] 'class' => PropertyTypeException::class,
+                                    // [done] 'invalidPropertyName' => 'parentId',
+                                    // [done] 'message' => 'Invalid type of property (parentId).',
                                     'previous' => [
                                         'class' => \InvalidArgumentException::class,
                                         'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
@@ -347,7 +344,13 @@ final class TopicDTOConverterTest extends TestCase
                             if ($eFirstNestedPrev instanceof AggregateException) {
                                 self::assertSame(CommentDTOConverter::class, $eFirstNestedPrev->getAtClass());
 
+                                $eFirstNestedPrevFirstException = $eFirstNestedPrev->getExceptions()[0];
+                                self::assertInstanceOf(PropertyTypeException::class, $eFirstNestedPrevFirstException);
+                                if ($eFirstNestedPrevFirstException instanceof PropertyTypeException) {
+                                    self::assertSame('parentId', $eFirstNestedPrevFirstException->invalidPropertyName);
+                                    self::assertSame('Invalid type of property (parentId).', $eFirstNestedPrevFirstException->getMessage());
 
+                                }
                             }
                         }
                     }
