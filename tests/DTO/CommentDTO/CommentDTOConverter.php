@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\DTO\CommentDTO;
 
 use Project\DTOConverter\AggregateException;
-use Project\DTOConverter\PropertyTypeException;
+use Project\DTOConverter\PropertyDataException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Tests\DTO\IConverter;
@@ -30,7 +30,7 @@ final class CommentDTOConverter implements IConverter
         try {
             $id = new PositiveInt($inputData[CommentDTOAssoc::ID]);
         } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(CommentDTOAssoc::ID, $th));
+            $e->add(new PropertyDataException(CommentDTOAssoc::ID, $th));
         }
 
         $parentId = null;
@@ -38,7 +38,7 @@ final class CommentDTOConverter implements IConverter
             try {
                 $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID]);
             } catch (\Throwable $th) {
-                $e->add(new PropertyTypeException(CommentDTOAssoc::PARENT_ID, $th));
+                $e->add(new PropertyDataException(CommentDTOAssoc::PARENT_ID, $th));
             }
         }
 

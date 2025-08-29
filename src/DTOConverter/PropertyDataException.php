@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Project\DTOConverter;
 
-class PropertyTypeException extends BaseException
+class PropertyDataException extends BaseException
 {
     public function __construct(
         public readonly string $invalidPropertyName,

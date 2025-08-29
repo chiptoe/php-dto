@@ -8,7 +8,7 @@ use Project\DTOConverter\AggregateException;
 use Project\DTOConverter\BaseException;
 use Project\DTOConverter\InvalidNestedItemException;
 use Project\DTOConverter\MissingKeysException;
-use Project\DTOConverter\PropertyTypeException;
+use Project\DTOConverter\PropertyDataException;
 use Project\DTOConverter\Utils;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\TopicDTO\TopicDTOConverter;
@@ -264,8 +264,8 @@ final class TopicDTOConverterTest extends TestCase
 
             foreach ($e->getExceptions() as $index => $exception) {
                 self::assertNotNull($exception->getPrevious());
-                self::assertInstanceOf(PropertyTypeException::class, $exception);
-                if ($exception instanceof PropertyTypeException) {
+                self::assertInstanceOf(PropertyDataException::class, $exception);
+                if ($exception instanceof PropertyDataException) {
                     self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
                 } else {
                     self::fail('wrong exception type');
@@ -322,8 +322,8 @@ final class TopicDTOConverterTest extends TestCase
                 self::assertSame(TopicDTOConverter::class, $eLevel0->getAtClass());
     
                 $eFirst = $eLevel0->getExceptions()[0];
-                self::assertInstanceOf(PropertyTypeException::class, $eFirst);
-                if ($eFirst instanceof PropertyTypeException) {
+                self::assertInstanceOf(PropertyDataException::class, $eFirst);
+                if ($eFirst instanceof PropertyDataException) {
                     self::assertSame('comments', $eFirst->invalidPropertyName);
                     self::assertSame('Invalid type of property (comments).', $eFirst->getMessage());
         
@@ -345,8 +345,8 @@ final class TopicDTOConverterTest extends TestCase
                                 self::assertSame(CommentDTOConverter::class, $eFirstNestedPrev->getAtClass());
 
                                 $eFirstNestedPrevFirstException = $eFirstNestedPrev->getExceptions()[0];
-                                self::assertInstanceOf(PropertyTypeException::class, $eFirstNestedPrevFirstException);
-                                if ($eFirstNestedPrevFirstException instanceof PropertyTypeException) {
+                                self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirstException);
+                                if ($eFirstNestedPrevFirstException instanceof PropertyDataException) {
                                     self::assertSame('parentId', $eFirstNestedPrevFirstException->invalidPropertyName);
                                     self::assertSame('Invalid type of property (parentId).', $eFirstNestedPrevFirstException->getMessage());
 
