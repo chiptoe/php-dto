@@ -1,5 +1,7 @@
 todo: finish test_invalid_nested_comments
 
+todo: do not use readonly properties in exceptions - use getters
+
 todo: input data validation + comments + phpdoc - DTOGenerator
 todo: input data validation + comments + phpdoc - DTOConverterGenerator
 
