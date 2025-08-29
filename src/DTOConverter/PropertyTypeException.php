@@ -11,7 +11,7 @@ class PropertyTypeException extends BaseException
         string $message = '',
     ) {
         if ($message === '') {
-            $message = 'Invalid type of property (' . $invalidPropertyName . ').';
+            $message = 'Invalid data for property (' . $invalidPropertyName . ').';
         }
 
         parent::__construct($message, 0, $previous);
