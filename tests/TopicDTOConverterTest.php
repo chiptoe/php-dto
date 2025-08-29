@@ -335,12 +335,12 @@ final class TopicDTOConverterTest extends TestCase
                     if ($eFirstPrev instanceof AggregateException) {
                         self::assertSame(TopicDTOConverter::class, $eFirstPrev->getAtClass());
 
-                        $eFirstPrevFirstException = $eFirstPrev->getExceptions()[0];
-                        self::assertInstanceOf(InvalidNestedItemException::class, $eFirstPrevFirstException);
-                        if ($eFirstPrevFirstException instanceof InvalidNestedItemException) {
-                            self::assertSame('comments', $eFirstPrevFirstException->invalidPropertyName);
-                            self::assertSame(0, $eFirstPrevFirstException->nestedIndex);
-                            self::assertSame('Invalid nested item (comments:0).', $eFirstPrevFirstException->getMessage());
+                        $eFirstNested = $eFirstPrev->getExceptions()[0];
+                        self::assertInstanceOf(InvalidNestedItemException::class, $eFirstNested);
+                        if ($eFirstNested instanceof InvalidNestedItemException) {
+                            self::assertSame('comments', $eFirstNested->invalidPropertyName);
+                            self::assertSame(0, $eFirstNested->nestedIndex);
+                            self::assertSame('Invalid nested item (comments:0).', $eFirstNested->getMessage());
 
 
 
