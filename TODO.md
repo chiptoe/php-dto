@@ -1,5 +1,7 @@
 todo: finish test_invalid_nested_comments
 
+todo: rename PropertyTypeException -> Property<Data>Exception
+
 todo: do not use readonly properties in exceptions - use getters
 
 todo: input data validation + comments + phpdoc - DTOGenerator
