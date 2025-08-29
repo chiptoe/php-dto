@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 cp tests/DTO/TopicDTO/TopicDTOConverter.php tests/Generator/TopicDTOConverter.expected.txt
 
