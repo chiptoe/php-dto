@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\DTO\TopicDTO;
 
 use Project\DTOConverter\AggregateException;
-use Project\DTOConverter\PropertyTypeException;
+use Project\DTOConverter\PropertyDataException;
 use Project\DTOConverter\Utils;
 use Project\ValueObject\PositiveInt;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
@@ -32,7 +32,7 @@ final class TopicDTOConverter implements IConverter
         try {
             $id = new PositiveInt($inputData[TopicDTOAssoc::ID]);
         } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::ID, $th));
+            $e->add(new PropertyDataException(TopicDTOAssoc::ID, $th));
         }
 
         $parentId = null;
@@ -40,20 +40,20 @@ final class TopicDTOConverter implements IConverter
             try {
                 $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID]);
             } catch (\Throwable $th) {
-                $e->add(new PropertyTypeException(TopicDTOAssoc::PARENT_ID, $th));
+                $e->add(new PropertyDataException(TopicDTOAssoc::PARENT_ID, $th));
             }
         }
 
         try {
             $comments = $this->utils->convertList($inputData, TopicDTOAssoc::COMMENTS, $this->commentDTOConverter, __CLASS__);
         } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENTS, $th));
+            $e->add(new PropertyDataException(TopicDTOAssoc::COMMENTS, $th));
         }
 
         try {
             $commentRoot = $this->commentDTOConverter->convert($inputData[TopicDTOAssoc::COMMENT_ROOT]);
         } catch (\Throwable $th) {
-            $e->add(new PropertyTypeException(TopicDTOAssoc::COMMENT_ROOT, $th));
+            $e->add(new PropertyDataException(TopicDTOAssoc::COMMENT_ROOT, $th));
         }
 
         if ($e->hasSomeExceptions()) {
