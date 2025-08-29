@@ -126,7 +126,7 @@ final class DTOConverterGenerator
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             }
             $tryCatchLines[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
-            $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyTypeException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
+            $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyDataException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
             $tryCatchLines[] = '    ' . '    ' . '}' . PHP_EOL;
 
             $shouldBeWrappedToNotNullIf = $isNullable;
