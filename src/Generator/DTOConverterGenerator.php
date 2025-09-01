@@ -115,6 +115,7 @@ final class DTOConverterGenerator
             $isConverterConvert = $property['converterConvert'] ?? null;
             $isList = $property['list'] ?? null;
             $isNullable = $property['nullable'] ?? null;
+            $restParams = $property['restParams'] ?? null;
 
             $tryCatchLines = [];
             $tryCatchLines[] = '    ' . '    ' . 'try {' . PHP_EOL;
