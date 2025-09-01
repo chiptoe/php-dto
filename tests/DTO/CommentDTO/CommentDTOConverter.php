@@ -28,7 +28,7 @@ final class CommentDTOConverter implements IConverter
 
         $e = new AggregateException(__CLASS__);
         try {
-            $id = new PositiveInt($inputData[CommentDTOAssoc::ID]);
+            $id = new PositiveInt($inputData[CommentDTOAssoc::ID], PositiveInt::MAX_MYSQL_INT);
         } catch (\Throwable $th) {
             $e->add(new PropertyDataException(CommentDTOAssoc::ID, $th));
         }
@@ -36,7 +36,7 @@ final class CommentDTOConverter implements IConverter
         $parentId = null;
         if ($inputData[CommentDTOAssoc::PARENT_ID] !== null) {
             try {
-                $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID]);
+                $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID], PositiveInt::MAX_MYSQL_INT);
             } catch (\Throwable $th) {
                 $e->add(new PropertyDataException(CommentDTOAssoc::PARENT_ID, $th));
             }

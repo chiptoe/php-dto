@@ -30,7 +30,7 @@ final class TopicDTOConverter implements IConverter
 
         $e = new AggregateException(__CLASS__);
         try {
-            $id = new PositiveInt($inputData[TopicDTOAssoc::ID]);
+            $id = new PositiveInt($inputData[TopicDTOAssoc::ID], PositiveInt::MAX_MYSQL_INT);
         } catch (\Throwable $th) {
             $e->add(new PropertyDataException(TopicDTOAssoc::ID, $th));
         }
@@ -38,7 +38,7 @@ final class TopicDTOConverter implements IConverter
         $parentId = null;
         if ($inputData[TopicDTOAssoc::PARENT_ID] !== null) {
             try {
-                $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID]);
+                $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID], PositiveInt::MAX_MYSQL_INT);
             } catch (\Throwable $th) {
                 $e->add(new PropertyDataException(TopicDTOAssoc::PARENT_ID, $th));
             }
