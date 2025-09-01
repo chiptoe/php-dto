@@ -5,6 +5,7 @@ namespace Tests;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Project\ValueObject\PositiveInt;
+use Project\ValueObject\PositiveIntException;
 
 final class PositiveIntTest extends TestCase
 {
@@ -68,7 +69,7 @@ final class PositiveIntTest extends TestCase
     {
         $expectedMessage = 'The (value) must be valid (Project\ValueObject\PositiveInt).';
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PositiveIntException::class);
         $this->expectExceptionMessage($expectedMessage);
 
         new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);

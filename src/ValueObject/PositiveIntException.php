@@ -13,7 +13,7 @@ class PositiveIntException extends \Exception
         \Throwable|null $previous = null,
     ) {
         if ($message === '') {
-            $message = 'Value must be valid (' . 'PositiveInt' . ').';
+            $message = 'The (value) must be valid (' . PositiveInt::class . ').';
         }
 
         parent::__construct($message, 0, $previous);
