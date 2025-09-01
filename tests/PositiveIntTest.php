@@ -49,6 +49,10 @@ final class PositiveIntTest extends TestCase
             [
                 'value' => -1,
             ],
+
+            [
+                'value' => 2147483647 + 1,
+            ],
         ];
     }
 
