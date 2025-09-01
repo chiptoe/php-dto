@@ -11,6 +11,10 @@ class PositiveIntException extends \Exception
         string $message = '',
         \Throwable|null $previous = null,
     ) {
+        if ($message === '') {
+            $message = 'Value must be valid (' . 'PositiveInt' . ').';
+        }
+
         parent::__construct($message, 0, $previous);
     }
 }
