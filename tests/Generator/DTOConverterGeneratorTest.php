@@ -8,11 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Project\DTOConverter\Utils;
 use Project\Generator\DTOConverterGenerator;
 use Project\ValueObject\PositiveInt;
-use Project\ValueObject\PositiveIntNullable;
 use Tests\DTO\CommentDTO\CommentDTO;
 
 final class DTOConverterGeneratorTest extends TestCase
 {
+    const MAX_MYSQL_INT = 'PositiveInt::MAX_MYSQL_INT';
+
     public function test_happy(): void
     {
         $inputData = [
@@ -21,11 +22,13 @@ final class DTOConverterGeneratorTest extends TestCase
                 [
                     'name' => 'id',
                     'type' => PositiveInt::class,
+                    'restParams' => [self::MAX_MYSQL_INT],
                 ],
                 [
                     'name' => 'parentId',
                     'type' => PositiveInt::class,
                     'nullable' => true,
+                    'restParams' => [self::MAX_MYSQL_INT],
                 ],
                 [
                     'name' => 'comments',
