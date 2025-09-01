@@ -8,6 +8,7 @@ use Exception;
 class PositiveIntException extends \Exception
 {
     public function __construct(
+        private int $max,
         string $message = '',
         \Throwable|null $previous = null,
     ) {
