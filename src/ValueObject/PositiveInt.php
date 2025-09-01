@@ -18,22 +18,23 @@ class PositiveInt
         private int $max,
     )
     {
-        $this->check($value, self::class);
+        $this->check($value);
 
         $this->value = $value;
     }
 
-    public function check(mixed $value, string $className): void
+    public function check(mixed $value): void
     {
-        $message = 'The (value) must be valid (' . $className . ').';
         if (!is_int($value)) {
-            throw new \InvalidArgumentException($message);
+            throw new PositiveIntException($this->max);
         }
+
         if ($value <= 0) {
-            throw new \InvalidArgumentException($message);
+            throw new PositiveIntException($this->max);
         }
+
         if ($value > $this->max) {
-            throw new \InvalidArgumentException($message);
+            throw new PositiveIntException($this->max);
         }
     }
 }
