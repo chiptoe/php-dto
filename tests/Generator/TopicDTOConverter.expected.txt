@@ -38,7 +38,7 @@ final class TopicDTOConverter implements IConverter
         $parentId = null;
         if ($inputData[TopicDTOAssoc::PARENT_ID] !== null) {
             try {
-                $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID], PositiveInt::MAX_MYSQL_INT);
+                $parentId = new PositiveInt($inputData[TopicDTOAssoc::PARENT_ID], 2147483647);
             } catch (\Throwable $th) {
                 $e->add(new PropertyDataException(TopicDTOAssoc::PARENT_ID, $th));
             }
