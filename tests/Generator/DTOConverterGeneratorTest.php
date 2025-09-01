@@ -20,13 +20,13 @@ final class DTOConverterGeneratorTest extends TestCase
                 [
                     'name' => 'id',
                     'type' => PositiveInt::class,
-                    'restParams' => [PositiveInt::MAX_MYSQL_INT],
+                    'restParams' => ['PositiveInt::MAX_MYSQL_INT'],
                 ],
                 [
                     'name' => 'parentId',
                     'type' => PositiveInt::class,
                     'nullable' => true,
-                    'restParams' => ['PositiveInt::MAX_MYSQL_INT'],
+                    'restParams' => [PositiveInt::MAX_MYSQL_INT],
                 ],
                 [
                     'name' => 'comments',
