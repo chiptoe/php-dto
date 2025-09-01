@@ -36,7 +36,7 @@ final class CommentDTOConverter implements IConverter
         $parentId = null;
         if ($inputData[CommentDTOAssoc::PARENT_ID] !== null) {
             try {
-                $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID], PositiveInt::MAX_MYSQL_INT);
+                $parentId = new PositiveInt($inputData[CommentDTOAssoc::PARENT_ID], 2147483647);
             } catch (\Throwable $th) {
                 $e->add(new PropertyDataException(CommentDTOAssoc::PARENT_ID, $th));
             }

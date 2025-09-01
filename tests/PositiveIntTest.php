@@ -32,7 +32,7 @@ final class PositiveIntTest extends TestCase
         mixed $expectedValue,
     ): void
     {
-        $positiveInt = new PositiveInt($value);
+        $positiveInt = new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);
         self::assertSame($expectedValue, $positiveInt->value);
     }
 
@@ -62,6 +62,6 @@ final class PositiveIntTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage($expectedMessage);
 
-        new PositiveInt($value);
+        new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);
     }
 }
