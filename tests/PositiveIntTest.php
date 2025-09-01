@@ -69,9 +69,18 @@ final class PositiveIntTest extends TestCase
     {
         $expectedMessage = 'The (value) must be valid (Project\ValueObject\PositiveInt).';
 
-        $this->expectException(PositiveIntException::class);
-        $this->expectExceptionMessage($expectedMessage);
+        try {
+            new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);
+            self::fail('it must throw');
+        } catch (\Throwable $th) {
+            self::assertInstanceOf(PositiveIntException::class, $th);
+            self::assertSame($expectedMessage, $th->getMessage());
 
-        new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);
+            if ($th instanceof PositiveIntException) {
+                self::assertSame(2147483647, $th->getMax());
+            }
+
+            throw $th;
+        }
     }
 }
