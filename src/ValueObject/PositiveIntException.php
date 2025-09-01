@@ -18,4 +18,9 @@ class PositiveIntException extends \Exception
 
         parent::__construct($message, 0, $previous);
     }
+
+    public function getMax(): int
+    {
+        return $this->max;
+    }
 }
