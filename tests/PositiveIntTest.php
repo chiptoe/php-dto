@@ -23,6 +23,11 @@ final class PositiveIntTest extends TestCase
                 'value' => 2,
                 'expectedValue' => 2,
             ],
+
+            [
+                'value' => 2147483647,
+                'expectedValue' => 2147483647,
+            ],
         ];
     }
 
