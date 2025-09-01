@@ -124,7 +124,10 @@ final class DTOConverterGenerator
             } else if ($isConverterConvert === true) {
                 $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             } else {
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
+                $constructorParams = [
+                    $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']',
+                ];
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . 'xxxxxxxxxxxxxxxxxxxx' . ');' . PHP_EOL;
             }
             $tryCatchLines[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
             $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyDataException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
