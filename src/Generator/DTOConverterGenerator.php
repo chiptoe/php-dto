@@ -126,8 +126,11 @@ final class DTOConverterGenerator
             } else {
                 $constructorParams = [
                     $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']',
+                    ...array_map(function ($restParam) {
+                        return $restParam;
+                    }, $restParams),
                 ];
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . 'xxxxxxxxxxxxxxxxxxxx' . ');' . PHP_EOL;
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . implode(', ', $constructorParams) . ');' . PHP_EOL;
             }
             $tryCatchLines[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
             $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyDataException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
