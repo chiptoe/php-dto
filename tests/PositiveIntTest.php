@@ -50,17 +50,14 @@ final class PositiveIntTest extends TestCase
         return [
             [
                 'value' => '2',
-                'expectedMessage' => 'The (value) must be positive int.'
             ],
 
             [
                 'value' => 0,
-                'expectedMessage' => 'The (value) must be positive int.'
             ],
 
             [
                 'value' => -1,
-                'expectedMessage' => 'The (value) must be positive int.'
             ],
         ];
     }
@@ -68,9 +65,10 @@ final class PositiveIntTest extends TestCase
     #[DataProvider('provider_it_must_throw_if_value_is_not_valid')]
     public function test_it_must_throw_if_value_is_not_valid(
         mixed $value,
-        mixed $expectedMessage,
     ): void
     {
+        $expectedMessage = 'The (value) must be positive int.';
+
         $this->expectException(PositiveIntException::class);
         $this->expectExceptionMessage($expectedMessage);
 
