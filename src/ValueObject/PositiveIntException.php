@@ -9,6 +9,7 @@ class PositiveIntException extends \Exception
 {
     public function __construct(
         private int $max,
+        private bool $isTooBig,
         string $message = '',
         \Throwable|null $previous = null,
     ) {
@@ -22,5 +23,10 @@ class PositiveIntException extends \Exception
     public function getMax(): int
     {
         return $this->max;
+    }
+
+    public function isIsTooBig(): bool
+    {
+        return $this->isTooBig;
     }
 }
