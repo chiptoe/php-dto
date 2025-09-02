@@ -157,7 +157,7 @@ final class TopicDTOConverterTest extends TestCase
             $service->convert($inputData);
             self::fail('it must throw');
         } catch (MissingKeysException $e) {
-            self::assertSame($expectedMissingKeys, $e->missingKeys);
+            self::assertSame($expectedMissingKeys, $e->getMissingKeys());
             throw $e;
         }
     }

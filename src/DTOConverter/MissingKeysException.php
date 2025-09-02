@@ -6,7 +6,7 @@ namespace Project\DTOConverter;
 class MissingKeysException extends BaseException
 {
     public function __construct(
-        public readonly array $missingKeys,
+        private array $missingKeys,
         \Throwable|null $previous = null,
         string $message = '',
     ) {
@@ -15,5 +15,10 @@ class MissingKeysException extends BaseException
         }
 
         parent::__construct($message, 0, $previous);
+    }
+
+    public function getMissingKeys(): array
+    {
+        return $this->missingKeys;
     }
 }
