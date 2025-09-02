@@ -62,11 +62,6 @@ final class PositiveIntTest extends TestCase
                 'value' => -1,
                 'expectedMessage' => 'The (value) must be positive int.'
             ],
-
-            [
-                'value' => 2147483647 + 1,
-                'expectedMessage' => 'The (value) is too big, max allowed is 2147483647.'
-            ],
         ];
     }
 
@@ -91,5 +86,13 @@ final class PositiveIntTest extends TestCase
 
             throw $th;
         }
+    }
+
+    public function test_it_must_throw_if_value_is_too_big(
+    {
+        [
+            'value' => 2147483647 + 1,
+            'expectedMessage' => 'The (value) is too big, max allowed is 2147483647.'
+        ],
     }
 }
