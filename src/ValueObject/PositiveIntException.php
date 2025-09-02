@@ -29,7 +29,7 @@ class PositiveIntException extends \Exception
         return $this->max;
     }
 
-    public function isIsTooBig(): bool
+    public function isTooBig(): bool
     {
         return $this->isTooBig;
     }
