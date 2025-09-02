@@ -6,8 +6,8 @@ namespace Project\DTOConverter;
 class InvalidNestedItemException extends BaseException
 {
     public function __construct(
-        public readonly string $invalidPropertyName,
-        public readonly int $nestedIndex,
+        private string $invalidPropertyName,
+        private int $nestedIndex,
         \Throwable|null $previous = null,
         string $message = '',
     ) {
@@ -16,5 +16,15 @@ class InvalidNestedItemException extends BaseException
         }
 
         parent::__construct($message, 0, $previous);
+    }
+
+    public function getInvalidPropertyName(): string
+    {
+        return $this->invalidPropertyName;
+    }
+
+    public function getNestedIndex(): int
+    {
+        return $this->nestedIndex;
     }
 }
