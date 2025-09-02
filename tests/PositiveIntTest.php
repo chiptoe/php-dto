@@ -65,7 +65,7 @@ final class PositiveIntTest extends TestCase
 
             [
                 'value' => 2147483647 + 1,
-                'expectedMessage' => 'The (value) must be positive int.'
+                'expectedMessage' => 'The (value) is too big, max allowed is 2147483647.'
             ],
         ];
     }
