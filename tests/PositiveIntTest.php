@@ -86,11 +86,26 @@ final class PositiveIntTest extends TestCase
         }
     }
 
-    public function test_it_must_throw_if_value_is_too_big(
+    public function test_it_must_throw_if_value_is_too_big()
     {
-        [
-            'value' => 2147483647 + 1,
-            'expectedMessage' => 'The (value) is too big, max allowed is 2147483647.'
-        ],
+        $value = 2147483647 + 1;
+        $expectedMessage = 'The (value) is too big, max allowed is 2147483647.';
+
+        $this->expectException(PositiveIntException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        try {
+            new PositiveInt($value, PositiveInt::MAX_MYSQL_INT);
+            self::fail('it must throw');
+        } catch (\Throwable $th) {
+            if ($th instanceof PositiveIntException) {
+                self::assertSame(2147483647, $th->getMax());
+                self::assertSame(true, $th->isTooBig());
+            } else {
+                self::fail('instanceof');
+            }
+
+            throw $th;
+        }
     }
 }
