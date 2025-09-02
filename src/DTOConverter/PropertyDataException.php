@@ -6,7 +6,7 @@ namespace Project\DTOConverter;
 class PropertyDataException extends BaseException
 {
     public function __construct(
-        public readonly string $invalidPropertyName,
+        public string $invalidPropertyName,
         \Throwable|null $previous = null,
         string $message = '',
     ) {
@@ -15,5 +15,10 @@ class PropertyDataException extends BaseException
         }
 
         parent::__construct($message, 0, $previous);
+    }
+
+    public function getInvalidPropertyName(): string
+    {
+        return $this->invalidPropertyName;
     }
 }
