@@ -266,7 +266,7 @@ final class TopicDTOConverterTest extends TestCase
                 self::assertNotNull($exception->getPrevious());
                 self::assertInstanceOf(PropertyDataException::class, $exception);
                 if ($exception instanceof PropertyDataException) {
-                    self::assertSame($expectedInvalidProperties[$index], $exception->invalidPropertyName);
+                    self::assertSame($expectedInvalidProperties[$index], $exception->getInvalidPropertyName());
                 } else {
                     self::fail('wrong exception type');
                 }
@@ -322,7 +322,7 @@ final class TopicDTOConverterTest extends TestCase
                 $eFirst = $eLevel0->getExceptions()[0];
                 self::assertInstanceOf(PropertyDataException::class, $eFirst);
                 if ($eFirst instanceof PropertyDataException) {
-                    self::assertSame('comments', $eFirst->invalidPropertyName);
+                    self::assertSame('comments', $eFirst->getInvalidPropertyName());
                     self::assertSame('Invalid data for property (comments).', $eFirst->getMessage());
         
                     $eFirstPrev = $eFirst->getPrevious();
@@ -345,7 +345,7 @@ final class TopicDTOConverterTest extends TestCase
                                 $eFirstNestedPrevFirstException = $eFirstNestedPrev->getExceptions()[0];
                                 self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirstException);
                                 if ($eFirstNestedPrevFirstException instanceof PropertyDataException) {
-                                    self::assertSame('parentId', $eFirstNestedPrevFirstException->invalidPropertyName);
+                                    self::assertSame('parentId', $eFirstNestedPrevFirstException->getInvalidPropertyName());
                                     self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirstException->getMessage());
 
                                 }
