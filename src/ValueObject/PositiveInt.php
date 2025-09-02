@@ -26,15 +26,15 @@ class PositiveInt
     public function check(mixed $value): void
     {
         if (!is_int($value)) {
-            throw new PositiveIntException($this->max);
+            throw new PositiveIntException($this->max, false);
         }
 
         if ($value <= 0) {
-            throw new PositiveIntException($this->max);
+            throw new PositiveIntException($this->max, false);
         }
 
         if ($value > $this->max) {
-            throw new PositiveIntException($this->max);
+            throw new PositiveIntException($this->max, true);
         }
     }
 }
