@@ -49,11 +49,18 @@ final class PositiveIntTest extends TestCase
     {
         return [
             [
+                'value' => '2',
+                'expectedValue' => 2,
+            ],
+
+            [
                 'value' => 0,
+                'expectedMessage' => 'The value must be positive int.'
             ],
 
             [
                 'value' => -1,
+                'expectedMessage' => 'The value must be positive int.'
             ],
 
             [

@@ -15,7 +15,7 @@ class PositiveIntException extends \Exception
     ) {
         if ($message === '') {
             if ($this->isTooBig) {
-                $message = 'The (value) is too big, maximum allowed is ' . $this->max . ' (' . PositiveInt::class . ').';
+                $message = 'The (value) is too big, maximum allowed is ' . $this->max . '.';
             } else {
                 $message = 'The (value) must be positive int.';
             }
