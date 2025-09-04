@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
-use Project\PhpGeneratingUtils;
+use Project\Utils\PhpGeneratingUtils;
 
 final class DTOConverterGenerator
 {

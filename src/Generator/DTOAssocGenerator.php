@@ -6,7 +6,7 @@ namespace Project\Generator;
 
 use InvalidArgumentException;
 use Project\DTOConverter\Utils;
-use Project\PhpGeneratingUtils;
+use Project\Utils\PhpGeneratingUtils;
 
 final class DTOAssocGenerator
 {
