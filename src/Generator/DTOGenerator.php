@@ -6,6 +6,7 @@ namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
 use Project\Utils\PhpGeneratingUtils;
+use Project\Utils\StringUtils;
 
 final class DTOGenerator
 {
@@ -42,15 +43,15 @@ final class DTOGenerator
             $isList = $property['list'] ?? false;
             if ($isList === true) {
                 $temp .= '    ' . '/**' . PHP_EOL;
-                $temp .= '    ' . ' * ' . '@var' . ' ' . 'list<' . $this->utils->getClassName($property['type']) . '>' . PHP_EOL;
+                $temp .= '    ' . ' * ' . '@var' . ' ' . 'list<' . StringUtils::getClassName($property['type']) . '>' . PHP_EOL;
                 $temp .= '    ' . ' */' . PHP_EOL;
                 $temp .= '    ' . 'private ' . 'array' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
             } else {
                 $isNullable = $property['nullable'] ?? false;
                 if ($isNullable) {
-                    $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . '|' . 'null' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+                    $temp .= '    ' . 'private ' . StringUtils::getClassName($property['type']) . '|' . 'null' . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
                 } else {
-                    $temp .= '    ' . 'private ' . $this->utils->getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
+                    $temp .= '    ' . 'private ' . StringUtils::getClassName($property['type']) . ' ' . '$' . $property['name'] . ';' . PHP_EOL . PHP_EOL;
                 }
             }
         }
@@ -68,7 +69,7 @@ final class DTOGenerator
                 $property['type'],
                 $isList,
                 $isNullable,
-                $this->utils->getClassName($accessExceptionClass),
+                StringUtils::getClassName($accessExceptionClass),
             );
 
             $temp .= PHP_EOL;
@@ -97,7 +98,7 @@ final class DTOGenerator
 
         $temp .= '    ' . '/**' . PHP_EOL;
         if ($isList) {
-            $temp .= '    ' . ' * ' . '@return' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . PHP_EOL;
+            $temp .= '    ' . ' * ' . '@return' . ' ' . 'list<' . StringUtils::getClassName($propertyType) . '>' . PHP_EOL;
             $temp .= '    ' . ' *' . PHP_EOL;
         }
         $temp .= '    ' . ' * ' . '@throws' . ' ' . $accessExceptionClassName . PHP_EOL;
@@ -106,9 +107,9 @@ final class DTOGenerator
             $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . 'array' . PHP_EOL;
         } else {
             if ($isNullable) {
-                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . '|' . 'null' . PHP_EOL;
+                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . StringUtils::getClassName($propertyType) . '|' . 'null' . PHP_EOL;
             } else {
-                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . $this->utils->getClassName($propertyType) . PHP_EOL;
+                $temp .= '    ' . 'public function get' . ucfirst($propertyName) . '(): ' . StringUtils::getClassName($propertyType) . PHP_EOL;
             }
         }
         $temp .= '    ' . '{' . PHP_EOL;
@@ -139,14 +140,14 @@ final class DTOGenerator
         $temp = '';
         if ($isList) {
             $temp .= '    ' . '/**' . PHP_EOL;
-            $temp .= '    ' . ' * ' . '@param' . ' ' . 'list<' . $this->utils->getClassName($propertyType) . '>' . ' $' . $propertyName . PHP_EOL;
+            $temp .= '    ' . ' * ' . '@param' . ' ' . 'list<' . StringUtils::getClassName($propertyType) . '>' . ' $' . $propertyName . PHP_EOL;
             $temp .= '    ' . ' */' . PHP_EOL;
             $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . 'array' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
         } else {
             if ($isNullable) {
-                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . '|' . 'null' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . StringUtils::getClassName($propertyType) . '|' . 'null' . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
             } else {
-                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . $this->utils->getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
+                $temp .= '    ' . 'public function set' . ucfirst($propertyName) . '(' . StringUtils::getClassName($propertyType) . ' $' . $propertyName . '): ' . 'self' . PHP_EOL;
             }
         }
         $temp .= '    ' . '{' . PHP_EOL;
