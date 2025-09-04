@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Project;
+namespace Project\Utils;
 
 final class PhpGeneratingUtils
 {
