@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
+use Project\PhpGeneratingUtils;
 
 final class DTOGenerator
 {
@@ -29,7 +30,7 @@ final class DTOGenerator
 
         $temp = '';
 
-        $temp .= $this->utils->getClassHeader(
+        $temp .= PhpGeneratingUtils::getClassHeader(
             $namespace,
             $useClasses,
             $className,
@@ -80,7 +81,7 @@ final class DTOGenerator
             );
         }
 
-        $temp .= $this->utils->getClassFooter();
+        $temp .= PhpGeneratingUtils::getClassFooter();
 
         return $temp;
     }
