@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Project\Utils;
 
-final class StringCoreUtils
+final class StringUtils
 {
     public static function isNotStringOrBlank(mixed $value): bool
     {
