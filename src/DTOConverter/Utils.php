@@ -29,23 +29,6 @@ class Utils
         }
     }
 
-    public function getClassName(string $fqcn): string
-    {
-        $temp = explode('\\', $fqcn);
-
-        return end($temp);
-    }
-
-    /**
-     * checks for any Unicode whitespace
-     * 
-     * @return int|false 1 - match, 0 - no match, false - error
-     */
-    public function stringContainsWhitespace(string $value): int|false
-    {
-        return preg_match('/\s/u', $value);
-    }
-
     /**
      * @template T
      *

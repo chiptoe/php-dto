@@ -5,7 +5,7 @@ namespace Project\Utils;
 
 final class StringCoreUtils
 {
-    public function isNotStringOrBlank(mixed $value): bool
+    public static function isNotStringOrBlank(mixed $value): bool
     {
         if (!is_string($value)) {
             return true;
@@ -19,10 +19,27 @@ final class StringCoreUtils
     }
 
     /**
+     * checks for any Unicode whitespace
+     * 
+     * @return int|false 1 - match, 0 - no match, false - error
+     */
+    public static function stringContainsWhitespace(string $value): int|false
+    {
+        return preg_match('/\s/u', $value);
+    }
+
+    public static function getClassName(string $fqcn): string
+    {
+        $temp = explode('\\', $fqcn);
+
+        return end($temp);
+    }
+
+    /**
      * @param string $camelCase
      * @return string
      */
-    public function toScreamingSnakeCase(string $camelCase): string
+    public static function toScreamingSnakeCase(string $camelCase): string
     {
         $temp = trim($camelCase);
 
