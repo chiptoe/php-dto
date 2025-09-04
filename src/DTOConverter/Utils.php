@@ -55,7 +55,7 @@ class Utils
         return end($temp);
     }
 
-    public function isNotStringOrBlank($value): bool
+    public function isNotStringOrBlank(mixed $value): bool
     {
         if (!is_string($value)) {
             return true;
