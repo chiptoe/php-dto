@@ -7,6 +7,7 @@ namespace Project\Generator;
 use InvalidArgumentException;
 use Project\DTOConverter\Utils;
 use Project\Utils\PhpGeneratingUtils;
+use Project\Utils\StringUtils;
 
 final class DTOAssocGenerator
 {
@@ -30,10 +31,10 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (dtoName) must exist as array key');
         }
         $dtoName = $inputData['dtoName'];
-        if ($this->utils->isNotStringOrBlank($dtoName)) {
+        if (StringUtils::isNotStringOrBlank($dtoName)) {
             throw new \InvalidArgumentException('the (dtoName) must be string and filled');
         }
-        if ($this->utils->stringContainsWhitespace($dtoName)) {
+        if (StringUtils::containsWhitespace($dtoName)) {
             throw new \InvalidArgumentException('the (dtoName) must not contain whitespace');
         }
 
@@ -46,7 +47,7 @@ final class DTOAssocGenerator
             throw new \InvalidArgumentException('the (fromKeys) must be array');
         }
         foreach ($fromKeys as $index => $fromKey) {
-            if ($this->utils->isNotStringOrBlank($fromKey)) {
+            if (StringUtils::isNotStringOrBlank($fromKey)) {
                 throw new \InvalidArgumentException('the (fromKey) must be string and filled, at index ' . $index);
             }
         }
@@ -80,7 +81,7 @@ final class DTOAssocGenerator
         $temp = '';
 
         foreach ($fromKeys as $fromKey) {
-            $temp .= '    ' . 'public const ' . $this->utils->toScreamingSnakeCase($fromKey) . ' = ' . '\'' . $fromKey . '\';' . PHP_EOL . PHP_EOL;
+            $temp .= '    ' . 'public const ' . StringUtils::toScreamingSnakeCase($fromKey) . ' = ' . '\'' . $fromKey . '\';' . PHP_EOL . PHP_EOL;
         }
 
         return $temp;
@@ -98,7 +99,7 @@ final class DTOAssocGenerator
         $temp .= '    ' . '{' . PHP_EOL;
         $temp .= '    ' . '    ' . 'return [' . PHP_EOL;
         foreach ($fromKeys as $fromKey) {
-            $temp .= '    ' . '    ' . '    ' . 'self::' . $this->utils->toScreamingSnakeCase($fromKey) . ',' . PHP_EOL;
+            $temp .= '    ' . '    ' . '    ' . 'self::' . StringUtils::toScreamingSnakeCase($fromKey) . ',' . PHP_EOL;
         }
         $temp .= '    ' . '    ' . '];' . PHP_EOL;
         $temp .= '    ' . '}' . PHP_EOL;

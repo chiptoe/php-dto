@@ -23,7 +23,7 @@ final class StringUtils
      * 
      * @return int|false 1 - match, 0 - no match, false - error
      */
-    public static function stringContainsWhitespace(string $value): int|false
+    public static function containsWhitespace(string $value): int|false
     {
         return preg_match('/\s/u', $value);
     }
