@@ -6,6 +6,7 @@ namespace Project\Generator;
 
 use Project\DTOConverter\Utils;
 use Project\Utils\PhpGeneratingUtils;
+use Project\Utils\StringUtils;
 
 final class DTOConverterGenerator
 {
@@ -21,7 +22,7 @@ final class DTOConverterGenerator
         $namespace = 'Tests\DTO\TopicDTO';
 
         $implementsClassFqcn = 'Tests\DTO\IConverter';
-        $implementsClassName = $this->utils->getClassName($implementsClassFqcn);
+        $implementsClassName = StringUtils::getClassName($implementsClassFqcn);
 
         $concreteConverterClassNames = [];
 
@@ -35,7 +36,7 @@ final class DTOConverterGenerator
                 $converterConvert = $property['converterConvert'] ?? null;
                 if ($converterConvert) {
                     $concreteConverterClassFqcn = $property['type'] . 'Converter';
-                    $concreteConverterClassNames[$property['type']] = $this->utils->getClassName($concreteConverterClassFqcn);
+                    $concreteConverterClassNames[$property['type']] = StringUtils::getClassName($concreteConverterClassFqcn);
 
                     return $concreteConverterClassFqcn;
                 }
@@ -122,26 +123,26 @@ final class DTOConverterGenerator
             $tryCatchLines = [];
             $tryCatchLines[] = '    ' . '    ' . 'try {' . PHP_EOL;
             if ($isConverterConvert === true && $isList === true) {
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ', ' . '__CLASS__' . ');' . PHP_EOL;
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->utils->convertList(' . $inputVarName . ', ' . $classNameDTOAssoc . '::' . StringUtils::toScreamingSnakeCase($property['name']) . ', ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . ', ' . '__CLASS__' . ');' . PHP_EOL;
             } else if ($isConverterConvert === true) {
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = ' . '$this->' . lcfirst($concreteConverterClassNames[$property['type']]) . '->' . 'convert' . '(' . $inputVarName . '[' . $classNameDTOAssoc . '::' . StringUtils::toScreamingSnakeCase($property['name']) . ']' . ');' . PHP_EOL;
             } else {
                 $constructorParams = [
-                    $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']',
+                    $inputVarName . '[' . $classNameDTOAssoc . '::' . StringUtils::toScreamingSnakeCase($property['name']) . ']',
                     ...array_map(function ($restParam) {
                         return $restParam;
                     }, $restParams),
                 ];
-                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . $this->utils->getClassName($property['type']) . '(' . implode(', ', $constructorParams) . ');' . PHP_EOL;
+                $tryCatchLines[] = '    ' . '    ' . '    ' . '$' . $property['name'] . ' = new ' . StringUtils::getClassName($property['type']) . '(' . implode(', ', $constructorParams) . ');' . PHP_EOL;
             }
             $tryCatchLines[] = '    ' . '    ' . '} catch (\Throwable $th) {' . PHP_EOL;
-            $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyDataException(' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
+            $tryCatchLines[] = '    ' . '    ' . '    ' . '$e->add(new PropertyDataException(' . $classNameDTOAssoc . '::' . StringUtils::toScreamingSnakeCase($property['name']) . ', $th));' . PHP_EOL;
             $tryCatchLines[] = '    ' . '    ' . '}' . PHP_EOL;
 
             $shouldBeWrappedToNotNullIf = $isNullable;
             if ($shouldBeWrappedToNotNullIf) {
                 $temp .= '    ' . '    ' . '$' . $property['name'] . ' = ' . 'null' . ';' . PHP_EOL;
-                $temp .= '    ' . '    ' . 'if (' . $inputVarName . '[' . $classNameDTOAssoc . '::' . $this->utils->toScreamingSnakeCase($property['name']) . ']' . ' !== ' . 'null' . ') {' . PHP_EOL;
+                $temp .= '    ' . '    ' . 'if (' . $inputVarName . '[' . $classNameDTOAssoc . '::' . StringUtils::toScreamingSnakeCase($property['name']) . ']' . ' !== ' . 'null' . ') {' . PHP_EOL;
             }
 
             foreach ($tryCatchLines as $tryCatchLine) {
