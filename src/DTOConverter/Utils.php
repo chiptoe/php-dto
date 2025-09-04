@@ -55,19 +55,6 @@ class Utils
         return end($temp);
     }
 
-    public function isNotStringOrBlank(mixed $value): bool
-    {
-        if (!is_string($value)) {
-            return true;
-        }
-
-        if (trim($value) === '') {
-            return true;
-        }
-
-        return false;
-    }
-
     /**
      * checks for any Unicode whitespace
      * 
