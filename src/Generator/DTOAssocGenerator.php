@@ -6,6 +6,7 @@ namespace Project\Generator;
 
 use InvalidArgumentException;
 use Project\DTOConverter\Utils;
+use Project\PhpGeneratingUtils;
 
 final class DTOAssocGenerator
 {
@@ -58,7 +59,7 @@ final class DTOAssocGenerator
         // render
         $temp = '';
 
-        $temp .= $this->utils->getClassHeader(
+        $temp .= PhpGeneratingUtils::getClassHeader(
             $namespace,
             $useClasses,
             $className,
@@ -69,7 +70,7 @@ final class DTOAssocGenerator
         $temp .= $this->getConstants($fromKeys);
         $temp .= $this->getKeysFunc($fromKeys);
 
-        $temp .= $this->utils->getClassFooter();
+        $temp .= PhpGeneratingUtils::getClassFooter();
 
         return $temp;
     }
