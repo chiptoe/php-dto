@@ -73,7 +73,8 @@ final class DTOConverterGenerator
             $properties,
             $concreteConverterClassNames,
         );
-        $temp .= $this->utils->getClassFooter();
+
+        $temp .= PhpGeneratingUtils::getClassFooter();
 
         return $temp;
     }
