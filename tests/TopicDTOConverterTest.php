@@ -323,16 +323,16 @@ final class TopicDTOConverterTest extends TestCase
                             if ($eFirstNestedPrev instanceof AggregateException) {
                                 self::assertSame(CommentDTOConverter::class, $eFirstNestedPrev->getAtClass());
 
-                                $eFirstNestedPrevFirstException = $eFirstNestedPrev->getExceptions()[0];
-                                self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirstException);
-                                if ($eFirstNestedPrevFirstException instanceof PropertyDataException) {
-                                    self::assertSame('parentId', $eFirstNestedPrevFirstException->getInvalidPropertyName());
-                                    self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirstException->getMessage());
+                                $eFirstNestedPrevFirst = $eFirstNestedPrev->getExceptions()[0];
+                                self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirst);
+                                if ($eFirstNestedPrevFirst instanceof PropertyDataException) {
+                                    self::assertSame('parentId', $eFirstNestedPrevFirst->getInvalidPropertyName());
+                                    self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirst->getMessage());
 
-                                    $eFirstNestedPrevFirstPreviousException = $eFirstNestedPrevFirstException->getPrevious();
-                                    self::assertInstanceOf(PositiveIntException::class, $eFirstNestedPrevFirstPreviousException);
-                                    if ($eFirstNestedPrevFirstPreviousException instanceof PositiveIntException) {
-                                        self::assertSame('The (value) must be positive int.', $eFirstNestedPrevFirstPreviousException->getMessage());
+                                    $eFirstNestedPrevFirstPrev = $eFirstNestedPrevFirst->getPrevious();
+                                    self::assertInstanceOf(PositiveIntException::class, $eFirstNestedPrevFirstPrev);
+                                    if ($eFirstNestedPrevFirstPrev instanceof PositiveIntException) {
+                                        self::assertSame('The (value) must be positive int.', $eFirstNestedPrevFirstPrev->getMessage());
                                     }
                                 }
                             }
