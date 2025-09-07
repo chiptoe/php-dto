@@ -1,4 +1,4 @@
-todo: test_invalid_comment
+todo: test invalid commentRoot
 
 todo: input data validation + comments + phpdoc - DTOGenerator
 todo: input data validation + comments + phpdoc - DTOConverterGenerator
