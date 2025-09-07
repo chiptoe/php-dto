@@ -295,12 +295,12 @@ final class TopicDTOConverterTest extends TestCase
             $service = $this->service;
             $service->convert($inputData);
             self::fail('it must throw');
-        } catch (\Throwable $eLevel0) {
-            self::assertInstanceOf(AggregateException::class, $eLevel0);
-            if ($eLevel0 instanceof AggregateException) {
-                self::assertSame(TopicDTOConverter::class, $eLevel0->getAtClass());
+        } catch (\Throwable $eMain) {
+            self::assertInstanceOf(AggregateException::class, $eMain);
+            if ($eMain instanceof AggregateException) {
+                self::assertSame(TopicDTOConverter::class, $eMain->getAtClass());
     
-                $eFirst = $eLevel0->getExceptions()[0];
+                $eFirst = $eMain->getExceptions()[0];
                 self::assertInstanceOf(PropertyDataException::class, $eFirst);
                 if ($eFirst instanceof PropertyDataException) {
                     self::assertSame('comments', $eFirst->getInvalidPropertyName());
@@ -323,16 +323,16 @@ final class TopicDTOConverterTest extends TestCase
                             if ($eFirstNestedPrev instanceof AggregateException) {
                                 self::assertSame(CommentDTOConverter::class, $eFirstNestedPrev->getAtClass());
 
-                                $eFirstNestedPrevFirstException = $eFirstNestedPrev->getExceptions()[0];
-                                self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirstException);
-                                if ($eFirstNestedPrevFirstException instanceof PropertyDataException) {
-                                    self::assertSame('parentId', $eFirstNestedPrevFirstException->getInvalidPropertyName());
-                                    self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirstException->getMessage());
+                                $eFirstNestedPrevFirst = $eFirstNestedPrev->getExceptions()[0];
+                                self::assertInstanceOf(PropertyDataException::class, $eFirstNestedPrevFirst);
+                                if ($eFirstNestedPrevFirst instanceof PropertyDataException) {
+                                    self::assertSame('parentId', $eFirstNestedPrevFirst->getInvalidPropertyName());
+                                    self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirst->getMessage());
 
-                                    $eFirstNestedPrevFirstPreviousException = $eFirstNestedPrevFirstException->getPrevious();
-                                    self::assertInstanceOf(PositiveIntException::class, $eFirstNestedPrevFirstPreviousException);
-                                    if ($eFirstNestedPrevFirstPreviousException instanceof PositiveIntException) {
-                                        self::assertSame('The (value) must be positive int.', $eFirstNestedPrevFirstPreviousException->getMessage());
+                                    $eFirstNestedPrevFirstPrev = $eFirstNestedPrevFirst->getPrevious();
+                                    self::assertInstanceOf(PositiveIntException::class, $eFirstNestedPrevFirstPrev);
+                                    if ($eFirstNestedPrevFirstPrev instanceof PositiveIntException) {
+                                        self::assertSame('The (value) must be positive int.', $eFirstNestedPrevFirstPrev->getMessage());
                                     }
                                 }
                             }
