@@ -10,6 +10,7 @@ use Project\DTOConverter\InvalidNestedItemException;
 use Project\DTOConverter\MissingKeysException;
 use Project\DTOConverter\PropertyDataException;
 use Project\DTOConverter\Utils;
+use Project\ValueObject\PositiveIntException;
 use Tests\DTO\CommentDTO\CommentDTOConverter;
 use Tests\DTO\TopicDTO\TopicDTOConverter;
 
@@ -290,26 +291,6 @@ final class TopicDTOConverterTest extends TestCase
             ],
         ];
 
-        $expectedException = [
-            [
-                'exceptions' => [
-                    'previous' => [
-                        'exceptions' => [
-                            'previous' => [
-                                'exceptions' => [
-                                    // [done] 'message' => 'Invalid data for property (parentId).',
-                                    'previous' => [
-                                        'class' => \InvalidArgumentException::class,
-                                        'message' => 'the (value) must be valid (Project\ValueObject\PositiveInt).'
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
         try {
             $service = $this->service;
             $service->convert($inputData);
@@ -348,6 +329,11 @@ final class TopicDTOConverterTest extends TestCase
                                     self::assertSame('parentId', $eFirstNestedPrevFirstException->getInvalidPropertyName());
                                     self::assertSame('Invalid data for property (parentId).', $eFirstNestedPrevFirstException->getMessage());
 
+                                    $eFirstNestedPrevFirstPreviousException = $eFirstNestedPrevFirstException->getPrevious();
+                                    self::assertInstanceOf(PositiveIntException::class, $eFirstNestedPrevFirstPreviousException);
+                                    if ($eFirstNestedPrevFirstPreviousException instanceof PositiveIntException) {
+                                        self::assertSame('The (value) must be positive int.', $eFirstNestedPrevFirstPreviousException->getMessage());
+                                    }
                                 }
                             }
                         }
